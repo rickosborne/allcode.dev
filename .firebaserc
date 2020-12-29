@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "allcode-dev": {
+      "hosting": {
+        "allcode-dev": [
+          "allcode-dev"
+        ]
+      }
+    }
+  }
+}

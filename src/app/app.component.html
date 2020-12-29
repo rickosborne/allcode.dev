@@ -1,0 +1,21 @@
+<h1>allcode.dev</h1>
+
+<div *ngIf="user$ | async as user ; else noSession">
+  <p>Signed in as <strong [textContent]="user.displayName"></strong>.</p>
+  <p><button (click)="signOut()">Sign out.</button></p>
+</div>
+
+<ng-template #noSession>
+  <p>Not signed in.  If you'd like to save your progress, sign in.  We do not collect any information from this beyond your display name and enough relevant information to sign you in.</p>
+  <ul>
+    <li><button (click)="signInWithEmail()">Sign in with email</button></li>
+    <li><button (click)="signInWithGitHub()">Sign in with GitHub</button></li>
+    <li><button (click)="signInWithGoogle()">Sign in with Google</button></li>
+    <li>
+      <button (click)="signInWithAnon()">Sign in anonymously</button>
+      <p>Note that this will only store your progress locally, which may disappear at any time depending on your browser settings.  Only use this option if you'd like to see what allcode.dev would look like if you signed in.</p>
+    </li>
+  </ul>
+</ng-template>
+
+<router-outlet></router-outlet>
