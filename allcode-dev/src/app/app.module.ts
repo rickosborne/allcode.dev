@@ -12,12 +12,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {environment} from '../environments/environment';
 
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent, PrivacyPolicyComponent} from './app.component';
+import {AppComponent} from './app.component';
+import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
+import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PrivacyPolicyComponent,
+    NotFoundComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
