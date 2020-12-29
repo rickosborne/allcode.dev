@@ -1,3 +1,23 @@
+@import "../../allcode-colors";
+
 h1 {
   text-align: center;
+}
+
+.get-started-button {
+  display: block;
+  padding: 1vw 2vw;
+  font-size: 200%;
+  line-height: 160%;
+  border-radius: 1vw;
+  background-color: mat-color($allcode-dev-accent, A100);
+  color: mat-color($allcode-dev-accent, A700);
+  margin: 0 auto;
+  width: fit-content;
+  text-decoration: none;
+
+  &:hover {
+    background-color: mat-color($allcode-dev-primary, 900);
+    color: mat-color($allcode-dev-primary, 100);
+  }
 }

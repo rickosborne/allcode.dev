@@ -6,6 +6,14 @@ import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component"
 
 const routes: Routes = [
   {
+    path: 'learn',
+    loadChildren: () => import('./learn/learn.module').then(m => m.LearnModule),
+    data: {
+      title: 'Learn',
+      description: 'Table of contents for all lessons on allcode.dev.',
+    }
+  },
+  {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent,
     data: {
@@ -18,7 +26,8 @@ const routes: Routes = [
     component: HomeComponent,
     data: {
       title: ''
-    }
+    },
+    pathMatch: 'full'
   },
   {
     path: '**',

@@ -9,13 +9,15 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule} from "@angular/router";
 import {environment} from '../environments/environment';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {HomeComponent} from './home/home.component';
+import {LearnModule} from "./learn/learn.module";
+import {NotFoundComponent} from './not-found/not-found.component';
 import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
-import { NotFoundComponent } from './not-found/not-found.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent,
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
