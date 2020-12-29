@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from "rxjs";
-import {SessionService, SessionUser} from "./session.service";
+import {SessionService, Profile} from "./session.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import {SessionService, SessionUser} from "./session.service";
 })
 export class AppComponent {
   title = 'allcode-dev';
-  public readonly user$: Observable<SessionUser | null>;
+  public readonly user$: Observable<Profile | null>;
 
   constructor(
     private readonly session: SessionService
