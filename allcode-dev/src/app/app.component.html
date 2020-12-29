@@ -10,6 +10,7 @@
     </button>
     <mat-menu #signedInMenu="matMenu">
       <button mat-menu-item (click)="signOut()">Sign out</button>
+      <button mat-menu-item (click)="privacyPolicy()">Privacy Policy</button>
     </mat-menu>
   </div>
 </mat-toolbar>
@@ -25,6 +26,7 @@
       <button mat-menu-item (click)="signInWithGitHub()">Sign in with GitHub</button>
       <button mat-menu-item (click)="signInWithGoogle()">Sign in with Google</button>
       <button mat-menu-item (click)="signInWithAnon()">Sign in anonymously</button>
+      <button mat-menu-item (click)="privacyPolicy()">Privacy Policy</button>
     </mat-menu>
   </div>
 </ng-template>

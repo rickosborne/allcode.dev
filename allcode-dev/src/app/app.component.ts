@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
 import {Observable} from "rxjs";
 import {SessionService, Profile} from "./session.service";
 
@@ -8,11 +9,11 @@ import {SessionService, Profile} from "./session.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'allcode-dev';
   public readonly user$: Observable<Profile | null>;
 
   constructor(
-    private readonly session: SessionService
+    private readonly session: SessionService,
+    private readonly bottomSheet: MatBottomSheet,
   ) {
     this.user$ = session.getUser$();
   }
@@ -31,5 +32,24 @@ export class AppComponent {
 
   public signOut(): void {
     this.session.signOut();
+  }
+
+  public privacyPolicy(): void {
+    this.bottomSheet.open(PrivacyPolicyComponent);
+  }
+}
+
+@Component({
+  selector: 'privacy-policy',
+  templateUrl: './privacy-policy.component.html',
+  styleUrls: ['./privacy-policy.component.scss']
+})
+export class PrivacyPolicyComponent {
+  constructor(private readonly bottomSheetRef: MatBottomSheetRef<PrivacyPolicyComponent>) {
+  }
+
+  public openLink(event: MouseEvent) {
+    this.bottomSheetRef.dismiss();
+    event.preventDefault();
   }
 }
