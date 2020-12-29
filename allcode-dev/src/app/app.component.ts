@@ -21,10 +21,6 @@ export class AppComponent {
     this.session.signInWithAnon();
   }
 
-  public signInWithEmail(): void {
-    this.session.signInWithEmail();
-  }
-
   public signInWithGitHub(): void {
     this.session.signInWithGitHub();
   }

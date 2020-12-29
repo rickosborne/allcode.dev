@@ -66,10 +66,6 @@ export class SessionService {
     );
   }
 
-  public signInWithEmail(): Observable<Profile | null> {
-    return this.signInWithPopup(new firebase.auth.EmailAuthProvider());
-  }
-
   public signInWithGitHub(): Observable<Profile | null> {
     return this.signInWithPopup(new firebase.auth.GithubAuthProvider());
   }
