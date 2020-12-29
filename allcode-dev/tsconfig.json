@@ -24,8 +24,8 @@
     "sourceMap": true,
     "strict": true,
     "strictBindCallApply": true,
-    "strictFunctionTypes": false,
-    "strictNullChecks": false,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "es2015"
   }
