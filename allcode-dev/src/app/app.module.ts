@@ -15,9 +15,9 @@ import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
-import {LearnModule} from "./learn/learn.module";
 import {NotFoundComponent} from './not-found/not-found.component';
 import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import {PrivacyPolicyComponent} from "./privacy-policy/privacy-policy.component"
     RouterModule,
     BrowserModule,
     AppRoutingModule,
+    SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

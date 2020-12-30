@@ -1,0 +1,79 @@
+@import "../../allcode-colors";
+
+.amble {
+  display: flex;
+  flex-direction: column;
+}
+
+.amble-header {
+  flex-basis: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: mat-color($allcode-dev-accent, 900);
+  color: mat-contrast($allcode-dev-accent, 900);
+  border-top: thin solid mat-color($allcode-dev-accent, 700);
+  border-bottom: thin solid  mat-color($allcode-dev-accent, A700);
+}
+
+.amble-title {
+  padding: 0 1vw;
+
+  code {
+    color: mat-color($allcode-dev-accent, A100);
+  }
+}
+
+.amble-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  button[mat-button] {
+    line-height: inherit;
+  }
+
+  mat-icon {
+    font-size: 2vw;
+    line-height: inherit;
+    width: auto;
+    height: auto;
+  }
+}
+
+.amble-description {
+  opacity: 50%;
+  padding: 0 1vw;
+  background-color: black;
+  font-size: 80%;
+
+  code {
+    color: mat-color($allcode-dev-accent, A100);
+  }
+}
+
+.amble-header-top {
+  display: flex;
+  flex-direction: row;
+}
+
+.amble-title {
+  flex-grow: 1;
+}
+
+.amble-body {
+  flex-grow: 1;
+}
+
+.amble-footer {
+  flex-basis: fit-content;
+}
+
+.amble-walk {
+  display: flex;
+  flex-direction: row;
+}
+
+.amble-quiz {
+  display: flex;
+  flex-direction: row;
+}

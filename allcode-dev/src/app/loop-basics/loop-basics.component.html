@@ -1,0 +1,50 @@
+<h1>Loop Basics</h1>
+
+<amble
+  descriptionMarkdown="Use a number counter and a `while` loop to count from 1 to 5."
+  titleMarkdown="Counting with a `while` loop"
+>
+  <amble-code [languageIds]="['java','c','cpp','csharp']" [source]="sources.java"></amble-code>
+  <amble-code [source]="sources.typescript" languageId="typescript"></amble-code>
+  <amble-code [source]="sources.php" languageId="php"></amble-code>
+  <amble-step
+    descriptionMarkup="A variable is defined to hold the count."
+    extraMarkup="There's nothing magical about the name of the variable here.  Instead of `count`, you could use `fingers` or `place` or whatever makes the most sense to you."
+    stepKey="define"
+  >
+    <lesson-ref readable="Variables" slug="/learn/variables"></lesson-ref>
+  </amble-step>
+  <amble-step
+    descriptionMarkup="The variable is initialized with the numeric value of `1`."
+    stepKey="initialize"
+  >
+    <lesson-ref readable="Variables" slug="/learn/variables"></lesson-ref>
+  </amble-step>
+  <amble-step descriptionMarkup="The `while` keyword starts a loop block." stepKey="while"></amble-step>
+  <amble-step
+    descriptionMarkup="A Boolean expression is evaluated at the start of each iteration (repeat) of the loop."
+    stepKey="expression"
+  >
+    <lesson-ref readable="Boolean Expressions" slug="/learn/boolean-expressions"></lesson-ref>
+    <lesson-ref readable="Expression Evaluation" slug="/learn/expression-evaluation"></lesson-ref>
+  </amble-step>
+  <amble-step
+    descriptionMarkup="The condition evaluates to `true` as long as the value of the count is less than or equal to the number `5`."
+    stepKey="evaluate"
+  >
+    <lesson-ref readable="Boolean Expressions" slug="/learn/boolean-expressions"></lesson-ref>
+  </amble-step>
+  <amble-step
+    descriptionMarkup="The loop body is a block which will get executed if the condition evaluates to `true`."
+    extraMarkup="This block is very simple and only does one thing.  Blocks can do much more than this, and may do many things one after another."
+    stepKey="block"
+  >
+    <lesson-ref readable="Blocks" slug="learn/blocks"></lesson-ref>
+  </amble-step>
+  <amble-step
+    descriptionMarkup="The loop body increments (adds `1` to) the count variable."
+    stepKey="increment"
+  >
+    <lesson-ref readable="Increment and Decrement" slug="/learn/increment-and-decrement"></lesson-ref>
+  </amble-step>
+</amble>

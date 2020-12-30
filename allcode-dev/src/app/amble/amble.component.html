@@ -1,0 +1,58 @@
+<div class="amble">
+  <header class="amble-header">
+    <div class="amble-header-top">
+      <div class="amble-title" *ngIf="titleMarkdown"><text-with-code [markdown]="titleMarkdown"></text-with-code></div>
+      <nav class="amble-nav">
+        <button mat-button class="amble-big-toggle" title="Fullscreen" aria-label="Toggle fullscreen display for this code walkthrough">
+          <mat-icon class="material-icons">fullscreen</mat-icon>
+        </button>
+        <button mat-button class="amble-track-toggle" title="Track Progress" aria-label="Toggle progress tracking overlay">
+          <mat-icon class="material-icons">check</mat-icon>
+        </button>
+        <button mat-button class="amble-quiz-toggle" title="Self Assessment" aria-label="Toggle self-assessment overlay">
+          <mat-icon class="material-icons">assignment</mat-icon>
+        </button>
+        <button mat-button class="amble-layout" title="Code Layout" aria-label="Toggle code layout overlay">
+          <mat-icon class="material-icons">dashboard</mat-icon>
+        </button>
+      </nav>
+    </div>
+    <div class="amble-description" *ngIf="descriptionMarkdown"><text-with-code [markdown]="descriptionMarkdown"></text-with-code></div>
+  </header>
+  <div class="amble-body">
+    <div class="amble-codes" *ngFor="let code of visibleCode$ | async">
+      <amble-code [languageId]="code.languageId" [languageIds]="code.languageIds" [source]="code.source"></amble-code>
+    </div>
+    <div class="amble-refs"></div>
+  </div>
+  <footer class="amble-footer">
+    <div class="amble-walk">
+      <div class="amble-walk-description"></div>
+      <button mat-flat-button class="amble-walk-extra-toggle" title="Extras" aria-label="Toggle extra details">
+        <mat-icon class="material-icons">info</mat-icon>
+      </button>
+      <button mat-flat-button class="amble-walk-refs-toggle" title="References" aria-label="Toggle additional references">
+        <mat-icon class="material-icons">help_center</mat-icon>
+      </button>
+      <button mat-flat-button class="amble-walk-prev" title="Previous" aria-label="Previous walk-through item">
+        <mat-icon class="material-icons">arrow_left</mat-icon>
+      </button>
+      <button mat-flat-button class="amble-walk-next" title="Next" aria-label="Next walk-through item">
+        <mat-icon class="material-icons">arrow_right</mat-icon>
+      </button>
+    </div>
+    <div class="amble-quiz">
+      <div class="amble-quiz-text">
+        <div class="amble-quiz-question"></div>
+        <div class="amble-quiz-answer"></div>
+        <div class="amble-quiz-rationale"></div>
+      </div>
+      <button mat-flat-button class="amble-quiz-prev" title="Previous" aria-label="Previous self-assessment item">
+        <mat-icon class="material-icons">arrow_left</mat-icon>
+      </button>
+      <button mat-flat-button class="amble-quiz-next" title="Next" aria-label="Next self-assessment item">
+        <mat-icon class="material-icons">arrow_right</mat-icon>
+      </button>
+    </div>
+  </footer>
+</div>

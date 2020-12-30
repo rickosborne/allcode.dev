@@ -5,11 +5,13 @@ import firebase from 'firebase/app';
 import {Observable, of} from "rxjs";
 import {fromPromise} from "rxjs/internal-compatibility";
 import {switchMap} from "rxjs/operators";
+import {CodeLanguageKey} from "./languages";
 import AuthProvider = firebase.auth.AuthProvider;
 
 export interface Profile {
   displayName: string;
   uid: string;
+  languageRank?: CodeLanguageKey[];
 }
 
 @Injectable({

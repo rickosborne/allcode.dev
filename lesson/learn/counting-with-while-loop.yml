@@ -1,0 +1,155 @@
+title: Counting with a `while` loop
+description: Use a number counter and a `while` loop to count from 1 to 5.
+sources:
+  - languages:
+      - java
+      - c
+      - cpp
+      - csharp
+    source: |
+      int count = 1;
+      while (count <= 5) {
+          count++;
+      }
+  - language: typescript
+    source: |
+      let count: number = 1;
+      while (count <= 5) {
+        count++;
+      }
+  - language: php
+    source: |
+      $count = 1;
+      while ($count <= 5) {
+        $count++;
+      }
+  - language: perl5
+    source: |
+      my $count = 1;
+      while ($count <= 5) {
+        $count++;
+      }
+  - language: ruby
+    source: |
+      $count = 1
+      while ($count <= 5) do
+        $count++;
+      end
+  - language: bash
+    source: |
+      COUNT=1
+      while [ $COUNT -le 5 ] ; do
+        COUNT=$(( $COUNT + 1 ))
+      done
+  - language: basic
+    source: |
+      Dim count as Integer = 1
+      While count <= 5
+        count += 1
+      End While
+  - language: pascal
+    source: |
+      count := 1
+      WHILE (count <= 5) DO
+        BEGIN
+          count := count + 1
+        END;
+  - language: python
+    source: |
+      count = 1
+      while (count <= 5):
+          count++
+  - language: javascript
+    source: |
+      var count = 1;
+      while (count <= 5) {
+        count++;
+      }
+  - language: ecmascript6
+    source: |
+      let count = 1;
+      while (count <= 5) {
+        count++;
+      }
+explanation:
+  - description: A variable is defined to hold the count.
+    key: define
+    extra: >
+      There's nothing magical about the name of the variable here.
+      Instead of `count`, you could use `fingers` or `place` or whatever makes the most sense to you.
+    refs:
+      - title: Variables
+        slug: learn/variables
+  - description: The variable is initialized with the numeric value of `1`.
+    key: initialize
+    refs:
+      - title: Variables
+        slug: learn/variables
+  - description: The `while` keyword starts a loop block.
+    key: while
+  - description: A Boolean expression is evaluated at the start of each iteration (repeat) of the loop.
+    key: expression
+    refs:
+      - title: Boolean Expressions
+        slug: learn/boolean-expressions
+      - title: Expression Evaluation
+        slug: learn/expression-evaluation
+  - description: The condition evaluates to `true` as long as the value of the count is less than or equal to the number `5`.
+    key: evaluate
+    refs:
+      - title: Boolean expressions
+        slug: learn/boolean-expressions
+  - description: The loop body is a block which will get executed if the condition evaluates to `true`.
+    key: block
+    extra: >
+      This block is very simple and only does one thing.
+      Blocks can do much more than this, and may do many things one after another.
+    refs:
+      - title: Blocks
+        slug: learn/blocks
+  - description: The loop body increments (adds `1` to) the count variable.
+    key: increment
+    refs:
+      - title: Increment and Decrement
+        slug: learn/increment-and-decrement
+assessment:
+  - question: The first time the condition is evaluated, what is the value of the `count` variable?
+    answer: `1`
+    rationale: >
+      The count variable is initialized with a value of `1`.
+      This value is not modified before the loop begins.
+    explanationKey: initialize
+    refs:
+      - title: Variables
+        slug: learn/variables
+  - question: When the condition eventually evaluates to `false`, what is the value of the `count` variable?
+    answer: `6`
+    rationale: >
+      The first time through the loop, the count starts at `1` and is incremented to `2`.
+      Next time through, the count is modified from `2` to `3`, then `3` to `4`, and `4` to `5`.
+      Because the condition expression evaluates as `true` when the count is `5`, the loop body runs a fifth time.
+      In that fifth time through, the count is incremented from `5` to `6`.
+      When the condition is evaluated again, it is now `false` as `6` is not less than or equal to `5`.
+  - question: Which parts of the code are repeated in the loop?
+    answer: The loop body, which is a block and could have many lines of code, will be executed each time the loop is repeated.
+    highlight:
+      answerExplanation: block
+    refs:
+      - title: Blocks
+        slug: learn/blocks
+  - question: How many times would the loop execute if you changed the expression from "less than or equal" to just "less than"?
+    answer: `4`
+    rationale: >
+      The first time through the loop, the count starts at `1` and is incremented to `2`.
+      Next time through, the count is modified from `2` to `3`, then `3` to `4`, and `4` to `5`.
+      When the condition is evaluated, `5` is no longer "less than" `5`, so the condition is `false` and the loop does not run the fifth time.
+    highlight:
+      questionExplanation: expression
+  - question: What would happen if you did not increment the count variable inside the loop body?
+    answer: The count would never change, leading to an infinite loop.
+    rationale: >
+      The count variable is initialized with the value `1`.
+      If it is never updated within the loop, that value of `1` will never change, and the expression "`1` is less than or equal to `5`" will always be `true`.
+      Since the condition is always `true`, the loop will never end.
+    highlight:
+      questionExplanation: increment
