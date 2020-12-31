@@ -10,6 +10,8 @@ import {AmbleStepComponent} from '../amble-step/amble-step.component';
 import {AmbleComponent} from "../amble/amble.component";
 import {LessonRefComponent} from '../lesson-ref/lesson-ref.component';
 import {TextWithCodeComponent} from "../text-with-code/text-with-code.component";
+import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { IconRadioComponent } from '../icon-radio/icon-radio.component';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import {TextWithCodeComponent} from "../text-with-code/text-with-code.component"
     AmbleStepComponent,
     LessonRefComponent,
     AmbleQuestionComponent,
+    IconButtonComponent,
+    IconRadioComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,11 @@
+<button
+  [attr.aria-label]="label"
+  [disabled]="disabled"
+  class="icon-button"
+  [ngClass]="{'no-wrap':!wrap,active:active === 'active',inactive:active === 'inactive'}"
+  (click)="onClick($event)"
+><span
+  *ngFor="let ic of allIcons"
+  [textContent]="ic"
+  class="material-icons"
+></span></button>

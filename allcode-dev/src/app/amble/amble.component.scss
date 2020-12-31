@@ -11,7 +11,7 @@
     background-color: mat-color($allcode-dev-accent, 400);
     color: mat-contrast($allcode-dev-accent, 400);
     border-top: thin solid mat-color($allcode-dev-accent, 600);
-    border-bottom: thin solid  mat-color($allcode-dev-accent, 200);
+    border-bottom: thin solid mat-color($allcode-dev-accent, 200);
   }
 
   &.amble-step-mode .amble-header, &.amble-quiz-mode .amble-header {
@@ -22,6 +22,37 @@
 
     text-with-code code {
       color: #eee;
+    }
+
+    icon-radio .icon-button.active {
+      color: mat-color($allcode-dev-primary, A700);
+      border-color: mat-color($allcode-dev-primary, A700);
+    }
+  }
+
+  icon-radio {
+    //border-right: thin solid rgba(255, 255, 255, 0.1);
+    //border-left: thin solid rgba(0, 0, 0, 0.1);
+
+    .icon-button {
+      background-color: transparent;
+      border-bottom: 0.1em solid transparent;
+      border-top: 0.1em solid transparent;
+
+      &:hover, &:focus {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &.inactive {
+        background-color: transparent;
+        //border-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &.active {
+        color: mat-color($allcode-dev-accent, A700);
+        text-shadow: 0 0 0.2em rgba(255, 255, 255, 0.5);
+        border-color: mat-color($allcode-dev-accent, A700);
+      }
     }
   }
 
@@ -37,26 +68,6 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-
-    button[mat-button] {
-      line-height: inherit;
-      flex-shrink: 0;
-    }
-
-    mat-icon, .mat-button {
-      font-size: 2vw;
-      line-height: inherit;
-      width: auto;
-      height: auto;
-    }
-
-    .mat-button-toggle-appearance-standard {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
   }
 
   .amble-description {
@@ -118,6 +129,8 @@
     line-height: inherit;
     align-self: center;
     flex-shrink: 0;
+    user-select: none;
+    cursor: default;
   }
 
   .amble-quiz {
@@ -170,15 +183,12 @@
     }
   }
 
-  .mat-button.amble-quiz-answer-toggle {
-    font-size: 80%;
-    font-weight: inherit;
-    flex-shrink: 0;
-  }
-
   .amble-qa-label {
     padding: 0 1vw;
     flex-shrink: 0;
   }
 
+  .icon-button {
+    height: 100%;
+  }
 }

@@ -1,31 +1,49 @@
-<div #ambleRoot class="amble" [ngClass]="{'amble-step-mode': footerMode === 'step', 'amble-quiz-mode': footerMode === 'quiz'}">
+<div #ambleRoot [ngClass]="{'amble-step-mode': footerMode === 'step', 'amble-quiz-mode': footerMode === 'quiz'}" class="amble">
   <header class="amble-header">
     <div class="amble-header-top">
       <div *ngIf="titleMarkdown" class="amble-title">
         <text-with-code [markdown]="titleMarkdown"></text-with-code>
       </div>
       <nav class="amble-nav">
-        <mat-button-toggle-group (change)="resetStepExtraMode()" *ngIf="stepChildren.length > 0 || questionChildren.length > 0" [(value)]="footerMode" aria-label="Toggle Explanation or Assessment mode" name="footerModeToggle">
-          <mat-button-toggle *ngIf="stepChildren.length > 0" aria-label="Show walk-through" title="Walk-Through" value="step">
-            <mat-icon class="material-icons">format_list_numbered</mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle *ngIf="questionChildren.length > 0" aria-label="Show self-assessment" title="Self-Assessment" value="quiz">
-            <mat-icon class="material-icons">grading</mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle aria-label="Hide footer" title="None" value="hidden">
-            <mat-icon class="material-icons">expand_less</mat-icon>
-          </mat-button-toggle>
-        </mat-button-toggle-group>
-        <button aria-label="Toggle progress tracking overlay" class="amble-track-toggle" mat-button title="Track Progress">
-          <mat-icon class="material-icons">check</mat-icon>
-        </button>
-        <button aria-label="Toggle code layout overlay" class="amble-layout" mat-button title="Code Layout">
-          <mat-icon class="material-icons">dashboard</mat-icon>
-        </button>
-        <button (click)="goFullscreen()" [disabled]="fullscreenState === 'working'" aria-label="Toggle fullscreen display for this code walkthrough" class="amble-big-toggle" mat-button title="Fullscreen">
-          <mat-icon *ngIf="fullscreenState !== 'full'" class="material-icons">fullscreen</mat-icon>
-          <mat-icon *ngIf="fullscreenState === 'full'" class="material-icons">close_fullscreen</mat-icon>
-        </button>
+        <icon-radio
+          (change)="resetStepExtraMode()"
+          *ngIf="stepChildren.length > 0 || questionChildren.length > 0"
+          (value)="footerMode = $event"
+          [value]="footerMode"
+          aria-label="Toggle Explanation or Assessment mode"
+          name="footerModeToggle"
+        >
+          <icon-button
+            *ngIf="stepChildren.length > 0"
+            label="Show walk-through"
+            title="Walk-Through"
+            value="step"
+            icon="format_list_numbered"
+            active="active"
+          ></icon-button>
+          <icon-button
+            *ngIf="questionChildren.length > 0"
+            label="Show self-assessment"
+            title="Self-Assessment"
+            value="quiz"
+            icon="grading"
+          ></icon-button>
+          <icon-button
+            label="Hide footer"
+            title="None"
+            value="hidden"
+            icon="expand_less"
+          ></icon-button>
+        </icon-radio>
+        <icon-button class="amble-track-toggle" icon="check" label="Toggle progress tracking overlay" title="Track Progress"></icon-button>
+        <icon-button class="amble-layout" icon="dashboard" label="Toggle code layout overlay" title="Code Layout"></icon-button>
+        <icon-button
+          (click)="goFullscreen()"
+          [icon]="fullscreenState === 'full' ? 'close_fullscreen' : 'fullscreen'"
+          class="amble-big-toggle"
+          label="Toggle fullscreen display for this code walkthrough"
+          title="Fullscreen"
+        ></icon-button>
       </nav>
     </div>
     <div *ngIf="descriptionMarkdown" class="amble-description">
@@ -43,21 +61,40 @@
       <div class="amble-walk-description">
         <text-with-code [markdown]="currentStep.descriptionMarkup"></text-with-code>
       </div>
-      <button *ngIf="currentStep.lessonRefs.length" aria-label="Toggle additional references" class="amble-walk-refs-toggle" mat-button title="References">
-        <mat-icon class="material-icons">help_center</mat-icon>
-      </button>
-      <button (click)="toggleStepExtra()" *ngIf="currentStep.extraMarkup != null" aria-label="Toggle extra details" class="amble-walk-extra-toggle" mat-button title="Extras">
-        <mat-icon class="material-icons">info</mat-icon>
-        <mat-icon class="material-icons" *ngIf="stepExtraMode === 'step'">expand_more</mat-icon>
-        <mat-icon class="material-icons" *ngIf="stepExtraMode === 'extra'">expand_less</mat-icon>
-      </button>
-      <button (click)="backStep()" *ngIf="stepChildren.length > 1" [disabled]="stepChildren.length === 0" aria-label="Previous walk-through item" class="amble-walk-prev" mat-button title="Previous">
-        <mat-icon class="material-icons">arrow_left</mat-icon>
-      </button>
+      <icon-button
+        *ngIf="currentStep.lessonRefs.length"
+        class="amble-walk-refs-toggle"
+        icon="help_center"
+        label="Toggle additional references"
+        title="References"
+      ></icon-button>
+      <icon-button
+        (click)="toggleStepExtra()"
+        *ngIf="currentStep.extraMarkup != null"
+        [icons]="['info',stepExtraMode === 'step' ? 'expand_more' : 'expand_less']"
+        class="amble-walk-extra-toggle"
+        label="Toggle extra details"
+        title="Extras"
+      ></icon-button>
+      <icon-button
+        (click)="backStep()"
+        *ngIf="stepChildren.length > 1"
+        [disabled]="stepChildren.length === 0"
+        class="amble-walk-prev"
+        icon="arrow_left"
+        label="Previous walk-through item"
+        title="Previous"
+      ></icon-button>
       <div *ngIf="stepChildren.length > 1" class="amble-progress"><span [textContent]="(currentStepNum + 1) + '/' + stepChildren.length"></span></div>
-      <button (click)="forwardStep()" *ngIf="stepChildren.length > 1" [disabled]="stepChildren.length === 0" aria-label="Next walk-through item" class="amble-walk-next" mat-button title="Next">
-        <mat-icon class="material-icons">arrow_right</mat-icon>
-      </button>
+      <icon-button
+        (click)="forwardStep()"
+        *ngIf="stepChildren.length > 1"
+        [disabled]="stepChildren.length === 0"
+        class="amble-walk-next"
+        icon="arrow_right"
+        label="Next walk-through item"
+        title="Next"
+      ></icon-button>
     </div>
     <div *ngIf="currentStep != null && stepExtraMode === 'extra'" class="amble-walk-extra">
       <text-with-code [markdown]="currentStep.extraMarkup"></text-with-code>
@@ -68,25 +105,42 @@
         <div class="amble-quiz-question">
           <text-with-code [markdown]="currentQuestion.question"></text-with-code>
         </div>
-        <button (click)="toggleAnswer()" aria-label="Toggle the answer" class="amble-quiz-answer-toggle" mat-button title="Answer">
-          <span *ngIf="questionMode === 'question'"><mat-icon class="material-icons">remove_red_eye</mat-icon><mat-icon class="material-icons">expand_more</mat-icon></span>
-          <span *ngIf="questionMode !== 'question'"><mat-icon class="material-icons">remove_red_eye</mat-icon><mat-icon class="material-icons">expand_less</mat-icon></span>
-        </button>
-        <button (click)="backQuestion()" *ngIf="questionChildren.length > 1" aria-label="Previous self-assessment item" class="amble-quiz-prev" mat-button title="Previous">
-          <mat-icon class="material-icons">arrow_left</mat-icon>
-        </button>
+        <icon-button
+          (click)="toggleAnswer()"
+          [icons]="['remove_red_eye', questionMode === 'question' ? 'expand_more' : 'expand_less']"
+          class="amble-quiz-answer-toggle"
+          label="Toggle the answer"
+          title="Answer"
+        ></icon-button>
+        <icon-button
+          (click)="backQuestion()"
+          *ngIf="questionChildren.length > 1"
+          class="amble-quiz-prev"
+          icon="arrow_left"
+          label="Previous self-assessment item"
+          title="Previous"
+        ></icon-button>
         <div *ngIf="questionChildren.length > 1" class="amble-progress"><span [textContent]="(currentQuestionNum + 1) + '/' + questionChildren.length"></span></div>
-        <button (click)="forwardQuestion()" *ngIf="questionChildren.length > 1" aria-label="Next self-assessment item" class="amble-quiz-next" mat-button title="Next">
-          <mat-icon class="material-icons">arrow_right</mat-icon>
-        </button>
+        <icon-button
+          (click)="forwardQuestion()"
+          *ngIf="questionChildren.length > 1"
+          class="amble-quiz-next"
+          icon="arrow_right"
+          label="Next self-assessment item"
+          title="Next"
+        ></icon-button>
       </div>
       <div *ngIf="currentQuestion && (questionMode !== 'question')" class="amble-quiz-answer">
         <span class="amble-qa-label">A:</span>
         <text-with-code [markdown]="currentQuestion.answer"></text-with-code>
-        <button (click)="toggleRationale()" *ngIf="currentQuestion.rationale != null" aria-label="Toggle the rationale" class="amble-quiz-rationale-toggle" mat-button title="Rationale">
-          <span *ngIf="questionMode === 'answer'"><mat-icon class="material-icons">details</mat-icon><mat-icon class="material-icons">expand_more</mat-icon></span>
-          <span *ngIf="questionMode === 'rationale'"><mat-icon class="material-icons">details</mat-icon><mat-icon class="material-icons">expand_less</mat-icon></span>
-        </button>
+        <icon-button
+          (click)="toggleRationale()"
+          *ngIf="currentQuestion.rationale != null"
+          [icons]="['details', questionMode === 'answer' ? 'expand_more' : 'expand_less']"
+          class="amble-quiz-rationale-toggle"
+          label="Toggle the rationale"
+          title="Rationale"
+        ></icon-button>
       </div>
       <div *ngIf="currentQuestion && currentQuestion.rationale && (questionMode === 'rationale')" class="amble-quiz-rationale">
         <span class="amble-qa-label">Rationale:</span>
