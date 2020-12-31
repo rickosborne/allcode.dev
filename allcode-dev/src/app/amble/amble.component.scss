@@ -3,77 +3,182 @@
 .amble {
   display: flex;
   flex-direction: column;
-}
 
-.amble-header {
-  flex-basis: fit-content;
-  display: flex;
-  flex-direction: column;
-  background-color: mat-color($allcode-dev-accent, 900);
-  color: mat-contrast($allcode-dev-accent, 900);
-  border-top: thin solid mat-color($allcode-dev-accent, 700);
-  border-bottom: thin solid  mat-color($allcode-dev-accent, A700);
-}
-
-.amble-title {
-  padding: 0 1vw;
-
-  code {
-    color: mat-color($allcode-dev-accent, A100);
+  .amble-header {
+    flex-basis: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: mat-color($allcode-dev-accent, 400);
+    color: mat-contrast($allcode-dev-accent, 400);
+    border-top: thin solid mat-color($allcode-dev-accent, 600);
+    border-bottom: thin solid  mat-color($allcode-dev-accent, 200);
   }
-}
 
-.amble-nav {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  &.amble-step-mode .amble-header, &.amble-quiz-mode .amble-header {
+    background-color: #555;
+    color: #ccc;
+    border-top: thin solid #777;
+    border-bottom: thin solid #444;
 
-  button[mat-button] {
+    text-with-code code {
+      color: #eee;
+    }
+  }
+
+  .amble-title {
+    padding: 0 1vw;
+  }
+
+  text-with-code code {
+    color: mat-color($allcode-dev-accent, A700);
+  }
+
+  .amble-nav, .amble-walk, .amble-quiz {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    button[mat-button] {
+      line-height: inherit;
+      flex-shrink: 0;
+    }
+
+    mat-icon, .mat-button {
+      font-size: 2vw;
+      line-height: inherit;
+      width: auto;
+      height: auto;
+    }
+
+    .mat-button-toggle-appearance-standard {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .amble-description {
+    padding: 0 1vw;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 80%;
+
+    code {
+      color: mat-color($allcode-dev-accent, A100);
+    }
+  }
+
+  .amble-header-top {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .amble-title {
+    flex-grow: 1;
+  }
+
+  .amble-body {
+    flex-grow: 1;
+    background-color: black;
+    padding: 1vw;
+  }
+
+  .amble-footer {
+    flex-basis: fit-content;
+    line-height: 120%;
+  }
+
+  .amble-walk {
+    display: flex;
+    flex-direction: row;
+    flex-basis: fit-content;
+    align-items: stretch;
+    background-color: mat-color($allcode-dev-accent, 200);
+    color: mat-contrast($allcode-dev-accent, 200);
+    border-top: thin solid mat-color($allcode-dev-accent, 400);
+    border-bottom: thin solid mat-color($allcode-dev-accent, 100);
+  }
+
+  .amble-walk-description {
+    flex-grow: 1;
+    padding: 0.5vw 1vw;
+    font-size: 80%;
+  }
+
+  .amble-walk-extra {
+    background-color: mat-color($allcode-dev-accent, 100);
+    color: mat-contrast($allcode-dev-accent, 100);
+    padding: 0.5vw 1vw;
+    font-size: 70%;
+  }
+
+  .amble-progress {
+    font-size: 70%;
     line-height: inherit;
+    align-self: center;
+    flex-shrink: 0;
   }
 
-  mat-icon {
-    font-size: 2vw;
-    line-height: inherit;
-    width: auto;
-    height: auto;
+  .amble-quiz {
+    display: flex;
+    flex-direction: column;
+    background-color: mat-color($allcode-dev-primary, 900);
+    color: rgba(0, 0, 0, 0.8);
+    border-top: thin solid mat-color($allcode-dev-primary, A700);
+    border-bottom: thin solid mat-color($allcode-dev-primary, 700);
+
+    text-with-code code {
+      color: mat-color($allcode-dev-primary, 400);
+    }
   }
-}
 
-.amble-description {
-  opacity: 50%;
-  padding: 0 1vw;
-  background-color: black;
-  font-size: 80%;
+  .amble-quiz-1 {
+    display: flex;
+    flex-direction: row;
 
-  code {
-    color: mat-color($allcode-dev-accent, A100);
+    .amble-qa-label {
+      font-size: 80%;
+    }
   }
-}
 
-.amble-header-top {
-  display: flex;
-  flex-direction: row;
-}
+  .amble-quiz-question {
+    flex-grow: 1;
+    padding: 0 1vw;
+    font-size: 80%;
+  }
 
-.amble-title {
-  flex-grow: 1;
-}
+  .amble-quiz-answer {
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 80%;
+    display: flex;
+    flex-direction: row;
 
-.amble-body {
-  flex-grow: 1;
-}
+    text-with-code {
+      flex-grow: 1;
+      padding: 0 1vw;
+    }
+  }
 
-.amble-footer {
-  flex-basis: fit-content;
-}
+  .amble-quiz-rationale {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 70%;
+    padding: 0 1vw;
 
-.amble-walk {
-  display: flex;
-  flex-direction: row;
-}
+    .amble-qa-label {
+      padding: 0 0.5em 0 0;
+    }
+  }
 
-.amble-quiz {
-  display: flex;
-  flex-direction: row;
+  .mat-button.amble-quiz-answer-toggle {
+    font-size: 80%;
+    font-weight: inherit;
+    flex-shrink: 0;
+  }
+
+  .amble-qa-label {
+    padding: 0 1vw;
+    flex-shrink: 0;
+  }
+
 }

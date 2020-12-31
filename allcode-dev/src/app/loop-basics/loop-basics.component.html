@@ -1,7 +1,7 @@
 <h1>Loop Basics</h1>
 
 <amble
-  descriptionMarkdown="Use a number counter and a `while` loop to count from 1 to 5."
+  descriptionMarkdown="Use a number counter and a `while` loop to repeat 5 times."
   titleMarkdown="Counting with a `while` loop"
 >
   <amble-code [languageIds]="['java','c','cpp','csharp']" [source]="sources.java"></amble-code>
@@ -29,13 +29,13 @@
     <lesson-ref readable="Expression Evaluation" slug="/learn/expression-evaluation"></lesson-ref>
   </amble-step>
   <amble-step
-    descriptionMarkup="The condition evaluates to `true` as long as the value of the count is less than or equal to the number `5`."
+    descriptionMarkup="The *condition* evaluates to `true` as long as the value of the count is less than or equal to the number `5`."
     stepKey="evaluate"
   >
     <lesson-ref readable="Boolean Expressions" slug="/learn/boolean-expressions"></lesson-ref>
   </amble-step>
   <amble-step
-    descriptionMarkup="The loop body is a block which will get executed if the condition evaluates to `true`."
+    descriptionMarkup="The loop body is a *block* which will get executed if the condition evaluates to `true`."
     extraMarkup="This block is very simple and only does one thing.  Blocks can do much more than this, and may do many things one after another."
     stepKey="block"
   >
@@ -47,4 +47,37 @@
   >
     <lesson-ref readable="Increment and Decrement" slug="/learn/increment-and-decrement"></lesson-ref>
   </amble-step>
+  <amble-question
+    question="The first time the condition is evaluated, what is the value of the `count` variable?"
+    answer="`1`"
+    rationale="The count variable is initialized with a value of `1`.  This value is not modified before the loop begins."
+    explanationKey="initialize"
+  >
+    <lesson-ref readable="Variables" slug="/learn/variables"></lesson-ref>
+  </amble-question>
+  <amble-question
+    question="When the condition eventually evaluates to `false`, what is the value of the `count` variable?"
+    answer="`6`"
+    rationale="The first time through the loop, the count starts at `1` and is incremented to `2`.  Next time through, the count is modified from `2` to `3`, then `3` to `4`, and `4` to `5`.  Because the condition expression evaluates as `true` when the count is `5`, the loop body runs a fifth time.  In that fifth time through, the count is incremented from `5` to `6`.  When the condition is evaluated again, it is now `false` as `6` is not less than or equal to `5`."
+  >
+  </amble-question>
+  <amble-question
+    question="Which parts of the code are repeated in the loop?"
+    answer="The loop body, which is a block and could have many lines of code, will be executed each time the loop is repeated."
+    highlightAnswer="block"
+  >
+    <lesson-ref readable="Blocks" slug="learn/blocks"></lesson-ref>
+  </amble-question>
+  <amble-question
+    question="How many times would the loop execute if you changed the expression from &ldquo;less than or equal&rdquo; to just &ldquo;less than&rdquo;?"
+    answer="`4`"
+    rationale="The first time through the loop, the count starts at `1` and is incremented to `2`.  Next time through, the count is modified from `2` to `3`, then `3` to `4`, and `4` to `5`.  When the condition is evaluated, `5` is no longer &ldquo;less than&rdquo; `5`, so the condition is `false` and the loop does not run the fifth time."
+    highlightQuestion="expression"
+  ></amble-question>
+  <amble-question
+    question="What would happen if you did not increment the count variable inside the loop body?"
+    answer="The count would never change, leading to an infinite loop."
+    rationale="The count variable is initialized with the value `1`.  If it is never updated within the loop, that value of `1` will never change, and the expression &ldquo;`1` is less than or equal to `5`&rdquo; will always be `true`. Since the condition is always `true`, the loop will never end."
+    highlightQuestion="increment"
+  ></amble-question>
 </amble>
