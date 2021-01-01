@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 
 import * as prism from 'prismjs';
 
@@ -19,9 +19,6 @@ import 'prismjs/components/prism-ruby';
 import 'prismjs/components/prism-typescript';
 
 declare var Prism: any;
-
-Prism.manual = true;
-(prism as unknown as Record<string, any>)['manual'] = true;
 
 export type CachingHighlighter = (code: string, language: string) => string;
 
@@ -46,7 +43,11 @@ function highlight(code: string, language: string): string {
 @Injectable({
   providedIn: 'root'
 })
-export class HighlightService {
+export class HighlightService implements OnInit {
+  ngOnInit(): void {
+    Prism.manual = true;
+    (prism as unknown as Record<string, any>)['manual'] = true;
+  }
 
   constructor() {
   }
