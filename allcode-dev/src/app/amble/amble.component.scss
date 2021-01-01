@@ -94,6 +94,21 @@
     flex-grow: 1;
     background-color: black;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .amble-codes {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    amble-code {
+      height: 100%;
+      display: block;
+      flex-grow: 1;
+    }
   }
 
   .amble-footer {
