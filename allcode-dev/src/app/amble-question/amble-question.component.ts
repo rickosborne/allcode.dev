@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, ContentChildren, Input, QueryList} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
+import {HasLessonRefs} from "../HasLessonRefs";
 import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
 
 @Component({
@@ -7,7 +8,7 @@ import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
   templateUrl: './amble-question.component.html',
   styleUrls: ['./amble-question.component.scss']
 })
-export class AmbleQuestionComponent implements AfterContentInit {
+export class AmbleQuestionComponent implements AfterContentInit, HasLessonRefs {
   @Input("answer")
   public answer!: string;
   @Input("explanationKey")

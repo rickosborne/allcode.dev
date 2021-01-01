@@ -15,7 +15,9 @@ import {AmbleCodeComponent} from "../amble-code/amble-code.component";
 import {AmbleQuestionComponent} from "../amble-question/amble-question.component";
 import {AmbleStepComponent} from "../amble-step/amble-step.component";
 import {FullscreenService, FullscreenState} from "../fullscreen.service";
+import {HasLessonRefs} from "../HasLessonRefs";
 import {CodeLanguageKey} from "../languages";
+import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
 import {SessionService} from "../session.service";
 import {arrayIdentityChanged, nonNull} from "../util";
 
@@ -74,17 +76,19 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   public footerMode: AmbleFooterMode = AmbleFooterMode.Hidden;
   public fullscreenState: FullscreenState = FullscreenState.normal;
   public readonly languageRank$: Observable<CodeLanguageKey[]>;
+  public lessonRefs: LessonRefComponent[] = [];
   @ContentChildren(AmbleQuestionComponent)
   public questionChildren!: QueryList<AmbleQuestionComponent>;
   public questionChildren$ = new BehaviorSubject<AmbleQuestionComponent[]>([]);
   public questionMode: QuestionMode = QuestionMode.Question;
+  public refsVisible: boolean = false;
   @ContentChildren(AmbleStepComponent)
   public stepChildren!: QueryList<AmbleStepComponent>;
   public readonly stepChildren$ = new BehaviorSubject<AmbleStepComponent[]>([]);
+  public stepExtraMode: StepExtraMode = StepExtraMode.Step;
   @Input("titleMarkdown")
   public titleMarkdown: string | null | undefined;
   public readonly visibleCode$: Observable<AmbleCodeComponent[]>;
-  public stepExtraMode: StepExtraMode = StepExtraMode.Step;
 
   constructor(
     private readonly session: SessionService,
@@ -211,7 +215,16 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  toggleAnswer() {
+  resetStepExtraMode(): void {
+    this.stepExtraMode = StepExtraMode.Step;
+  }
+
+  showReferences(current: HasLessonRefs): void {
+    this.lessonRefs = current.lessonRefs.toArray();
+    this.refsVisible = true;
+  }
+
+  toggleAnswer(): void {
     if (this.questionMode === QuestionMode.Question) {
       this.questionMode = QuestionMode.Answer;
     } else {
@@ -219,7 +232,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  toggleQuiz() {
+  toggleQuiz(): void {
     if (this.footerMode !== AmbleFooterMode.Quiz) {
       this.footerMode = AmbleFooterMode.Quiz;
     } else if (this.stepChildren.length === 0) {
@@ -229,7 +242,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  toggleRationale() {
+  toggleRationale(): void {
     if (this.questionMode === QuestionMode.Rationale) {
       this.questionMode = QuestionMode.Answer;
     } else {
@@ -237,11 +250,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  toggleStepExtra() {
+  toggleStepExtra(): void {
     this.stepExtraMode = this.stepExtraMode === StepExtraMode.Step ? StepExtraMode.Extra : StepExtraMode.Step;
-  }
-
-  resetStepExtraMode() {
-    this.stepExtraMode = StepExtraMode.Step;
   }
 }

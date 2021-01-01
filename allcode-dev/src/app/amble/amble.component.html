@@ -1,4 +1,8 @@
-<div #ambleRoot [ngClass]="{'amble-step-mode': footerMode === 'step', 'amble-quiz-mode': footerMode === 'quiz'}" class="amble">
+<div #ambleRoot [ngClass]="{
+  'amble-step-mode': footerMode === 'step',
+  'amble-quiz-mode': footerMode === 'quiz',
+  'amble-refs-visible': refsVisible
+  }" class="amble">
   <header class="amble-header">
     <div class="amble-header-top">
       <div *ngIf="titleMarkdown" class="amble-title">
@@ -7,32 +11,32 @@
       <nav class="amble-nav">
         <icon-radio
           (change)="resetStepExtraMode()"
-          *ngIf="stepChildren.length > 0 || questionChildren.length > 0"
           (value)="footerMode = $event"
+          *ngIf="stepChildren.length > 0 || questionChildren.length > 0"
           [value]="footerMode"
           aria-label="Toggle Explanation or Assessment mode"
           name="footerModeToggle"
         >
           <icon-button
             *ngIf="stepChildren.length > 0"
+            active="active"
+            icon="format_list_numbered"
             label="Show walk-through"
             title="Walk-Through"
             value="step"
-            icon="format_list_numbered"
-            active="active"
           ></icon-button>
           <icon-button
             *ngIf="questionChildren.length > 0"
+            icon="grading"
             label="Show self-assessment"
             title="Self-Assessment"
             value="quiz"
-            icon="grading"
           ></icon-button>
           <icon-button
+            icon="expand_less"
             label="Hide footer"
             title="None"
             value="hidden"
-            icon="expand_less"
           ></icon-button>
         </icon-radio>
         <icon-button class="amble-track-toggle" icon="check" label="Toggle progress tracking overlay" title="Track Progress"></icon-button>
@@ -54,7 +58,24 @@
     <div *ngFor="let code of visibleCode$ | async" class="amble-codes">
       <amble-code [languageId]="code.languageId" [languageIds]="code.languageIds" [source]="code.source"></amble-code>
     </div>
-    <div class="amble-refs"></div>
+  </div>
+  <div class="amble-overlay-mask" (click)="refsVisible = false"></div>
+  <div class="amble-refs">
+    <header class="amble-refs-header">
+      <label>References</label>
+      <icon-button
+        (click)="refsVisible = false"
+        icon="close"
+        label="Close references overlay"
+        title="Close"
+      ></icon-button>
+    </header>
+    <nav class="amble-refs-links">
+      <a *ngFor="let lessonRef of lessonRefs" [routerLink]="lessonRef.slug">
+        <span class="arrow material-icons">forward</span>
+        <span class="readable" [textContent]="lessonRef.readable"></span>
+      </a>
+    </nav>
   </div>
   <footer class="amble-footer">
     <div *ngIf="currentStep && footerMode === 'step'" class="amble-walk">
@@ -62,6 +83,7 @@
         <text-with-code [markdown]="currentStep.descriptionMarkup"></text-with-code>
       </div>
       <icon-button
+        (click)="showReferences(currentStep)"
         *ngIf="currentStep.lessonRefs.length"
         class="amble-walk-refs-toggle"
         icon="help_center"

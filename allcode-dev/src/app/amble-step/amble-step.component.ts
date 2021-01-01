@@ -1,5 +1,6 @@
 import {AfterContentInit, Component, ContentChildren, Input, QueryList} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
+import {HasLessonRefs} from "../HasLessonRefs";
 import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
 
 @Component({
@@ -7,7 +8,7 @@ import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
   templateUrl: './amble-step.component.html',
   styleUrls: ['./amble-step.component.scss']
 })
-export class AmbleStepComponent implements AfterContentInit {
+export class AmbleStepComponent implements AfterContentInit, HasLessonRefs {
   @Input("descriptionMarkup")
   public descriptionMarkup: string | null | undefined;
   @Input("extraMarkup")
