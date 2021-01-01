@@ -37,12 +37,12 @@ export class IconRadioComponent implements AfterContentInit, OnDestroy {
 
   public ngAfterContentInit(): void {
     this.buttons.forEach(button => {
-      if (button.active === ButtonState.normal) {
-        button.active = ButtonState.inactive;
-      }
+      // if (button.active === ButtonState.normal) {
+      //   button.active = ButtonState.inactive;
+      // }
       button.clicked
         .pipe(takeUntil(this.destroy$))
-        .subscribe((event: MouseEvent) => {
+        .subscribe(() => {
           this.value = button.value;
           this.valueChange.emit(button.value);
           this.change.emit()

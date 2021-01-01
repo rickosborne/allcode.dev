@@ -1,3 +1,52 @@
 pre {
   margin: 0;
+  padding: 0.5vw 1vw;
+}
+
+.annotation.punctuation { color: #A082BD; }
+.boolean { color: #3369ff; }
+.class-name { color: #7ED4E6; }
+.class-name .punctuation { color: #5a6e73; }
+.comment { color: #7D8C93; }
+.function { color: #E6A35C; }
+.generics > .class-name { color: #009DE6; }
+.keyword { color: #E6E28A; }
+.namespace { color: #7EB2E6; }
+.number { color: #FFC400; }
+.operator { color: #E6D98A; }
+.punctuation { color: #ccc7a1; }
+.regex { color: #AAFF00; }
+.string { color: #FF8000; }
+.variable { color: #E0E2E4; }
+.vstring.string { color: #cc6600; }
+
+.amble-code-window {
+  position: relative;
+}
+
+.amble-code-language {
+  position: absolute;
+  max-width: 100%;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(32, 32, 32, 0.9);
+  color: #ccc;
+  user-select: none;
+  font-size: 70%;
+  line-height: 100%;
+  border-top-left-radius: 1em;
+
+  label {
+    padding-left: 0.5em;
+  }
+
+  &:hover, &:focus {
+    background-color: rgba(48, 48, 48, 0.9);
+  }
+
+  .icon-button {
+    display: inline-block;
+    height: 100%;
+    line-height: inherit;
+  }
 }

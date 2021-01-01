@@ -27,12 +27,14 @@
           ></icon-button>
           <icon-button
             *ngIf="questionChildren.length > 0"
+            active="inactive"
             icon="grading"
             label="Show self-assessment"
             title="Self-Assessment"
             value="quiz"
           ></icon-button>
           <icon-button
+            active="inactive"
             icon="expand_less"
             label="Hide footer"
             title="None"
@@ -55,11 +57,19 @@
     </div>
   </header>
   <div class="amble-body">
-    <div *ngFor="let code of visibleCode$ | async" class="amble-codes">
-      <amble-code [languageId]="code.languageId" [languageIds]="code.languageIds" [source]="code.source"></amble-code>
+    <div *ngFor="let code of visibleCode" class="amble-codes">
+      <amble-code
+        (nextLanguage)="nextLanguage(code)"
+        (prevLanguage)="prevLanguage(code)"
+        (randomizeLanguage)="randomizeLanguage(code)"
+        [highlighted]="highlighter(code.source, code.languageId || (code.languageIds || [])[0])"
+        [languageId]="code.languageId"
+        [languageIds]="code.languageIds"
+        [source]="code.source"
+      ></amble-code>
     </div>
   </div>
-  <div class="amble-overlay-mask" (click)="refsVisible = false"></div>
+  <div (click)="refsVisible = false" class="amble-overlay-mask"></div>
   <div class="amble-refs">
     <header class="amble-refs-header">
       <label>References</label>
@@ -73,7 +83,7 @@
     <nav class="amble-refs-links">
       <a *ngFor="let lessonRef of lessonRefs" [routerLink]="lessonRef.slug">
         <span class="arrow material-icons">forward</span>
-        <span class="readable" [textContent]="lessonRef.readable"></span>
+        <span [textContent]="lessonRef.readable" class="readable"></span>
       </a>
     </nav>
   </div>

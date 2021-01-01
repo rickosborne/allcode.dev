@@ -16,6 +16,7 @@ import {AmbleQuestionComponent} from "../amble-question/amble-question.component
 import {AmbleStepComponent} from "../amble-step/amble-step.component";
 import {FullscreenService, FullscreenState} from "../fullscreen.service";
 import {HasLessonRefs} from "../HasLessonRefs";
+import {CachingHighlighter, HighlightService} from "../highlight.service";
 import {CodeLanguageKey} from "../languages";
 import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
 import {SessionService} from "../session.service";
@@ -75,6 +76,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
   public footerMode: AmbleFooterMode = AmbleFooterMode.Hidden;
   public fullscreenState: FullscreenState = FullscreenState.normal;
+  public readonly highlighter: CachingHighlighter;
   public readonly languageRank$: Observable<CodeLanguageKey[]>;
   public lessonRefs: LessonRefComponent[] = [];
   @ContentChildren(AmbleQuestionComponent)
@@ -88,23 +90,26 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   public stepExtraMode: StepExtraMode = StepExtraMode.Step;
   @Input("titleMarkdown")
   public titleMarkdown: string | null | undefined;
-  public readonly visibleCode$: Observable<AmbleCodeComponent[]>;
+  public visibleCode: AmbleCodeComponent[] = [];
 
   constructor(
     private readonly session: SessionService,
     private readonly fullscreen: FullscreenService,
+    highlight: HighlightService,
   ) {
     this.languageRank$ = session.getUser$().pipe(
       nonNull(),
       map(user => user.languageRank || []),
       startWith([] as CodeLanguageKey[]),
     );
-    this.visibleCode$ = combineLatest([
+    this.highlighter = highlight.buildCachingHighlighter();
+    combineLatest([
       this.codeLayout$,
       this.codeChildren$,
       this.languageRank$.pipe(arrayIdentityChanged()),
-    ]).pipe(
-      map(([layout, allChildren, languageRank]) => {
+    ])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(([layout, allChildren, languageRank]) => {
         const wantCount = AmbleCodeLayoutCount[layout];
         const visible: AmbleCodeComponent[] = [];
         for (let languageId of languageRank) {
@@ -118,9 +123,8 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
         if (stillNeed > 0) {
           visible.push(...allChildren.filter(child => !visible.includes(child)).slice(0, stillNeed + 1));
         }
-        return visible.slice(0, wantCount);
-      }),
-    );
+        this.visibleCode = visible.slice(0, wantCount);
+      });
   }
 
   backQuestion() {
@@ -180,6 +184,37 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     itemSetter(nextItem);
   }
 
+  nextLanguage(code: AmbleCodeComponent) {
+    const children = this.codeChildren.toArray();
+    const currentIndex = children.indexOf(code);
+    if (currentIndex < 0) {
+      return;
+    }
+    const hc = children.reduce((prev, cur, idx) => {
+      if (this.visibleCode.includes(cur)) {
+        return prev;
+      }
+      let lowest = prev.lowest;
+      let closest = prev.closest;
+      if (idx < prev.lowest) {
+        lowest = idx;
+      }
+      if (idx > currentIndex && idx < prev.closest) {
+        closest = idx;
+      }
+      return {lowest, closest};
+    }, {lowest: children.length, closest: children.length});
+    const newIndex = hc.closest < children.length ? hc.closest : hc.lowest;
+    if (newIndex < 0) {
+      return;
+    }
+    const replacement = children[newIndex];
+    console.log(`nextLanguage ${currentIndex} ${code.label} => ${newIndex} ${replacement.label}`, hc);
+    this.visibleCode = this.visibleCode.map(child => {
+      return child === code ? replacement : child;
+    });
+  }
+
   ngAfterContentInit(): void {
     this.prepChildren(this.codeChildren, this.codeChildren$);
     this.prepChildren(this.stepChildren, this.stepChildren$, step => this.currentStep = step, n => this.currentStepNum = n);
@@ -212,6 +247,49 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
       if (numSetter != null) {
         numSetter(0);
       }
+    }
+  }
+
+  prevLanguage(code: AmbleCodeComponent) {
+    const children = this.codeChildren.toArray();
+    const currentIndex = children.indexOf(code);
+    if (currentIndex < 0) {
+      return;
+    }
+    const hc = children.reduce((prev, cur, idx) => {
+      if (this.visibleCode.includes(cur)) {
+        console.log(`Skipping ${idx} ${cur.label} as it's already visible`);
+        return prev;
+      }
+      let highest = prev.highest;
+      let closest = prev.closest;
+      if (idx > prev.highest) {
+        highest = idx;
+      }
+      if (idx < currentIndex && idx > prev.closest) {
+        closest = idx;
+      }
+      return {highest, closest};
+    }, {highest: -1, closest: -1});
+    const newIndex = hc.closest >= 0 ? hc.closest : hc.highest;
+    if (newIndex < 0) {
+      return;
+    }
+    const replacement = children[newIndex];
+    console.log(`prevLanguage ${currentIndex} ${code.label} => ${newIndex} ${replacement.label}`, hc);
+    this.visibleCode = this.visibleCode.map(child => {
+      return child === code ? replacement : child;
+    });
+  }
+
+  randomizeLanguage(code: AmbleCodeComponent): void {
+    const notPresent = this.unusedLanguages();
+    if (notPresent.length > 0) {
+      const replacement = notPresent[Math.floor(Math.random() * notPresent.length)];
+      console.log("randomizeLanguage", code.label, replacement);
+      this.visibleCode = this.visibleCode.map(child => {
+        return child === code ? replacement : child;
+      });
     }
   }
 
@@ -252,5 +330,11 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
 
   toggleStepExtra(): void {
     this.stepExtraMode = this.stepExtraMode === StepExtraMode.Step ? StepExtraMode.Extra : StepExtraMode.Step;
+  }
+
+  private unusedLanguages(): AmbleCodeComponent[] {
+    return this.codeChildren.filter(child => {
+      return !this.visibleCode.includes(child);
+    });
   }
 }

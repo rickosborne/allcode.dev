@@ -1,1 +1,19 @@
-<pre><code [textContent]="source"></code></pre>
+<div class="amble-code-window">
+  <pre><code [innerHTML]="highlighted"></code></pre>
+  <div class="amble-code-language">
+    <label (dblclick)="onLanguageDblClick()" [innerText]="label"></label>
+    <icon-button
+      (click)="prevLanguage.emit()"
+      class="amble-code-language-prev"
+      icon="arrow_left"
+      label="Previous Language"
+      title="Previous Language"
+    ></icon-button>
+    <icon-button
+      (click)="prevLanguage.emit()"
+      icon="arrow_right"
+      label="Next Language"
+      title="Next Language"
+    ></icon-button>
+  </div>
+</div>
