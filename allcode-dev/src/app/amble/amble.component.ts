@@ -65,7 +65,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(AmbleCodeComponent)
   public codeChildren!: QueryList<AmbleCodeComponent>;
   public readonly codeChildren$ = new BehaviorSubject<AmbleCodeComponent[]>([]);
-  public readonly codeLayout$ = new BehaviorSubject<AmbleCodeLayout>(AmbleCodeLayout.One);
+  public readonly codeLayout$ = new BehaviorSubject<AmbleCodeLayout>(AmbleCodeLayout.TwoHoriz);
   public currentQuestion: AmbleQuestionComponent | undefined;
   public currentQuestionNum: number = -1;
   public currentStep: AmbleStepComponent | undefined;
@@ -209,7 +209,6 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
       return;
     }
     const replacement = children[newIndex];
-    console.log(`nextLanguage ${currentIndex} ${code.label} => ${newIndex} ${replacement.label}`, hc);
     this.visibleCode = this.visibleCode.map(child => {
       return child === code ? replacement : child;
     });
@@ -258,7 +257,6 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     }
     const hc = children.reduce((prev, cur, idx) => {
       if (this.visibleCode.includes(cur)) {
-        console.log(`Skipping ${idx} ${cur.label} as it's already visible`);
         return prev;
       }
       let highest = prev.highest;
@@ -276,7 +274,6 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
       return;
     }
     const replacement = children[newIndex];
-    console.log(`prevLanguage ${currentIndex} ${code.label} => ${newIndex} ${replacement.label}`, hc);
     this.visibleCode = this.visibleCode.map(child => {
       return child === code ? replacement : child;
     });
@@ -286,7 +283,6 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     const notPresent = this.unusedLanguages();
     if (notPresent.length > 0) {
       const replacement = notPresent[Math.floor(Math.random() * notPresent.length)];
-      console.log("randomizeLanguage", code.label, replacement);
       this.visibleCode = this.visibleCode.map(child => {
         return child === code ? replacement : child;
       });
@@ -336,5 +332,17 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     return this.codeChildren.filter(child => {
       return !this.visibleCode.includes(child);
     });
+  }
+
+  toggleLayout() {
+    // Yeah, eventually this will need to be a selector
+    const layouts = [
+      AmbleCodeLayout.One,
+      AmbleCodeLayout.TwoHoriz,
+      AmbleCodeLayout.TwoVert,
+      AmbleCodeLayout.Four
+    ];
+    const currentIndex = layouts.indexOf(this.codeLayout$.value);
+    this.codeLayout$.next(layouts[(currentIndex + 1) % layouts.length]);
   }
 }

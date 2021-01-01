@@ -20,6 +20,18 @@
   &.no-wrap {
     white-space: nowrap;
   }
+
+  &[disabled] {
+    cursor: default;
+
+    &:hover {
+      background-color: inherit;
+    }
+
+    .material-icons {
+      opacity: 50%;
+    }
+  }
 }
 
 .material-icons, .icon-button {

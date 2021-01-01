@@ -1,4 +1,6 @@
 export enum CodeLanguage {
+  bash = 'bash',
+  basic = 'basic',
   c = 'c',
   cpp = 'cpp',
   csharp = 'csharp',
@@ -8,12 +10,15 @@ export enum CodeLanguage {
   perl = 'perl',
   php = 'php',
   python = 'python',
+  ruby = 'ruby',
   typescript = 'typescript',
 }
 
 export type CodeLanguageKey = keyof typeof CodeLanguage;
 
 export const LANGUAGE_NAME: Record<CodeLanguage, string> = {
+  bash: 'Bash',
+  basic: 'BASIC',
   c: 'C',
   cpp: 'C++',
   csharp: 'C#',
@@ -23,5 +28,6 @@ export const LANGUAGE_NAME: Record<CodeLanguage, string> = {
   perl: 'Perl',
   php: 'PHP',
   python: 'Python',
+  ruby: 'Ruby',
   typescript: 'TypeScript'
 };

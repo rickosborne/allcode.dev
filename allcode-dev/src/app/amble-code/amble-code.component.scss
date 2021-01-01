@@ -1,6 +1,11 @@
 pre {
   margin: 0;
   padding: 0.5vw 1vw;
+  overflow-x: auto;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .annotation.punctuation { color: #A082BD; }
@@ -22,19 +27,20 @@ pre {
 
 .amble-code-window {
   position: relative;
+  height: 100%;
 }
 
 .amble-code-language {
   position: absolute;
   max-width: 100%;
-  top: 0;
+  bottom: 0;
   right: 0;
   background-color: rgba(32, 32, 32, 0.9);
   color: #ccc;
   user-select: none;
   font-size: 70%;
   line-height: 100%;
-  border-bottom-left-radius: 1em;
+  border-top-left-radius: 1em;
 
   label {
     padding-left: 1em;

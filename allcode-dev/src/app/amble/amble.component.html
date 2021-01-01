@@ -1,7 +1,11 @@
 <div #ambleRoot [ngClass]="{
   'amble-step-mode': footerMode === 'step',
   'amble-quiz-mode': footerMode === 'quiz',
-  'amble-refs-visible': refsVisible
+  'amble-refs-visible': refsVisible,
+  'amble-layout-one': (codeLayout$ | async) === 'One',
+  'amble-layout-two-h': (codeLayout$ | async) === 'TwoHoriz',
+  'amble-layout-two-v': (codeLayout$ | async) === 'TwoVert',
+  'amble-layout-four': (codeLayout$ | async) === 'Four'
   }" class="amble">
   <header class="amble-header">
     <div class="amble-header-top">
@@ -41,8 +45,20 @@
             value="hidden"
           ></icon-button>
         </icon-radio>
-        <icon-button class="amble-track-toggle" icon="check" label="Toggle progress tracking overlay" title="Track Progress"></icon-button>
-        <icon-button class="amble-layout" icon="dashboard" label="Toggle code layout overlay" title="Code Layout"></icon-button>
+        <icon-button
+          class="amble-track-toggle"
+          icon="check"
+          label="Toggle progress tracking overlay"
+          title="Track Progress"
+          disabled="disabled"
+        ></icon-button>
+        <icon-button
+          class="amble-layout"
+          icon="dashboard"
+          label="Toggle code layout overlay"
+          title="Code Layout"
+          (click)="toggleLayout()"
+        ></icon-button>
         <icon-button
           (click)="goFullscreen()"
           [icon]="fullscreenState === 'full' ? 'close_fullscreen' : 'fullscreen'"
@@ -57,17 +73,16 @@
     </div>
   </header>
   <div class="amble-body">
-    <div *ngFor="let code of visibleCode" class="amble-codes">
-      <amble-code
-        (nextLanguage)="nextLanguage(code)"
-        (prevLanguage)="prevLanguage(code)"
-        (randomizeLanguage)="randomizeLanguage(code)"
-        [highlighted]="highlighter(code.source, code.languageId || (code.languageIds || [])[0])"
-        [languageId]="code.languageId"
-        [languageIds]="code.languageIds"
-        [source]="code.source"
-      ></amble-code>
-    </div>
+    <amble-code
+      (nextLanguage)="nextLanguage(code)"
+      (prevLanguage)="prevLanguage(code)"
+      (randomizeLanguage)="randomizeLanguage(code)"
+      *ngFor="let code of visibleCode"
+      [highlighted]="highlighter(code.source, code.languageId || (code.languageIds || [])[0])"
+      [languageId]="code.languageId"
+      [languageIds]="code.languageIds"
+      [source]="code.source"
+    ></amble-code>
   </div>
   <div (click)="refsVisible = false" class="amble-overlay-mask"></div>
   <div class="amble-refs">

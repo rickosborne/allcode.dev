@@ -26,6 +26,48 @@ export class LoopBasicsComponent implements OnInit {
         $count++;
       }
     `),
+    perl: unindent(`
+      my $count = 1;
+      while ($count <= 5) {
+        $count++;
+      }
+    `),
+    ruby: unindent(`
+      $count = 1
+      while ($count <= 5) do
+        $count++;
+      end
+    `),
+    bash: unindent(`
+      COUNT=1
+      while [ $COUNT -le 5 ] ; do
+        COUNT=$(( $COUNT + 1 ))
+      done
+    `),
+    basic: unindent(`
+      Dim count as Integer = 1
+      While count <= 5
+        count += 1
+      End While
+    `),
+    pascal: unindent(`
+      count := 1
+      WHILE (count <= 5) DO
+        BEGIN
+          count := count + 1
+        END;
+    `),
+    python: unindent(`
+      count = 1
+      while (count <= 5):
+          count++
+    `),
+    js: unindent(`
+      var count = 1;
+      while (count <= 5) {
+        count++;
+      }
+    `),
   };
 
   constructor() { }
