@@ -96,6 +96,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
   }
 
   &.amble-layout-two-h {
