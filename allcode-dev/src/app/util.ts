@@ -1,4 +1,5 @@
-import {MonoTypeOperatorFunction, Observable, OperatorFunction} from "rxjs";
+import {QueryList} from "@angular/core";
+import {MonoTypeOperatorFunction, OperatorFunction, Subject, Subscription} from "rxjs";
 import {distinctUntilChanged, filter} from "rxjs/operators";
 
 export function unindent(source: string): string {
@@ -45,4 +46,16 @@ export function arrayIdentityChanged<T extends Array<unknown>>(): MonoTypeOperat
   return distinctUntilChanged((a, b) => a !== b ||
     a.length !== b.length ||
     a.filter((v, n) => v !== b[n]).length > 0);
+}
+
+export function wireQueryList<T>(
+  queryList: QueryList<T>,
+  bs$: Subject<T[]>,
+): Subscription {
+  bs$.next(queryList.toArray());
+  return queryList.changes.subscribe(items => {
+    if (Array.isArray(items)) {
+      bs$.next(items as T[]);
+    }
+  });
 }

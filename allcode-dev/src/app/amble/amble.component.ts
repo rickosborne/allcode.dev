@@ -9,8 +9,8 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {BehaviorSubject, combineLatest, Observable, Subject} from "rxjs";
-import {map, startWith, takeUntil} from "rxjs/operators";
+import {BehaviorSubject, combineLatest, Observable, of, Subject} from "rxjs";
+import {map, shareReplay, startWith, switchMap, takeUntil} from "rxjs/operators";
 import {AmbleCodeComponent} from "../amble-code/amble-code.component";
 import {AmbleQuestionComponent} from "../amble-question/amble-question.component";
 import {AmbleStepComponent} from "../amble-step/amble-step.component";
@@ -20,6 +20,7 @@ import {CachingHighlighter, HighlightService} from "../highlight.service";
 import {CodeLanguageKey} from "../languages";
 import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
 import {SessionService} from "../session.service";
+import {SourceRefComponent} from "../source-ref/source-ref.component";
 import {arrayIdentityChanged, nonNull} from "../util";
 
 export enum AmbleCodeLayout {
@@ -69,6 +70,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   public currentQuestion: AmbleQuestionComponent | undefined;
   public currentQuestionNum: number = -1;
   public currentStep: AmbleStepComponent | undefined;
+  public currentStep$ = new BehaviorSubject<AmbleStepComponent | undefined>(undefined);
   public currentStepNum: number = -1;
   public currentWalkDescription: string = '';
   @Input("descriptionMarkdown")
@@ -86,6 +88,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   public refsVisible: boolean = false;
   @ContentChildren(AmbleStepComponent)
   public stepChildren!: QueryList<AmbleStepComponent>;
+  public stepHighlightSourceRefs$: Observable<SourceRefComponent[]>;
   public readonly stepChildren$ = new BehaviorSubject<AmbleStepComponent[]>([]);
   public stepExtraMode: StepExtraMode = StepExtraMode.Step;
   @Input("titleMarkdown")
@@ -125,6 +128,11 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
         }
         this.visibleCode = visible.slice(0, wantCount);
       });
+    this.stepHighlightSourceRefs$ = this.currentStep$.pipe(
+      takeUntil(this.destroy$),
+      switchMap(step => step == null ? of([]) : step.sourceRefs$),
+      shareReplay(1),
+    );
   }
 
   backQuestion() {
@@ -134,7 +142,10 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
 
   backStep() {
     this.stepExtraMode = StepExtraMode.Step;
-    this.moveThrough(this.currentStep, this.stepChildren, -1, s => this.currentStep = s, n => this.currentStepNum = n);
+    this.moveThrough(this.currentStep, this.stepChildren, -1, s => {
+      this.currentStep = s;
+      this.currentStep$.next(s);
+    }, n => this.currentStepNum = n);
   }
 
   forwardQuestion() {
@@ -144,7 +155,10 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
 
   forwardStep() {
     this.stepExtraMode = StepExtraMode.Step;
-    this.moveThrough(this.currentStep, this.stepChildren, 1, s => this.currentStep = s, n => this.currentStepNum = n);
+    this.moveThrough(this.currentStep, this.stepChildren, 1, s => {
+      this.currentStep = s;
+      this.currentStep$.next(s);
+    }, n => this.currentStepNum = n);
   }
 
   goFullscreen() {
@@ -216,7 +230,10 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     this.prepChildren(this.codeChildren, this.codeChildren$);
-    this.prepChildren(this.stepChildren, this.stepChildren$, step => this.currentStep = step, n => this.currentStepNum = n);
+    this.prepChildren(this.stepChildren, this.stepChildren$, step => {
+      this.currentStep = step;
+      this.currentStep$.next(step);
+    }, n => this.currentStepNum = n);
     if (this.stepChildren.length > 0) {
       this.footerMode = AmbleFooterMode.Step;
     }

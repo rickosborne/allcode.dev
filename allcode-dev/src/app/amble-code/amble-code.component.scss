@@ -13,9 +13,10 @@ pre {
 .class-name { color: #7ED4E6; }
 .class-name .punctuation { color: #5a6e73; }
 .comment { color: #7D8C93; }
-.function { color: #E6A35C; }
+.function { color: #e6a35c; }
 .generics > .class-name { color: #009DE6; }
-.keyword { color: #E6E28A; }
+.keyword { color: #e6e28a; }
+.builtin { color: #4595e6; }
 .namespace { color: #7EB2E6; }
 .number { color: #FFC400; }
 .operator { color: #E6D98A; }
@@ -55,4 +56,16 @@ pre {
     height: 100%;
     line-height: inherit;
   }
+}
+
+.highlight {
+  display: inline-block;
+  background-color: rgba(255, 255, 0, 0.1);
+  box-shadow: 0 0 1em rgba(255, 255, 0, 0.5);
+  border-radius: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+  box-sizing: border-box;
 }

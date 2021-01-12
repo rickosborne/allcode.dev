@@ -11,6 +11,7 @@ import {IconButtonComponent} from '../icon-button/icon-button.component';
 import {IconRadioComponent} from '../icon-radio/icon-radio.component';
 import {LessonRefComponent} from '../lesson-ref/lesson-ref.component';
 import {TextWithCodeComponent} from "../text-with-code/text-with-code.component";
+import { SourceRefComponent } from '../source-ref/source-ref.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {TextWithCodeComponent} from "../text-with-code/text-with-code.component"
     AmbleQuestionComponent,
     IconButtonComponent,
     IconRadioComponent,
+    SourceRefComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,7 @@ import {TextWithCodeComponent} from "../text-with-code/text-with-code.component"
     AmbleStepComponent,
     LessonRefComponent,
     AmbleQuestionComponent,
+    SourceRefComponent,
   ],
 })
 export class SharedModule {

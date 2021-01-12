@@ -1,5 +1,5 @@
 <div class="amble-code-window">
-  <pre><code [innerHTML]="highlighted"></code></pre>
+  <pre><code [innerHTML]="highlighted" #highlightedEl></code></pre>
   <div class="amble-code-language">
     <label (dblclick)="onLanguageDblClick()" [innerText]="label"></label>
     <icon-button

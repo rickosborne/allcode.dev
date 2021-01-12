@@ -19,19 +19,24 @@
     extraMarkup="There's nothing magical about the name of the variable here.  Instead of `count`, you could use `fingers` or `place` or whatever makes the most sense to you."
     stepKey="define"
   >
+    <source-ref selector=".variable-count-1, .bare-count-1"></source-ref>
     <lesson-ref readable="Variables" slug="/learn/variables"></lesson-ref>
   </amble-step>
   <amble-step
     descriptionMarkup="The variable is initialized with the numeric value of `1`."
     stepKey="initialize"
   >
+    <source-ref selector=".number-1-1"></source-ref>
     <lesson-ref readable="Variables" slug="/learn/variables"></lesson-ref>
   </amble-step>
-  <amble-step descriptionMarkup="The `while` keyword starts a loop block." stepKey="while"></amble-step>
+  <amble-step descriptionMarkup="The `while` keyword starts a loop block." stepKey="while">
+    <source-ref selector=".keyword-while"></source-ref>
+  </amble-step>
   <amble-step
     descriptionMarkup="A Boolean expression is evaluated at the start of each iteration (repeat) of the loop."
     stepKey="expression"
   >
+    <source-ref selector=".line-2"></source-ref>
     <lesson-ref readable="Boolean Expressions" slug="/learn/boolean-expressions"></lesson-ref>
     <lesson-ref readable="Expression Evaluation" slug="/learn/expression-evaluation"></lesson-ref>
   </amble-step>
@@ -39,6 +44,7 @@
     descriptionMarkup="The *condition* evaluates to `true` as long as the value of the count is less than or equal to the number `5`."
     stepKey="evaluate"
   >
+    <source-ref selector=".line-2"></source-ref>
     <lesson-ref readable="Boolean Expressions" slug="/learn/boolean-expressions"></lesson-ref>
   </amble-step>
   <amble-step
@@ -46,12 +52,16 @@
     extraMarkup="This block is very simple and only does one thing.  Blocks can do much more than this, and may do many things one after another."
     stepKey="block"
   >
+    <source-ref selector=".line-4" languageId="pascal"></source-ref>
+    <source-ref selector=".line-3"></source-ref>
     <lesson-ref readable="Blocks" slug="learn/blocks"></lesson-ref>
   </amble-step>
   <amble-step
     descriptionMarkup="The loop body increments (adds `1` to) the count variable."
     stepKey="increment"
   >
+    <source-ref selector=".operator-coloneq-2" languageId="pascal"></source-ref>
+    <source-ref selector=".operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus"></source-ref>
     <lesson-ref readable="Increment and Decrement" slug="/learn/increment-and-decrement"></lesson-ref>
   </amble-step>
   <amble-question
