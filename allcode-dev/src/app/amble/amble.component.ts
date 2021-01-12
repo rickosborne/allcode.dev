@@ -130,7 +130,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
       });
     this.stepHighlightSourceRefs$ = this.currentStep$.pipe(
       takeUntil(this.destroy$),
-      switchMap(step => step == null ? of([]) : step.sourceRefs$),
+      switchMap(step => step == null || this.footerMode !== AmbleFooterMode.Step ? of([]) : step.sourceRefs$),
       shareReplay(1),
     );
   }
@@ -361,5 +361,14 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     ];
     const currentIndex = layouts.indexOf(this.codeLayout$.value);
     this.codeLayout$.next(layouts[(currentIndex + 1) % layouts.length]);
+  }
+
+  setFooterMode(mode: AmbleFooterMode) {
+    this.footerMode = mode;
+    if (mode === AmbleFooterMode.Step) {
+      this.currentStep$.next(this.currentStep);
+    } else {
+      this.currentStep$.next(this.currentStep);
+    }
   }
 }

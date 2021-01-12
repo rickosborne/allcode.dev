@@ -15,7 +15,7 @@
       <nav class="amble-nav">
         <icon-radio
           (change)="resetStepExtraMode()"
-          (value)="footerMode = $event"
+          (value)="setFooterMode($event)"
           *ngIf="stepChildren.length > 0 || questionChildren.length > 0"
           [value]="footerMode"
           aria-label="Toggle Explanation or Assessment mode"
