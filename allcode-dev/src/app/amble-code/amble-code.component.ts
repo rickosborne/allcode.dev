@@ -49,15 +49,14 @@ export class AmbleCodeComponent implements OnDestroy {
         return;
       }
       this.lastHighlighted$.value.forEach(el => el.classList.remove(this.highlightClass));
-      const applicable = refs.filter(ref => ref.languageId == null || this.langIds.includes(ref.languageId));
+      const applicable = refs.filter(ref => ref.doesApplyTo(...this.langIds));
       const nextHighlighted: Element[] = [];
       for (const ref of applicable) {
-        const els = el.querySelectorAll(ref.selector);
-        if (els != null && els.length > 0) {
-          for (let i = 0; i < (ref.count || 1); i++) {
-            const el = els.item(i);
-            el.classList.add(this.highlightClass);
-            nextHighlighted.push(el);
+        const matches = ref.match(el);
+        if (matches.length > 0) {
+          for (const match of matches) {
+            match.classList.add(this.highlightClass);
+            nextHighlighted.push(match);
           }
           break;
         }

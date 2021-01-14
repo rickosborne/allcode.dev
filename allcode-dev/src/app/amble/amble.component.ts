@@ -10,9 +10,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, Subject} from "rxjs";
-import {map, shareReplay, startWith, switchMap, takeUntil} from "rxjs/operators";
+import {distinctUntilChanged, map, shareReplay, startWith, switchMap, takeUntil} from "rxjs/operators";
 import {AmbleCodeComponent} from "../amble-code/amble-code.component";
-import {AmbleQuestionComponent} from "../amble-question/amble-question.component";
+import {AmbleQuestionComponent, AmbleQuestionSourceHighlightWhen} from "../amble-question/amble-question.component";
 import {AmbleStepComponent} from "../amble-step/amble-step.component";
 import {FullscreenService, FullscreenState} from "../fullscreen.service";
 import {HasLessonRefs} from "../HasLessonRefs";
@@ -67,28 +67,27 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   public codeChildren!: QueryList<AmbleCodeComponent>;
   public readonly codeChildren$ = new BehaviorSubject<AmbleCodeComponent[]>([]);
   public readonly codeLayout$ = new BehaviorSubject<AmbleCodeLayout>(AmbleCodeLayout.TwoHoriz);
-  public currentQuestion: AmbleQuestionComponent | undefined;
+  public readonly currentQuestion$ = new BehaviorSubject<AmbleQuestionComponent | undefined>(undefined);
   public currentQuestionNum: number = -1;
-  public currentStep: AmbleStepComponent | undefined;
-  public currentStep$ = new BehaviorSubject<AmbleStepComponent | undefined>(undefined);
+  public readonly currentStep$ = new BehaviorSubject<AmbleStepComponent | undefined>(undefined);
   public currentStepNum: number = -1;
   public currentWalkDescription: string = '';
   @Input("descriptionMarkdown")
   public descriptionMarkdown: string | null | undefined;
   private readonly destroy$ = new Subject<void>();
-  public footerMode: AmbleFooterMode = AmbleFooterMode.Hidden;
+  public readonly footerMode$ = new BehaviorSubject<AmbleFooterMode>(AmbleFooterMode.Hidden);
   public fullscreenState: FullscreenState = FullscreenState.normal;
+  public readonly highlightSourceRefs$: Observable<SourceRefComponent[]>;
   public readonly highlighter: CachingHighlighter;
   public readonly languageRank$: Observable<CodeLanguageKey[]>;
   public lessonRefs: LessonRefComponent[] = [];
   @ContentChildren(AmbleQuestionComponent)
   public questionChildren!: QueryList<AmbleQuestionComponent>;
-  public questionChildren$ = new BehaviorSubject<AmbleQuestionComponent[]>([]);
-  public questionMode: QuestionMode = QuestionMode.Question;
+  public readonly questionChildren$ = new BehaviorSubject<AmbleQuestionComponent[]>([]);
+  public readonly questionMode$ = new BehaviorSubject<QuestionMode>(QuestionMode.Question);
   public refsVisible: boolean = false;
   @ContentChildren(AmbleStepComponent)
   public stepChildren!: QueryList<AmbleStepComponent>;
-  public stepHighlightSourceRefs$: Observable<SourceRefComponent[]>;
   public readonly stepChildren$ = new BehaviorSubject<AmbleStepComponent[]>([]);
   public stepExtraMode: StepExtraMode = StepExtraMode.Step;
   @Input("titleMarkdown")
@@ -128,35 +127,64 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
         }
         this.visibleCode = visible.slice(0, wantCount);
       });
-    this.stepHighlightSourceRefs$ = this.currentStep$.pipe(
+    this.highlightSourceRefs$ = combineLatest([
+      this.currentQuestion$,
+      this.currentStep$,
+      this.footerMode$,
+      this.questionMode$,
+    ]).pipe(
       takeUntil(this.destroy$),
-      switchMap(step => step == null || this.footerMode !== AmbleFooterMode.Step ? of([]) : step.sourceRefs$),
+      switchMap(([q, step, fm, qm]) => {
+        switch (fm) {
+          case AmbleFooterMode.Hidden:
+            return of([]);
+          case AmbleFooterMode.Quiz:
+            if (q == null) {
+              return of([]);
+            }
+            switch (q.highlightWhen) {
+              case AmbleQuestionSourceHighlightWhen.Question:
+                return q.sourceRefs$;
+              case AmbleQuestionSourceHighlightWhen.Answer:
+                return ((qm === QuestionMode.Answer) || (qm === QuestionMode.Rationale)) ? q.sourceRefs$ : of([]);
+              case AmbleQuestionSourceHighlightWhen.Rationale:
+                return qm === QuestionMode.Rationale ? q.sourceRefs$ : of([]);
+            }
+            // should never get here
+            return of([]);
+          case AmbleFooterMode.Step:
+            return step == null ? of([]) : step.sourceRefs$;
+        }
+      }),
+      distinctUntilChanged(),
       shareReplay(1),
     );
   }
 
   backQuestion() {
-    this.questionMode = QuestionMode.Question;
-    this.moveThrough(this.currentQuestion, this.questionChildren, -1, q => this.currentQuestion = q, n => this.currentQuestionNum = n);
+    this.questionMode$.next(QuestionMode.Question);
+    this.moveThrough(this.currentQuestion$, this.questionChildren, -1, q => {
+      this.currentQuestion$.next(q);
+    }, n => this.currentQuestionNum = n);
   }
 
   backStep() {
     this.stepExtraMode = StepExtraMode.Step;
-    this.moveThrough(this.currentStep, this.stepChildren, -1, s => {
-      this.currentStep = s;
+    this.moveThrough(this.currentStep$, this.stepChildren, -1, s => {
       this.currentStep$.next(s);
     }, n => this.currentStepNum = n);
   }
 
   forwardQuestion() {
-    this.questionMode = QuestionMode.Question;
-    this.moveThrough(this.currentQuestion, this.questionChildren, 1, q => this.currentQuestion = q, n => this.currentQuestionNum = n);
+    this.questionMode$.next(QuestionMode.Question);
+    this.moveThrough(this.currentQuestion$, this.questionChildren, 1, q => {
+      this.currentQuestion$.next(q);
+    }, n => this.currentQuestionNum = n);
   }
 
   forwardStep() {
     this.stepExtraMode = StepExtraMode.Step;
-    this.moveThrough(this.currentStep, this.stepChildren, 1, s => {
-      this.currentStep = s;
+    this.moveThrough(this.currentStep$, this.stepChildren, 1, s => {
       this.currentStep$.next(s);
     }, n => this.currentStepNum = n);
   }
@@ -181,12 +209,13 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
 
   // noinspection JSMethodCanBeStatic
   private moveThrough<T>(
-    currentItem: T,
+    currentItem$: BehaviorSubject<T>,
     itemsQueryList: QueryList<T>,
     step: number,
     itemSetter: (item: T) => void,
     numSetter: (n: number) => void,
   ): void {
+    const currentItem = currentItem$.value;
     if (currentItem == null || itemsQueryList.length === 0) {
       return;
     }
@@ -230,14 +259,11 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     this.prepChildren(this.codeChildren, this.codeChildren$);
-    this.prepChildren(this.stepChildren, this.stepChildren$, step => {
-      this.currentStep = step;
-      this.currentStep$.next(step);
-    }, n => this.currentStepNum = n);
+    this.prepChildren(this.stepChildren, this.stepChildren$, this.currentStep$, n => this.currentStepNum = n);
     if (this.stepChildren.length > 0) {
-      this.footerMode = AmbleFooterMode.Step;
+      this.footerMode$.next(AmbleFooterMode.Step);
     }
-    this.prepChildren(this.questionChildren, this.questionChildren$, q => this.currentQuestion = q, n => this.currentQuestionNum = n);
+    this.prepChildren(this.questionChildren, this.questionChildren$, this.currentQuestion$, n => this.currentQuestionNum = n);
   }
 
   ngOnDestroy(): void {
@@ -248,7 +274,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
   private prepChildren<T>(
     queryList: QueryList<T>,
     bs$: BehaviorSubject<T[]>,
-    currentSetter?: (item: T) => void,
+    currentSetter?: BehaviorSubject<T | undefined>,
     numSetter?: (num: number) => void,
   ): void {
     const items = queryList.toArray();
@@ -259,7 +285,7 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
       }
     });
     if (currentSetter != null && items.length > 0) {
-      currentSetter(items[0]);
+      currentSetter.next(items[0]);
       if (numSetter != null) {
         numSetter(0);
       }
@@ -310,45 +336,38 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     this.stepExtraMode = StepExtraMode.Step;
   }
 
-  showReferences(current: HasLessonRefs): void {
-    this.lessonRefs = current.lessonRefs.toArray();
-    this.refsVisible = true;
+  setFooterMode(mode: AmbleFooterMode) {
+    this.footerMode$.next(mode);
+    switch (mode) {
+      case AmbleFooterMode.Hidden:
+        this.currentStep$.next(undefined);
+        this.currentQuestion$.next(undefined);
+        break;
+      case AmbleFooterMode.Step:
+        this.currentStep$.next(this.stepChildren$.value[this.currentStepNum]);
+        this.currentQuestion$.next(undefined);
+        break;
+      case AmbleFooterMode.Quiz:
+        this.currentStep$.next(undefined);
+        this.currentQuestion$.next(this.questionChildren$.value[this.currentQuestionNum]);
+        break;
+    }
+  }
+
+  showReferences(): void {
+    const current: HasLessonRefs | undefined = this.footerMode$.value === AmbleFooterMode.Quiz ? this.currentQuestion$.value : this.currentStep$.value;
+    if (current != null) {
+      this.lessonRefs = current.lessonRefs.toArray();
+      this.refsVisible = true;
+    }
   }
 
   toggleAnswer(): void {
-    if (this.questionMode === QuestionMode.Question) {
-      this.questionMode = QuestionMode.Answer;
+    if (this.questionMode$.value === QuestionMode.Question) {
+      this.questionMode$.next(QuestionMode.Answer);
     } else {
-      this.questionMode = QuestionMode.Question;
+      this.questionMode$.next(QuestionMode.Question);
     }
-  }
-
-  toggleQuiz(): void {
-    if (this.footerMode !== AmbleFooterMode.Quiz) {
-      this.footerMode = AmbleFooterMode.Quiz;
-    } else if (this.stepChildren.length === 0) {
-      this.footerMode = AmbleFooterMode.Hidden;
-    } else {
-      this.footerMode = AmbleFooterMode.Step;
-    }
-  }
-
-  toggleRationale(): void {
-    if (this.questionMode === QuestionMode.Rationale) {
-      this.questionMode = QuestionMode.Answer;
-    } else {
-      this.questionMode = QuestionMode.Rationale;
-    }
-  }
-
-  toggleStepExtra(): void {
-    this.stepExtraMode = this.stepExtraMode === StepExtraMode.Step ? StepExtraMode.Extra : StepExtraMode.Step;
-  }
-
-  private unusedLanguages(): AmbleCodeComponent[] {
-    return this.codeChildren.filter(child => {
-      return !this.visibleCode.includes(child);
-    });
   }
 
   toggleLayout() {
@@ -363,12 +382,31 @@ export class AmbleComponent implements AfterContentInit, OnDestroy {
     this.codeLayout$.next(layouts[(currentIndex + 1) % layouts.length]);
   }
 
-  setFooterMode(mode: AmbleFooterMode) {
-    this.footerMode = mode;
-    if (mode === AmbleFooterMode.Step) {
-      this.currentStep$.next(this.currentStep);
+  toggleQuiz(): void {
+    if (this.footerMode$.value !== AmbleFooterMode.Quiz) {
+      this.footerMode$.next(AmbleFooterMode.Quiz);
+    } else if (this.stepChildren.length === 0) {
+      this.footerMode$.next(AmbleFooterMode.Hidden);
     } else {
-      this.currentStep$.next(this.currentStep);
+      this.footerMode$.next(AmbleFooterMode.Step);
     }
+  }
+
+  toggleRationale(): void {
+    if (this.questionMode$.value === QuestionMode.Rationale) {
+      this.questionMode$.next(QuestionMode.Answer);
+    } else {
+      this.questionMode$.next(QuestionMode.Rationale);
+    }
+  }
+
+  toggleStepExtra(): void {
+    this.stepExtraMode = this.stepExtraMode === StepExtraMode.Step ? StepExtraMode.Extra : StepExtraMode.Step;
+  }
+
+  private unusedLanguages(): AmbleCodeComponent[] {
+    return this.codeChildren.filter(child => {
+      return !this.visibleCode.includes(child);
+    });
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CodeLanguageKey} from "../languages";
 
 @Component({
@@ -6,19 +6,31 @@ import {CodeLanguageKey} from "../languages";
   templateUrl: './source-ref.component.html',
   styleUrls: ['./source-ref.component.scss']
 })
-export class SourceRefComponent implements OnInit {
+export class SourceRefComponent {
+  @Input("count")
+  public count: number = 1;
+  @Input("languageId")
+  public languageId: CodeLanguageKey | undefined;
   @Input("selector")
   public selector!: string;
 
-  @Input("languageId")
-  public languageId: CodeLanguageKey | undefined;
+  constructor() {
+  }
 
-  @Input("count")
-  public count: number = 1;
+  public doesApplyTo(...langIds: CodeLanguageKey[]): boolean {
+    return this.languageId == null || langIds.includes(this.languageId);
+  }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public match(rootEl: Element): Element[] {
+    const matches: Element[] = [];
+    const els = rootEl.querySelectorAll(this.selector);
+    if (els != null && els.length > 0) {
+      for (let i = 0; i < this.count; i++) {
+        const el = els.item(i);
+        matches.push(el);
+      }
+    }
+    return matches;
   }
 
 }

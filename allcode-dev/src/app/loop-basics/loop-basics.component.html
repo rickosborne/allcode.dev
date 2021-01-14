@@ -70,6 +70,7 @@
     rationale="The count variable is initialized with a value of `1`.  This value is not modified before the loop begins."
     explanationKey="initialize"
   >
+    <source-ref selector=".number-1-1"></source-ref>
     <lesson-ref readable="Variables" slug="/learn/variables"></lesson-ref>
   </amble-question>
   <amble-question
@@ -83,6 +84,8 @@
     answer="The loop body, which is a block and could have many lines of code, will be executed each time the loop is repeated."
     highlightAnswer="block"
   >
+    <source-ref selector=".line-4" languageId="pascal"></source-ref>
+    <source-ref selector=".line-3"></source-ref>
     <lesson-ref readable="Blocks" slug="learn/blocks"></lesson-ref>
   </amble-question>
   <amble-question
@@ -90,11 +93,18 @@
     answer="`4`"
     rationale="The first time through the loop, the count starts at `1` and is incremented to `2`.  Next time through, the count is modified from `2` to `3`, then `3` to `4`, and `4` to `5`.  When the condition is evaluated, `5` is no longer &ldquo;less than&rdquo; `5`, so the condition is `false` and the loop does not run the fifth time."
     highlightQuestion="expression"
-  ></amble-question>
+    highlightWhen="Question"
+  >
+    <source-ref selector=".operator-lte"></source-ref>
+  </amble-question>
   <amble-question
     question="What would happen if you did not increment the count variable inside the loop body?"
     answer="The count would never change, leading to an infinite loop."
     rationale="The count variable is initialized with the value `1`.  If it is never updated within the loop, that value of `1` will never change, and the expression &ldquo;`1` is less than or equal to `5`&rdquo; will always be `true`. Since the condition is always `true`, the loop will never end."
     highlightQuestion="increment"
-  ></amble-question>
+    highlightWhen="Question"
+  >
+    <source-ref selector=".operator-coloneq-2" languageId="pascal"></source-ref>
+    <source-ref selector=".operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus"></source-ref>
+  </amble-question>
 </amble>

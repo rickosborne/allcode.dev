@@ -1,6 +1,6 @@
 <div #ambleRoot [ngClass]="{
-  'amble-step-mode': footerMode === 'step',
-  'amble-quiz-mode': footerMode === 'quiz',
+  'amble-step-mode': (footerMode$ | async) === 'step',
+  'amble-quiz-mode': (footerMode$ | async) === 'quiz',
   'amble-refs-visible': refsVisible,
   'amble-layout-one': (codeLayout$ | async) === 'One',
   'amble-layout-two-h': (codeLayout$ | async) === 'TwoHoriz',
@@ -17,7 +17,7 @@
           (change)="resetStepExtraMode()"
           (value)="setFooterMode($event)"
           *ngIf="stepChildren.length > 0 || questionChildren.length > 0"
-          [value]="footerMode"
+          [value]="footerMode$ | async"
           aria-label="Toggle Explanation or Assessment mode"
           name="footerModeToggle"
         >
@@ -82,7 +82,7 @@
       [languageId]="code.languageId"
       [languageIds]="code.languageIds"
       [source]="code.source"
-      [sourceRefs]="stepHighlightSourceRefs$"
+      [sourceRefs]="highlightSourceRefs$"
     ></amble-code>
   </div>
   <div (click)="refsVisible = false" class="amble-overlay-mask"></div>
@@ -104,13 +104,13 @@
     </nav>
   </div>
   <footer class="amble-footer">
-    <div *ngIf="currentStep && footerMode === 'step'" class="amble-walk">
+    <div *ngIf="((currentStep$ | async) != null) && ((footerMode$ | async) === 'step')" class="amble-walk">
       <div class="amble-walk-description">
-        <text-with-code [markdown]="currentStep.descriptionMarkup"></text-with-code>
+        <text-with-code [markdown]="(currentStep$ | async)?.descriptionMarkup"></text-with-code>
       </div>
       <icon-button
-        (click)="showReferences(currentStep)"
-        *ngIf="currentStep.lessonRefs.length"
+        (click)="showReferences()"
+        *ngIf="(currentStep$ | async)?.lessonRefs?.length"
         class="amble-walk-refs-toggle"
         icon="help_center"
         label="Toggle additional references"
@@ -118,7 +118,7 @@
       ></icon-button>
       <icon-button
         (click)="toggleStepExtra()"
-        *ngIf="currentStep.extraMarkup != null"
+        *ngIf="(currentStep$ | async)?.extraMarkup != null"
         [icons]="['info',stepExtraMode === 'step' ? 'expand_more' : 'expand_less']"
         class="amble-walk-extra-toggle"
         label="Toggle extra details"
@@ -144,18 +144,18 @@
         title="Next"
       ></icon-button>
     </div>
-    <div *ngIf="currentStep != null && stepExtraMode === 'extra'" class="amble-walk-extra">
-      <text-with-code [markdown]="currentStep.extraMarkup"></text-with-code>
+    <div *ngIf="(currentStep$ | async) != null && stepExtraMode === 'extra'" class="amble-walk-extra">
+      <text-with-code [markdown]="(currentStep$ | async)?.extraMarkup"></text-with-code>
     </div>
-    <div *ngIf="footerMode === 'quiz'" class="amble-quiz">
-      <div *ngIf="currentQuestion" class="amble-quiz-1">
+    <div *ngIf="(footerMode$ | async) === 'quiz'" class="amble-quiz">
+      <div *ngIf="currentQuestion$ | async ; let currentQuestion" class="amble-quiz-1">
         <span class="amble-qa-label">Q:</span>
         <div class="amble-quiz-question">
           <text-with-code [markdown]="currentQuestion.question"></text-with-code>
         </div>
         <icon-button
           (click)="toggleAnswer()"
-          [icons]="['remove_red_eye', questionMode === 'question' ? 'expand_more' : 'expand_less']"
+          [icons]="['remove_red_eye', (questionMode$ | async) === 'question' ? 'expand_more' : 'expand_less']"
           class="amble-quiz-answer-toggle"
           label="Toggle the answer"
           title="Answer"
@@ -178,21 +178,21 @@
           title="Next"
         ></icon-button>
       </div>
-      <div *ngIf="currentQuestion && (questionMode !== 'question')" class="amble-quiz-answer">
+      <div *ngIf="((currentQuestion$ | async) != null) && ((questionMode$ | async) !== 'question')" class="amble-quiz-answer">
         <span class="amble-qa-label">A:</span>
-        <text-with-code [markdown]="currentQuestion.answer"></text-with-code>
+        <text-with-code [markdown]="(currentQuestion$ | async)?.answer"></text-with-code>
         <icon-button
           (click)="toggleRationale()"
-          *ngIf="currentQuestion.rationale != null"
-          [icons]="['details', questionMode === 'answer' ? 'expand_more' : 'expand_less']"
+          *ngIf="(currentQuestion$ | async)?.rationale != null"
+          [icons]="['details', (questionMode$ | async) === 'answer' ? 'expand_more' : 'expand_less']"
           class="amble-quiz-rationale-toggle"
           label="Toggle the rationale"
           title="Rationale"
         ></icon-button>
       </div>
-      <div *ngIf="currentQuestion && currentQuestion.rationale && (questionMode === 'rationale')" class="amble-quiz-rationale">
+      <div *ngIf="((currentQuestion$ | async) != null) && ((currentQuestion$ | async)?.rationale != null) && ((questionMode$ | async) === 'rationale')" class="amble-quiz-rationale">
         <span class="amble-qa-label">Rationale:</span>
-        <text-with-code [markdown]="currentQuestion.rationale"></text-with-code>
+        <text-with-code [markdown]="(currentQuestion$ | async)?.rationale"></text-with-code>
       </div>
     </div>
   </footer>
