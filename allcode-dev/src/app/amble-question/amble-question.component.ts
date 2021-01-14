@@ -1,10 +1,11 @@
 import {AfterContentInit, Component, ContentChildren, Input, QueryList} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
+import {AmbleTextComponent} from "../amble-text/amble-text.component";
 import {HasLessonRefs} from "../HasLessonRefs";
 import {HasSourceRefs} from "../HasSourceRefs";
 import {LessonRefComponent} from "../lesson-ref/lesson-ref.component";
 import {SourceRefComponent} from "../source-ref/source-ref.component";
-import {wireQueryList} from "../util";
+import {wireQueryList, wireTextSlots} from "../util";
 
 export enum AmbleQuestionSourceHighlightWhen {
   Question = 'Question',
@@ -37,6 +38,8 @@ export class AmbleQuestionComponent implements AfterContentInit, HasLessonRefs, 
   @ContentChildren(SourceRefComponent)
   public sourceRefs!: QueryList<SourceRefComponent>;
   public readonly sourceRefs$ = new BehaviorSubject<SourceRefComponent[]>([]);
+  @ContentChildren(AmbleTextComponent)
+  public textChildren!: QueryList<AmbleTextComponent>;
 
   constructor() {
   }
@@ -44,6 +47,11 @@ export class AmbleQuestionComponent implements AfterContentInit, HasLessonRefs, 
   ngAfterContentInit(): void {
     wireQueryList(this.lessonRefs, this.lessonRefs$);
     wireQueryList(this.sourceRefs, this.sourceRefs$);
+    wireTextSlots(this.textChildren, {
+      question: q => this.question = q,
+      answer: a => this.answer = a,
+      rationale: r => this.rationale = r,
+    });
   }
 
   @Input("highlightWhen")

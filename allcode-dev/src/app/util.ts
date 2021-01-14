@@ -1,6 +1,7 @@
 import {QueryList} from "@angular/core";
 import {MonoTypeOperatorFunction, OperatorFunction, Subject, Subscription} from "rxjs";
 import {distinctUntilChanged, filter} from "rxjs/operators";
+import {AmbleTextComponent} from "./amble-text/amble-text.component";
 
 export function unindent(source: string): string {
   let delimiter = '\r\n';
@@ -56,6 +57,24 @@ export function wireQueryList<T>(
   return queryList.changes.subscribe(items => {
     if (Array.isArray(items)) {
       bs$.next(items as T[]);
+    }
+  });
+}
+
+export function wireTextSlots(
+  children: QueryList<AmbleTextComponent>,
+  setters: Record<string, (text: string) => void>,
+): void {
+  children.forEach(child => {
+    const text = (child.text || '').trim();
+    if (text === '') {
+      return;
+    }
+    const setter = setters[child.slot];
+    if (setter != null) {
+      setter(text);
+    } else {
+      console.error("Unknown slot", child.slot);
     }
   });
 }

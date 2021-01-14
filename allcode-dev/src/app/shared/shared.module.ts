@@ -12,6 +12,7 @@ import {IconRadioComponent} from '../icon-radio/icon-radio.component';
 import {LessonRefComponent} from '../lesson-ref/lesson-ref.component';
 import {TextWithCodeComponent} from "../text-with-code/text-with-code.component";
 import { SourceRefComponent } from '../source-ref/source-ref.component';
+import { AmbleTextComponent } from '../amble-text/amble-text.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { SourceRefComponent } from '../source-ref/source-ref.component';
     IconButtonComponent,
     IconRadioComponent,
     SourceRefComponent,
+    AmbleTextComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { SourceRefComponent } from '../source-ref/source-ref.component';
     LessonRefComponent,
     AmbleQuestionComponent,
     SourceRefComponent,
+    AmbleTextComponent,
   ],
 })
 export class SharedModule {
