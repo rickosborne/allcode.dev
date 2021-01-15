@@ -33,7 +33,7 @@
             ],
             "index": "src/index.html",
             "main": "src/main.ts",
-            "outputPath": "dist/allcode-dev",
+            "outputPath": "dist/allcode-dev/browser",
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "styles": [
@@ -73,7 +73,8 @@
             "tsConfig": [
               "tsconfig.app.json",
               "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "e2e/tsconfig.json",
+              "tsconfig.server.json"
             ]
           }
         },
@@ -103,6 +104,55 @@
               "src/styles.scss"
             ],
             "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/allcode-dev/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "allcode-dev:build",
+            "serverTarget": "allcode-dev:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "allcode-dev:build:production",
+              "serverTarget": "allcode-dev:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "allcode-dev:build:production",
+            "serverTarget": "allcode-dev:server:production",
+            "routes": [
+              "/",
+              "learn/loop-basics",
+              "privacy-policy"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       },
