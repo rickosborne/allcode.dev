@@ -99,7 +99,6 @@ export interface Lesson {
   languages: string[];
   meta: LessonFrontMatter;
   name: string;
-  outFile: string;
   relative: string;
   // noinspection SpellCheckingInspection
   walksthrough: WalkthroughSummary[];
@@ -151,8 +150,8 @@ const renderWalkthrough: (data: LessonAndWalkthrough) => string = ejs.compile(wa
 const lessonHtml = fs.readFileSync(path.join(__dirname, "lesson.ejs.html"), {encoding: "utf8"});
 const renderLessonHtml: (data: Lesson & TemplateTools) => string = ejs.compile(lessonHtml);
 
-function loadWalkthrough(fileName: string, name: string): WalkthroughResource {
-  const fullPath = path.join(path.join(options.in, fileName));
+function loadWalkthrough(inDir: string, fileName: string, name: string): WalkthroughResource {
+  const fullPath = path.join(path.join(inDir, fileName));
   const text = fs.readFileSync(fullPath, {encoding: "utf8"});
   let data;
   try {
@@ -224,17 +223,19 @@ const walkthroughContainerHandler: (lesson: Lesson) => unknown = (lesson: Lesson
   };
 };
 
-function renderLesson(lesson: Lesson): void {
+function renderLesson(lesson: Lesson, outDir: string): void {
+  const lessonDir = path.join(outDir, lesson.meta.slug);
   const md = new MarkdownIt(markdownItOptions)
     .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson));
   lesson.html = md.render(lesson.body);
   const outHtml = renderLessonHtml(Object.assign({}, lesson, templateTools));
-  fs.writeFileSync(lesson.outFile, outHtml, {encoding: "utf8"})
+  fs.mkdirSync(lessonDir, {recursive: true});
+  fs.writeFileSync(path.join(lessonDir, "index.html"), outHtml, {encoding: "utf8"})
   console.log(`${lesson.relative}: ${outHtml.length} bytes`);
 }
 
-function loadLesson(relative: string, name: string): Lesson {
-  const absolute = path.join(options.in, relative);
+function loadLesson(inDir: string, relative: string, name: string): Lesson {
+  const absolute = path.join(inDir, relative);
   const text = fs.readFileSync(absolute, {encoding: "utf8"});
   const maybeMatter = frontMatter.default<unknown>(text);
   const expectedSlug = relative.replace(/\.md$/i, "");
@@ -248,8 +249,6 @@ function loadLesson(relative: string, name: string): Lesson {
   } else if (matter.slug !== expectedSlug) {
     throw new Error(`Mismatching slug in ${relative}: expected "${expectedSlug}", found "${maybeMatter.attributes.slug}"`);
   }
-  const outPath = path.join(options.out, expectedSlug);
-  fs.mkdirSync(outPath, {recursive: true});
   // noinspection SpellCheckingInspection
   return {
     absolute,
@@ -259,7 +258,6 @@ function loadLesson(relative: string, name: string): Lesson {
     languages: [],
     meta: matter,
     name,
-    outFile: path.join(outPath, "index.html"),
     relative,
     walksthrough: [],
   };
@@ -283,61 +281,67 @@ function clean(dir: string): void {
   }
 }
 
+function copyAssets(outDir: string): void {
+  const ASSETS_IN_PATH = path.resolve(__dirname, "../assets");
+  fs.mkdirSync(path.join(outDir, "assets"), {recursive: true});
+  walk(ASSETS_IN_PATH, ({file, relative}) => {
+    if (file.name.startsWith(".")) {
+      return WalkResult.SKIP;
+    }
+    const outPath = path.join(outDir, "assets", relative);
+    if (file.isFile()) {
+      console.log(`assets/${relative}`);
+      fs.copyFileSync(path.join(ASSETS_IN_PATH, relative), outPath);
+    } else if (file.isDirectory()) {
+      console.log(relative + "/");
+      fs.mkdirSync(outPath, {recursive: true});
+    }
+    return WalkResult.CONTINUE;
+  });
+
+  const allLangIds = lessons.reduce((prev, cur) => {
+    cur.languages.map(l => LANGUAGES[l].fileKey || l).forEach(l => {
+      if (!prev.includes(l)) {
+        prev.push(l);
+      }
+    });
+    return prev;
+  }, [] as string[]);
+  const PRISM_OUT = path.join(outDir, "assets", "prismjs");
+  fs.mkdirSync(PRISM_OUT, {recursive: true});
+  fs.copyFileSync("./node_modules/prismjs/prism.js", path.join(PRISM_OUT, "prism.js"));
+  allLangIds.forEach(langId => {
+    console.log(`Language: ${langId}`);
+    const langOut = path.join(PRISM_OUT, `prism-${langId}.min.js`);
+    fs.copyFileSync(`./node_modules/prismjs/components/prism-${langId}.min.js`, langOut);
+  });
+}
+
+function publishLessons(inDir: string, outDir: string): void {
+  walk(inDir, ({file, relative}) => {
+    if (file.name.startsWith(".")) {
+      return WalkResult.SKIP;
+    }
+    if (file.isFile()) {
+      if (file.name.endsWith(".md")) {
+        lessons.push(loadLesson(inDir, relative, file.name));
+      } else if (file.name.match(/\.ya?ml$/i)) {
+        walksthrough.push(loadWalkthrough(inDir, relative, file.name));
+      } else {
+        console.warn(` ! unknown file type: ${file.name}`);
+      }
+    } else if (file.isDirectory()) {
+      console.log(relative + "/");
+      fs.mkdirSync(path.join(outDir, relative), {recursive: true});
+    }
+    return WalkResult.CONTINUE;
+  });
+
+  lessons.forEach(lesson => renderLesson(lesson, outDir));
+}
+
 if (options.clean) {
   clean(options.out);
 }
-
-walk(options.in, ({file, relative}) => {
-  if (file.name.startsWith(".")) {
-    return WalkResult.SKIP;
-  }
-  if (file.isFile()) {
-    if (file.name.endsWith(".md")) {
-      lessons.push(loadLesson(relative, file.name));
-    } else if (file.name.match(/\.ya?ml$/i)) {
-      walksthrough.push(loadWalkthrough(relative, file.name));
-    } else {
-      console.warn(` ! unknown file type: ${file.name}`);
-    }
-  } else if (file.isDirectory()) {
-    console.log(relative + "/");
-    fs.mkdirSync(path.join(options.out, relative), {recursive: true});
-  }
-  return WalkResult.CONTINUE;
-});
-
-lessons.forEach(lesson => renderLesson(lesson));
-
-const ASSETS_PATH = "../assets";
-fs.mkdirSync(path.join(options.out, "assets"), {recursive: true});
-walk(ASSETS_PATH, ({file, relative}) => {
-  if (file.name.startsWith(".")) {
-    return WalkResult.SKIP;
-  }
-  const outPath = path.join(options.out, "assets", relative);
-  if (file.isFile()) {
-    console.log(`assets/${relative}`);
-    fs.copyFileSync(path.join(ASSETS_PATH, relative), outPath);
-  } else if (file.isDirectory()) {
-    console.log(relative + "/");
-    fs.mkdirSync(outPath, {recursive: true});
-  }
-  return WalkResult.CONTINUE;
-});
-
-const allLangIds = lessons.reduce((prev, cur) => {
-  cur.languages.map(l => LANGUAGES[l].fileKey || l).forEach(l => {
-    if (!prev.includes(l)) {
-      prev.push(l);
-    }
-  });
-  return prev;
-}, [] as string[]);
-const PRISM_OUT = path.join(options.out, "assets", "prismjs");
-fs.mkdirSync(PRISM_OUT, {recursive: true});
-fs.copyFileSync("./node_modules/prismjs/prism.js", path.join(PRISM_OUT, "prism.js"));
-allLangIds.forEach(langId => {
-  console.log(`Language: ${langId}`);
-  const langOut = path.join(PRISM_OUT, `prism-${langId}.min.js`);
-  fs.copyFileSync(`./node_modules/prismjs/components/prism-${langId}.min.js`, langOut);
-});
+publishLessons(options.in, options.out);
+copyAssets(options.out);
