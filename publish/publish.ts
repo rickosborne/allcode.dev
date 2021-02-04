@@ -46,12 +46,14 @@ const program = new Command();
 // noinspection RequiredAttributes
 program
   .version(pkg.version)
+  .option("-c,--clean", "clean first", false)
   .requiredOption("-i,--in <path>", "input source directory")
   .requiredOption("-o,--out <path>", "output destination directory")
   .parse(process.argv)
 ;
 
 const options = program.opts() as unknown as {
+  clean: boolean,
   in: string,
   out: string
 };
@@ -261,6 +263,28 @@ function loadLesson(relative: string, name: string): Lesson {
     relative,
     walksthrough: [],
   };
+}
+
+function clean(dir: string): void {
+  const dirs: string[] = [];
+  walk(dir, ({file, relative}) => {
+    if (file.isFile()) {
+      console.log(`~ ${relative}`);
+      fs.rmSync(path.join(dir, relative));
+    } else if (file.isDirectory()) {
+      dirs.push(relative);
+    }
+    return WalkResult.CONTINUE;
+  });
+  let todo: string | undefined;
+  while ((todo = dirs.pop())) {
+    console.log(`~ ${todo}/`);
+    fs.rmdirSync(path.join(dir, todo));
+  }
+}
+
+if (options.clean) {
+  clean(options.out);
 }
 
 walk(options.in, ({file, relative}) => {
