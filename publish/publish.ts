@@ -15,6 +15,7 @@ import process from "process";
 import yaml from "yaml";
 
 import {isLessonFrontMatter, LessonFrontMatter} from "./LessonFrontMatter";
+import {ManagedPath} from "./ManagedPath";
 import * as pkg from "./package.json";
 import {HasTitle} from "./RefLink";
 import {walk, WalkResult} from "./walk";
@@ -41,10 +42,11 @@ const pascal = require("prismjs/components/prism-pascal.js");
 const python = require("prismjs/components/prism-python.js");
 const javascript = require("prismjs/components/prism-javascript.js");
 
+const INTEGRITY_ALGO = "sha512";
+
 export interface Syntax {
+  asset: Asset;
   fileKey?: string;
-  hash: string;
-  href: string;
   label: string;
   prism: unknown;
 }
@@ -74,8 +76,8 @@ export interface Lesson {
 }
 
 export interface TemplateTools {
-  hashedAssetPath: (assetPath: string) => string;
-  languageAssetPath: (langId: string) => string;
+  asset: (key: string) => Asset;
+  assetForLanguage: (langId: string) => Asset;
   languageLabelOf: (source: WalkthroughSource) => string;
   languagesOf: (item: HasSingleLanguage | HasMultiLanguage) => string[];
   markup: (data: string) => string;
@@ -84,6 +86,7 @@ export interface TemplateTools {
 
 export interface Asset {
   href: string;
+  integrity: string;
   key: string;
 }
 
@@ -101,16 +104,14 @@ function buildTemplateTools(
   assets: Asset[],
 ): TemplateTools {
   return {
-    hashedAssetPath: (assetKey: string): string => {
+    asset: (assetKey: string): Asset => {
       const asset = assets.find(a => a.key === assetKey);
       if (asset == null) {
         throw new Error(`Unknown assetPath: ${assetKey}`);
       }
-      return asset.href;
+      return asset;
     },
-    languageAssetPath: (langId: string): string => {
-      return languages[langId].href;
-    },
+    assetForLanguage: langId => languages[langId].asset,
     languageLabelOf: (source: WalkthroughSource): string => {
       return `${(hasSingleLanguage(source) ? [source.language] : source.languages).map(lang => {
         const syntax = languages[lang];
@@ -159,7 +160,7 @@ function loadWalkthrough(inDir: string, fileName: string, name: string): Walkthr
   if (!isWalkthrough(data, true)) {
     throw new Error(`Invalid data in: ${fileName}`);
   }
-  console.log(`  ${name}: ${data.title}`);
+  console.log(`.  ${name}: ${data.title}`);
   return {
     fileName,
     name,
@@ -168,29 +169,31 @@ function loadWalkthrough(inDir: string, fileName: string, name: string): Walkthr
   };
 }
 
-const fileHash: (filePath: string) => string = (() => {
+const fileHash: (filePath: string, mangle: boolean) => string = (() => {
   const cache: Record<string, string> = {};
-  return function fileHash(filePath: string): string {
+  const maybeMangle: (hash: string, mangle: boolean) => string = (hash, mangle) => {
+    return mangle ? hash.replace(/[^a-zA-Z0-9]+/g, "") : hash;
+  };
+  return function fileHash(filePath: string, mangle: boolean): string {
     const existing = cache[filePath];
     if (existing != null) {
-      return existing;
+      return maybeMangle(existing, mangle);
     }
     const hash = crypto
-      .createHash("sha256")
+      .createHash(INTEGRITY_ALGO)
       .update(fs.readFileSync(filePath, {encoding: "utf8"}))
-      .digest("base64")
-      .replace(/[^a-zA-Z0-9]+/g, "");
+      .digest("base64");
     cache[filePath] = hash;
-    return hash;
+    return maybeMangle(hash, mangle);
   };
 })();
 
-function scriptHash(scriptPath: string): string {
-  return fileHash(`./node_modules/${scriptPath}`)
+function scriptHash(scriptPath: string, mangle: boolean): string {
+  return fileHash(`./node_modules/${scriptPath}`, mangle);
 }
 
-function langScriptHash(langId: string): string {
-  return scriptHash(`prismjs/components/prism-${langId}.min.js`);
+function langScriptHash(langId: string, mangle: boolean): string {
+  return scriptHash(`prismjs/components/prism-${langId}.min.js`, mangle);
 }
 
 export const WALKTHROUGH_REF_REGEX = /^walkthrough\s+(\S+)$/;
@@ -200,6 +203,7 @@ const walkthroughContainerHandler = (
   walksthrough: WalkthroughResource[],
   renderWalkthrough: Renderer<LessonAndWalkthrough>,
   templateTools: TemplateTools,
+  languages: Record<string, Syntax>,
 ): unknown => {
   const getWalkthroughName: (info: string) => string | undefined = info => {
     if (info == null) {
@@ -223,7 +227,7 @@ const walkthroughContainerHandler = (
       if (walkthrough == null) {
         throw new Error(`Unknown walkthrough "${walkthroughName}" in ${lesson.relative}`);
       }
-      console.log(`${lesson.relative} references ${walkthrough.name}`);
+      console.log(`*  ${lesson.relative} references ${walkthrough.name}`);
       const summary: WalkthroughSummary = {
         fileName: walkthrough.fileName,
         languages: (walkthrough.walkthrough.sources || []).flatMap(s => hasSingleLanguage(s) ? s.language : s.languages),
@@ -232,7 +236,11 @@ const walkthroughContainerHandler = (
         title: walkthrough.walkthrough.title,
       };
       lesson.walksthrough.push(summary);
-      lesson.languages.push(...summary.languages.filter(l => !lesson.languages.includes(l)));
+      summary.languages.map(langId => languages[langId].fileKey || langId).forEach(langId => {
+        if (!lesson.languages.includes(langId)) {
+          lesson.languages.push(langId);
+        }
+      });
       return renderWalkthrough(Object.assign({
         lesson,
       }, walkthrough, templateTools));
@@ -245,32 +253,34 @@ const walkthroughContainerHandler = (
 
 function renderLesson(
   lesson: Lesson,
-  outDir: string,
+  managedPath: ManagedPath,
   walksthrough: WalkthroughResource[],
   renderLessonHtml: Renderer<Lesson & TemplateTools>,
   renderWalkthrough: Renderer<LessonAndWalkthrough>,
   templateTools: TemplateTools,
+  languages: Record<string, Syntax>,
 ): void {
-  const lessonDir = path.join(outDir, lesson.meta.slug);
   const md = new MarkdownIt(markdownItOptions)
-    .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson, walksthrough, renderWalkthrough, templateTools));
+    .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson, walksthrough, renderWalkthrough, templateTools, languages));
   lesson.html = md.render(lesson.body);
   const outHtml = renderLessonHtml(Object.assign({}, lesson, templateTools));
-  fs.mkdirSync(lessonDir, {recursive: true});
-  fs.writeFileSync(path.join(lessonDir, "index.html"), outHtml, {encoding: "utf8"})
-  console.log(`${lesson.relative}: ${outHtml.length} bytes`);
+  managedPath.mkDir(lesson.meta.slug);
+  managedPath.write(path.join(lesson.meta.slug,"index.html"), outHtml);
 }
 
 function loadLesson(inDir: string, relative: string, name: string): Lesson {
   const absolute = path.join(inDir, relative);
   const text = fs.readFileSync(absolute, {encoding: "utf8"});
   const maybeMatter = frontMatter.default<unknown>(text);
-  const expectedSlug = relative.replace(/\.md$/i, "");
+  const expectedSlug = relative
+    .replace(/\.md$/i, "")
+    .replace(/\/?index$/i, "")
+  ;
   if (!isLessonFrontMatter(maybeMatter.attributes, true)) {
     throw new Error(`Failed to parse front matter in ${relative}`)
   }
   const matter: LessonFrontMatter = Object.assign({}, maybeMatter.attributes);
-  console.log(`  ${name}: ${maybeMatter.attributes.title || "?"}`);
+  console.log(`.  ${name}: ${maybeMatter.attributes.title || "?"}`);
   if (matter.slug == null) {
     matter.slug = expectedSlug;
   } else if (matter.slug !== expectedSlug) {
@@ -290,27 +300,9 @@ function loadLesson(inDir: string, relative: string, name: string): Lesson {
   };
 }
 
-function clean(dir: string): void {
-  const dirs: string[] = [];
-  walk(dir, ({file, relative}) => {
-    if (file.isFile()) {
-      console.log(`~ ${relative}`);
-      fs.rmSync(path.join(dir, relative));
-    } else if (file.isDirectory()) {
-      dirs.push(relative);
-    }
-    return WalkResult.CONTINUE;
-  });
-  let todo: string | undefined;
-  while ((todo = dirs.pop())) {
-    console.log(`~ ${todo}/`);
-    fs.rmdirSync(path.join(dir, todo));
-  }
-}
-
 function copyAsset(
   outRelative: string,
-  outDir: string,
+  managedPath: ManagedPath,
   inDir = path.resolve(__dirname, "../assets"),
   inRelative: string = outRelative,
   addHash = true,
@@ -318,31 +310,32 @@ function copyAsset(
   const inPath = path.join(inDir, inRelative);
   let fileName = outRelative;
   if (addHash) {
-    fileName = fileName.replace(".", `-${fileHash(inPath)}.`);
+    fileName = fileName.replace(".", `-${fileHash(inPath, true)}.`);
   }
-  fs.mkdirSync(path.join(outDir, "assets", path.dirname(fileName)), {recursive: true});
-  const outPath = path.join(outDir, "assets", fileName);
-  console.log(`=> ${outRelative}`);
-  fs.copyFileSync(inPath, outPath);
+  managedPath.mkDir("assets", path.dirname(fileName));
+  managedPath.copy(inPath, "assets", fileName);
   return {
     href: "/assets/" + fileName,
+    integrity: INTEGRITY_ALGO + "-" + fileHash(inPath, false),
     key: outRelative,
   };
 }
 
-function copyAssets(outDir: string, languages: Record<string, Syntax>): Asset[] {
+function copyAssets(managedPath: ManagedPath, languages: Record<string, Syntax>): Asset[] {
   const assets = [
-    copyAsset("prismjs/prism.js", outDir, "./node_modules"),
-    copyAsset("ac-logo.svg", outDir),
+    copyAsset("prismjs/prism.js", managedPath, "./node_modules"),
+    copyAsset("ac-logo.svg", managedPath),
   ];
   assets.push(...Object.keys(languages).map(langId => {
     const key = languages[langId].fileKey || langId;
-    return copyAsset(
+    const newAsset = copyAsset(
       `prismjs/prism-${langId}.min.js`,
-      outDir,
+      managedPath,
       "./node_modules",
       `prismjs/components/prism-${key}.min.js`,
     );
+    languages[langId].asset = newAsset;
+    return newAsset
   }));
   return assets;
 }
@@ -354,7 +347,7 @@ function objectMap<T, U>(value: Record<string, T>, mapper: (key: string, value: 
   }, {} as Record<string, U>);
 }
 
-function publishLessons(inDir: string, outDir: string, languages: Record<string, Syntax>, assets: Asset[]): void {
+function publishLessons(inDir: string, managedPath: ManagedPath, languages: Record<string, Syntax>, assets: Asset[]): void {
   // noinspection SpellCheckingInspection
   const walksthrough: WalkthroughResource[] = [];
   const lessons: Lesson[] = [];
@@ -369,11 +362,11 @@ function publishLessons(inDir: string, outDir: string, languages: Record<string,
       } else if (file.name.match(/\.ya?ml$/i)) {
         walksthrough.push(loadWalkthrough(inDir, relative, file.name));
       } else {
-        console.warn(` ! unknown file type: ${file.name}`);
+        console.warn(`!! unknown file type: ${file.name}`);
       }
     } else if (file.isDirectory()) {
-      console.log(relative + "/");
-      fs.mkdirSync(path.join(outDir, relative), {recursive: true});
+      console.log(`.  ${relative}/`);
+      managedPath.mkDir(relative);
     }
     return WalkResult.CONTINUE;
   });
@@ -385,7 +378,7 @@ function publishLessons(inDir: string, outDir: string, languages: Record<string,
   const templateTools = buildTemplateTools(languages, assets);
 
   lessons.forEach(lesson => {
-    renderLesson(lesson, outDir, walksthrough, renderLessonHtml, renderWalkthrough, templateTools);
+    renderLesson(lesson, managedPath, walksthrough, renderLessonHtml, renderWalkthrough, templateTools, languages);
   });
 }
 
@@ -407,10 +400,14 @@ function loadLanguages(): Record<string, Syntax> {
     typescript: {label: "TypeScript", prism: typescript},
   }, (langId, orig) => {
     const key = orig.fileKey || langId;
-    const hash = langScriptHash(key);
+    const cleanHash = langScriptHash(key, false);
+    const mangledHash = langScriptHash(key, true);
     return Object.assign({
-      hash,
-      href: `/assets/prismjs/prism-${key}-${hash}.min.js`,
+      asset: {
+        href: `/assets/prismjs/prism-${key}-${mangledHash}.min.js`,
+        integrity: `${INTEGRITY_ALGO}-${cleanHash}`,
+        key: `prismjs/prism-${langId}.min.js`,
+      },
     }, orig);
   });
 }
@@ -432,12 +429,14 @@ function run(args: string[] = process.argv): void {
     out: string
   };
 
+  const managedPath = new ManagedPath(options.out);
   if (options.clean) {
-    clean(options.out);
+    managedPath.markAllForRemoval();
   }
   const languages = loadLanguages();
-  const assets = copyAssets(options.out, languages);
-  publishLessons(options.in, options.out, languages, assets);
+  const assets = copyAssets(managedPath, languages);
+  publishLessons(options.in, managedPath, languages, assets);
+  managedPath.applyChanges();
 }
 
 run();

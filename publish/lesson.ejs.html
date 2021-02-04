@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title><%= meta.title %> // allcode.dev</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/assets/amble.css">
-  <link rel="canonical" href="https://allcode.dev/<%= meta.slug %>">
-  <link rel="icon" href="<%= hashedAssetPath('ac-logo.svg') %>">
+  <title><%= meta.title === '' ? '' : `${meta.title} // ` %>allcode.dev</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="/assets/amble.css" rel="stylesheet">
+  <link href="https://allcode.dev/<%= meta.slug %>" rel="canonical">
+  <link href="<%= asset('ac-logo.svg').href %>" integrity="<%= asset('ac-logo.svg').integrity %>" rel="icon">
   <%_ if (meta.description != null) { _%>
-  <meta name="description" content="<%= meta.description %>">
+  <meta content="<%= meta.description %>" name="description">
   <%_ } _%>
   <%_ (meta.forward || []).forEach(nextLink => { _%>
-  <link rel="next" href="/<%= nextLink.href %>" title="<%= nextLink.title %>">
+  <link href="/<%= nextLink.href %>" rel="next" title="<%= nextLink.title %>">
   <%_ }); _%>
   <script src="/assets/allcode-amble.js" type="module"></script>
   <%_ if (languages.length > 0) { _%>
-  <script src="<%= hashedAssetPath('prismjs/prism.js') %>"></script>
-  <%_ unique(languages.map(langId => languageAssetPath(langId))).forEach(langPath => { _%>
-  <script src="<%= langPath %>"></script>
+  <script integrity="<%= asset('prismjs/prism.js').integrity %>" src="<%= asset('prismjs/prism.js').href %>"></script>
+  <%_ unique(languages.map(langId => assetForLanguage(langId))).forEach(asset => { _%>
+  <script integrity="<%= asset.integrity %>" src="<%= asset.href %>"></script>
   <%_ }); _%>
   <%_ } _%>
 </head>

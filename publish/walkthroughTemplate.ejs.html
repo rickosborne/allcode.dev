@@ -1,6 +1,5 @@
 
-<section is="amble-viewer">
-  <!-- <%- slug %> -->
+<section class="<%= slug %>" is="amble-viewer">
   <header slot="title"><%- markup(walkthrough.title) %></header>
   <p slot="description"><%- markup(walkthrough.description) %></p>
   <%_ walkthrough.sources.forEach(source => { _%>
