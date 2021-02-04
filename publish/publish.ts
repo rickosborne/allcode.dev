@@ -17,7 +17,14 @@ import {isLessonFrontMatter, LessonFrontMatter} from "./LessonFrontMatter";
 import * as pkg from "./package.json";
 import {HasTitle} from "./RefLink";
 import {walk, WalkResult} from "./walk";
-import {HasMultiLanguage, hasSingleLanguage, isWalkthrough, Walkthrough, WalkthroughSource} from "./Walkthrough";
+import {
+  HasMultiLanguage,
+  HasSingleLanguage,
+  hasSingleLanguage,
+  isWalkthrough,
+  Walkthrough,
+  WalkthroughSource,
+} from "./Walkthrough";
 
 const perl = require("prismjs/components/prism-perl.js");
 const java = require("prismjs/components/prism-java.js");
@@ -96,11 +103,43 @@ export interface Lesson {
   walksthrough: WalkthroughSummary[];
 }
 
-export interface LessonAndWalkthrough extends WalkthroughResource {
-  languageLabel: (source: WalkthroughSource) => string;
-  lesson: Lesson;
+export interface TemplateTools {
+  languageLabelOf: (source: WalkthroughSource) => string;
+  languagesOf: (item: HasSingleLanguage | HasMultiLanguage) => string[];
   markup: (data: string) => string;
 }
+
+export interface LessonAndWalkthrough extends WalkthroughResource, TemplateTools {
+  lesson: Lesson;
+}
+
+const markdownItOptions = {
+  html: true,
+  typographer: true,
+};
+
+const templateTools: TemplateTools = {
+  languageLabelOf: (source: WalkthroughSource) => {
+    return `${(hasSingleLanguage(source) ? [source.language] : source.languages).map(lang => {
+      const syntax = LANGUAGES[lang];
+      if (syntax == null) {
+        throw new Error(`No such language "${lang}" in walkthrough`);
+      }
+      return syntax.label;
+    }).join(" | ")}`;
+  },
+  languagesOf: item => {
+    if (hasSingleLanguage(item)) {
+      return [item.language];
+    } else {
+      return item.languages;
+    }
+  },
+  markup: (() => {
+    const md = new MarkdownIt(markdownItOptions);
+    return (data: string): string => md.renderInline(data).trim();
+  })(),
+};
 
 // noinspection SpellCheckingInspection
 const walksthrough: WalkthroughResource[] = [];
@@ -108,7 +147,7 @@ const lessons: Lesson[] = [];
 const walkthroughHtml = fs.readFileSync(path.join(__dirname, "walkthroughTemplate.ejs.html"), {encoding: "utf8"});
 const renderWalkthrough: (data: LessonAndWalkthrough) => string = ejs.compile(walkthroughHtml);
 const lessonHtml = fs.readFileSync(path.join(__dirname, "lesson.ejs.html"), {encoding: "utf8"});
-const renderLessonHtml: (data: Lesson) => string = ejs.compile(lessonHtml);
+const renderLessonHtml: (data: Lesson & TemplateTools) => string = ejs.compile(lessonHtml);
 
 function loadWalkthrough(fileName: string, name: string): WalkthroughResource {
   const fullPath = path.join(path.join(options.in, fileName));
@@ -140,18 +179,25 @@ function loadWalkthrough(fileName: string, name: string): WalkthroughResource {
 
 export const WALKTHROUGH_REF_REGEX = /^walkthrough\s+(\S+)$/;
 
-function renderLesson(lesson: Lesson): void {
-  const md = new MarkdownIt({
-    html: true,
-    typographer: true,
-  }).use(MarkdownItContainer, "walkthrough", {
+const walkthroughContainerHandler: (lesson: Lesson) => unknown = (lesson: Lesson): unknown => {
+  const getWalkthroughName: (info: string) => string | undefined = info => {
+    if (info == null) {
+      return undefined;
+    }
+    const line = info.trim().match(WALKTHROUGH_REF_REGEX);
+    if (line == null || line[1] == null) {
+      return undefined;
+    }
+    const name = line[1].trim();
+    return name === "" ? undefined : name;
+  };
+  return {
     render: (tokens: Token[], index: number): string => {
       const token = tokens[index];
-      const line = token.info.trim().match(WALKTHROUGH_REF_REGEX);
-      if (line == null) {
+      const walkthroughName = getWalkthroughName(token.info);
+      if (walkthroughName == null) {
         return "";
       }
-      const walkthroughName = line[1];
       const walkthrough = walksthrough.find(w => w.slug === walkthroughName);
       if (walkthrough == null) {
         throw new Error(`Unknown walkthrough "${walkthroughName}" in ${lesson.relative}`);
@@ -167,29 +213,20 @@ function renderLesson(lesson: Lesson): void {
       lesson.walksthrough.push(summary);
       lesson.languages.push(...summary.languages.filter(l => !lesson.languages.includes(l)));
       return renderWalkthrough(Object.assign({
-        languageLabel: (source: WalkthroughSource) => {
-          return `${(hasSingleLanguage(source) ? [source.language] : source.languages).map(lang => {
-            const syntax = LANGUAGES[lang];
-            if (syntax == null) {
-              throw new Error(`No such language "${lang}" in walkthrough ${walkthrough.slug}`);
-            }
-            return syntax.label;
-          }).join(" | ")}`;
-        },
         lesson,
-        markup: (data: string): string => md.renderInline(data).trim(),
-      }, walkthrough));
+      }, walkthrough, templateTools));
     },
     validate: (text: string): boolean => {
-      if (text === null) {
-        return false;
-      }
-      const line = text.trim().match(WALKTHROUGH_REF_REGEX);
-      return line != null && line[1] != null && line[1].trim() !== "";
+      return getWalkthroughName(text) !== undefined;
     },
-  });
+  };
+};
+
+function renderLesson(lesson: Lesson): void {
+  const md = new MarkdownIt(markdownItOptions)
+    .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson));
   lesson.html = md.render(lesson.body);
-  const outHtml = renderLessonHtml(lesson);
+  const outHtml = renderLessonHtml(Object.assign({}, lesson, templateTools));
   fs.writeFileSync(lesson.outFile, outHtml, {encoding: "utf8"})
   console.log(`${lesson.relative}: ${outHtml.length} bytes`);
 }

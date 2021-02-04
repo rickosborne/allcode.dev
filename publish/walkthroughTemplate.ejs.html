@@ -4,7 +4,7 @@
   <header slot="title"><%- markup(walkthrough.title) %></header>
   <p slot="description"><%- markup(walkthrough.description) %></p>
   <%_ walkthrough.sources.forEach(source => { _%>
-  <pre><code is="amble-source" syntax="<%= Array.isArray(source.languages) ? source.languages.join(',') : source.language %>" label="<%= languageLabel(source) %>">
+  <pre><code is="amble-source" label="<%= languageLabelOf(source) %>" syntax="<%= languagesOf(source).join(',') %>">
 <%= source.source _%>
   </code></pre>
   <%_ }); _%>
@@ -13,7 +13,7 @@
     <p slot="description"><%- markup(step.description) %></p>
     <% if(step.extra != null) { %><span slot="extra"><%- markup(step.extra) %></span><% } %>
     <%_ (step.highlight || []).forEach(highlight => { _%>
-    <span is="amble-source-ref" selector="<%= highlight.selector %>"<% if (highlight.language != null) { %> language="<%= highlight.language %>"<% } else if (highlight.languages != null) { %> language="<%= highlight.languages.join(",") %>"<% } %>></span>
+    <span is="amble-source-ref"<% if (highlight.language != null) { %> language="<%= languagesOf(highlight).join(",") %>"<% } %> selector="<%= highlight.selector %>"></span>
     <%_ }); _%>
     <%_ (step.refs || []).forEach(ref => { _%>
     <a class="amble-link" href="/<%= ref.href %>"><%= ref.title %></a>
@@ -26,7 +26,7 @@
     <p slot="answer"><%- markup(question.answer) %></p>
     <% if (question.rationale != null) { %><p slot="rationale"><%- markup(question.rationale) %></p><% } %>
     <%_ (question.highlight || []).forEach(highlight => { _%>
-    <span is="amble-source-ref" selector="<%= highlight.selector %>"<% if (highlight.language != null) { %> language="<%= highlight.language %>"<% } else if (highlight.languages != null) { %> language="<%= highlight.languages.join(",") %>"<% } %>></span>
+    <span is="amble-source-ref"<% if (highlight.language != null) { %> language="<%= languagesOf(highlight).join(",") %>"<% } %> selector="<%= highlight.selector %>"></span>
     <%_ }); _%>
     <%_ (question.refs || []).forEach(ref => { _%>
     <a class="amble-link" href="/<%= ref.href %>"><%= ref.title %></a>
