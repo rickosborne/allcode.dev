@@ -1,11 +1,12 @@
 ---
+$schema: "../../publish/LessonFrontMatter-v1.schema.json"
 slug: learn/loop-basics
 title: Loop Basics
 description: Learn basic concepts of loops in multiple languages.
 forward:
-- slug: learn/while-loops
+- href: learn/while-loops
   title: While Loops
-- slug: learn/counting-loops
+- href: learn/counting-loops
   title: Counting Loops
 ---
 
@@ -19,9 +20,8 @@ This example counts from 1 to 5 using `while` loop.
 It doesn't do anything with the count for now.
 Most languages have more natural and specific syntax for counting and range loops.
 
-!walkthrough counting-with-while-loop
-
-
+::: walkthrough counting-with-while-loop
+:::
 
 As you can see in all the languages above:
 

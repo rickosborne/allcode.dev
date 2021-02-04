@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:json/recommended",
+    "plugin:typescript-sort-keys/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "script"
+  },
+  "plugins": [
+    "json",
+    "simple-import-sort",
+    "sort-keys-fix",
+    "typescript-sort-keys"
+  ],
+  "rules": {
+    "array-bracket-newline": [
+      "error",
+      "consistent"
+    ],
+    "comma-dangle": ["error", "always-multiline"],
+    "import/order": "off",
+    "json/json": "error",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error",
+    "sort-imports": "off",
+    "sort-keys-fix/sort-keys-fix": "error"
+  }
+}

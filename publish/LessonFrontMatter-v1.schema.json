@@ -1,0 +1,54 @@
+{
+  "$id": "https://allcode.dev/schema/LessonFrontMatter-v1.schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "pattern": "LessonFrontMatter-v1[.]schema[.]json$",
+      "title": "Schema",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "forward": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "href": {
+            "title": "URL",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "title"
+        ],
+        "title": "Link",
+        "type": "object"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "slug": {
+      "title": "Slug",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "slug",
+    "title"
+  ],
+  "title": "Lesson Front Matter",
+  "type": "object"
+}

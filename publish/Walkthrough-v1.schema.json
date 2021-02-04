@@ -1,0 +1,233 @@
+{
+  "$id": "https://allcode.dev/schema/Walkthrough-v1.schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "additionalProperties": false,
+  "definitions": {
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "hasLang": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/hasLanguage"
+        },
+        {
+          "$ref": "#/definitions/hasLanguages"
+        }
+      ]
+    },
+    "hasLanguage": {
+      "properties": {
+        "language": {
+          "$ref": "#/definitions/languageId"
+        }
+      },
+      "required": [
+        "language"
+      ]
+    },
+    "hasLanguages": {
+      "properties": {
+        "languages": {
+          "items": {
+            "$ref": "#/definitions/languageId"
+          },
+          "minItems": 1,
+          "title": "Language Identifiers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "languages"
+      ]
+    },
+    "highlights": {
+      "items": {
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "properties": {
+              "selector": {
+                "title": "CSS Selector",
+                "type": "string"
+              }
+            },
+            "required": [
+              "selector"
+            ]
+          },
+          {
+            "oneOf": [
+              {
+                "properties": {
+                  "language": {
+                    "$ref": "#/definitions/languageId"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "languages": {
+                    "items": {
+                      "$ref": "#/definitions/languageId"
+                    },
+                    "minItems": 1,
+                    "title": "Language Identifiers",
+                    "type": "array"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "title": "Highlight Specifier",
+        "type": "object"
+      },
+      "title": "Highlight Specifiers",
+      "type": "array"
+    },
+    "languageId": {
+      "pattern": "^[a-z][a-z0-9]*$",
+      "title": "Language Identifier",
+      "type": "string"
+    },
+    "refs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "href": {
+            "title": "URL",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "title"
+        ],
+        "title": "Link",
+        "type": "object"
+      },
+      "title": "Links",
+      "type": "array"
+    }
+  },
+  "properties": {
+    "$schema": {
+      "pattern": "Walkthrough-v1[.]schema[.]json$",
+      "title": "Schema",
+      "type": "string"
+    },
+    "assessment": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "highlight": {
+            "$ref": "#/definitions/highlights"
+          },
+          "highlightWhen": {
+            "enum": [
+              "question",
+              "answer",
+              "rationale"
+            ],
+            "title": "Highlight When",
+            "type": "string"
+          },
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "refs": {
+            "$ref": "#/definitions/refs"
+          }
+        },
+        "required": [
+          "answer",
+          "question"
+        ],
+        "title": "Self-Assessment",
+        "type": "object"
+      },
+      "title": "Self-Assessments",
+      "type": "array"
+    },
+    "description": {
+      "$ref": "#/definitions/description"
+    },
+    "explanation": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "$ref": "#/definitions/description"
+          },
+          "extra": {
+            "title": "Extra details",
+            "type": "string"
+          },
+          "highlight": {
+            "$ref": "#/definitions/highlights"
+          },
+          "refs": {
+            "$ref": "#/definitions/refs"
+          }
+        },
+        "required": [
+          "description"
+        ],
+        "title": "Step",
+        "type": "object"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "sources": {
+      "items": {
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "properties": {
+              "source": {
+                "title": "Source Code",
+                "type": "string"
+              }
+            },
+            "required": [
+              "source"
+            ]
+          },
+          {
+            "$ref": "#/definitions/hasLang"
+          }
+        ],
+        "title": "Source",
+        "type": "object"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "title"
+  ],
+  "title": "Walkthrough",
+  "type": "object"
+}
