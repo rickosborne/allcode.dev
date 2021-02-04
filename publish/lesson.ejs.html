@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/assets/amble.css">
   <link rel="canonical" href="https://allcode.dev/<%= meta.slug %>">
-  <link rel="icon" href="/assets/ac-logo.svg">
+  <link rel="icon" href="<%= hashedAssetPath('ac-logo.svg') %>">
   <%_ if (meta.description != null) { _%>
   <meta name="description" content="<%= meta.description %>">
   <%_ } _%>
@@ -15,9 +15,9 @@
   <%_ }); _%>
   <script src="/assets/allcode-amble.js" type="module"></script>
   <%_ if (languages.length > 0) { _%>
-  <script src="/assets/prismjs/prism.js"></script>
-  <%_ languages.forEach(language => { _%>
-  <script src="/assets/prismjs/prism-<%- language %>.min.js"></script>
+  <script src="<%= hashedAssetPath('prismjs/prism.js') %>"></script>
+  <%_ unique(languages.map(langId => languageAssetPath(langId))).forEach(langPath => { _%>
+  <script src="<%= langPath %>"></script>
   <%_ }); _%>
   <%_ } _%>
 </head>
