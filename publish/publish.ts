@@ -39,24 +39,6 @@ const basic = require("prismjs/components/prism-basic.js");
 const pascal = require("prismjs/components/prism-pascal.js");
 const python = require("prismjs/components/prism-python.js");
 const javascript = require("prismjs/components/prism-javascript.js");
-const ecmascript6 = javascript;
-
-
-const program = new Command();
-// noinspection RequiredAttributes
-program
-  .version(pkg.version)
-  .option("-c,--clean", "clean first", false)
-  .requiredOption("-i,--in <path>", "input source directory")
-  .requiredOption("-o,--out <path>", "output destination directory")
-  .parse(process.argv)
-;
-
-const options = program.opts() as unknown as {
-  clean: boolean,
-  in: string,
-  out: string
-};
 
 export interface Syntax {
   fileKey?: string;
@@ -70,7 +52,7 @@ const LANGUAGES: Record<string, Syntax> = {
   c: {label: "C", prism: c},
   cpp: {label: "C++", prism: cpp},
   csharp: {label: "C#", prism: csharp},
-  ecmascript6: {fileKey: "javascript", label: "Ecmascript 6", prism: ecmascript6},
+  ecmascript6: {fileKey: "javascript", label: "Ecmascript 6", prism: javascript},
   java: {label: "Java", prism: java},
   javascript: {label: "Javascript", prism: javascript},
   pascal: {label: "Pascal", prism: pascal},
@@ -81,6 +63,7 @@ const LANGUAGES: Record<string, Syntax> = {
   typescript: {label: "TypeScript", prism: typescript},
 };
 
+export type Renderer<T> = (data: T) => string;
 
 export interface WalkthroughResource {
   fileName: string;
@@ -142,14 +125,6 @@ const templateTools: TemplateTools = {
   })(),
 };
 
-// noinspection SpellCheckingInspection
-const walksthrough: WalkthroughResource[] = [];
-const lessons: Lesson[] = [];
-const walkthroughHtml = fs.readFileSync(path.join(__dirname, "walkthroughTemplate.ejs.html"), {encoding: "utf8"});
-const renderWalkthrough: (data: LessonAndWalkthrough) => string = ejs.compile(walkthroughHtml);
-const lessonHtml = fs.readFileSync(path.join(__dirname, "lesson.ejs.html"), {encoding: "utf8"});
-const renderLessonHtml: (data: Lesson & TemplateTools) => string = ejs.compile(lessonHtml);
-
 function loadWalkthrough(inDir: string, fileName: string, name: string): WalkthroughResource {
   const fullPath = path.join(path.join(inDir, fileName));
   const text = fs.readFileSync(fullPath, {encoding: "utf8"});
@@ -180,7 +155,11 @@ function loadWalkthrough(inDir: string, fileName: string, name: string): Walkthr
 
 export const WALKTHROUGH_REF_REGEX = /^walkthrough\s+(\S+)$/;
 
-const walkthroughContainerHandler: (lesson: Lesson) => unknown = (lesson: Lesson): unknown => {
+const walkthroughContainerHandler = (
+  lesson: Lesson,
+  walksthrough: WalkthroughResource[],
+  renderWalkthrough: Renderer<LessonAndWalkthrough>,
+): unknown => {
   const getWalkthroughName: (info: string) => string | undefined = info => {
     if (info == null) {
       return undefined;
@@ -223,10 +202,16 @@ const walkthroughContainerHandler: (lesson: Lesson) => unknown = (lesson: Lesson
   };
 };
 
-function renderLesson(lesson: Lesson, outDir: string): void {
+function renderLesson(
+  lesson: Lesson,
+  outDir: string,
+  walksthrough: WalkthroughResource[],
+  renderLessonHtml: Renderer<Lesson & TemplateTools>,
+  renderWalkthrough: Renderer<LessonAndWalkthrough>,
+): void {
   const lessonDir = path.join(outDir, lesson.meta.slug);
   const md = new MarkdownIt(markdownItOptions)
-    .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson));
+    .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson, walksthrough, renderWalkthrough));
   lesson.html = md.render(lesson.body);
   const outHtml = renderLessonHtml(Object.assign({}, lesson, templateTools));
   fs.mkdirSync(lessonDir, {recursive: true});
@@ -281,24 +266,7 @@ function clean(dir: string): void {
   }
 }
 
-function copyAssets(outDir: string): void {
-  const ASSETS_IN_PATH = path.resolve(__dirname, "../assets");
-  fs.mkdirSync(path.join(outDir, "assets"), {recursive: true});
-  walk(ASSETS_IN_PATH, ({file, relative}) => {
-    if (file.name.startsWith(".")) {
-      return WalkResult.SKIP;
-    }
-    const outPath = path.join(outDir, "assets", relative);
-    if (file.isFile()) {
-      console.log(`assets/${relative}`);
-      fs.copyFileSync(path.join(ASSETS_IN_PATH, relative), outPath);
-    } else if (file.isDirectory()) {
-      console.log(relative + "/");
-      fs.mkdirSync(outPath, {recursive: true});
-    }
-    return WalkResult.CONTINUE;
-  });
-
+function ensureLanguageScripts(outDir: string, lessons: Lesson[]): void {
   const allLangIds = lessons.reduce((prev, cur) => {
     cur.languages.map(l => LANGUAGES[l].fileKey || l).forEach(l => {
       if (!prev.includes(l)) {
@@ -317,7 +285,30 @@ function copyAssets(outDir: string): void {
   });
 }
 
+function copyAssets(outDir: string): void {
+  const ASSETS_IN_PATH = path.resolve(__dirname, "../assets");
+  fs.mkdirSync(path.join(outDir, "assets"), {recursive: true});
+  walk(ASSETS_IN_PATH, ({file, relative}) => {
+    if (file.name.startsWith(".")) {
+      return WalkResult.SKIP;
+    }
+    const outPath = path.join(outDir, "assets", relative);
+    if (file.isFile()) {
+      console.log(`assets/${relative}`);
+      fs.copyFileSync(path.join(ASSETS_IN_PATH, relative), outPath);
+    } else if (file.isDirectory()) {
+      console.log(relative + "/");
+      fs.mkdirSync(outPath, {recursive: true});
+    }
+    return WalkResult.CONTINUE;
+  });
+}
+
 function publishLessons(inDir: string, outDir: string): void {
+  // noinspection SpellCheckingInspection
+  const walksthrough: WalkthroughResource[] = [];
+  const lessons: Lesson[] = [];
+
   walk(inDir, ({file, relative}) => {
     if (file.name.startsWith(".")) {
       return WalkResult.SKIP;
@@ -337,11 +328,38 @@ function publishLessons(inDir: string, outDir: string): void {
     return WalkResult.CONTINUE;
   });
 
-  lessons.forEach(lesson => renderLesson(lesson, outDir));
+  const walkthroughHtml = fs.readFileSync(path.join(__dirname, "walkthroughTemplate.ejs.html"), {encoding: "utf8"});
+  const renderWalkthrough: Renderer<LessonAndWalkthrough> = ejs.compile(walkthroughHtml);
+  const lessonHtml = fs.readFileSync(path.join(__dirname, "lesson.ejs.html"), {encoding: "utf8"});
+  const renderLessonHtml: Renderer<Lesson & TemplateTools> = ejs.compile(lessonHtml);
+
+  lessons.forEach(lesson => renderLesson(lesson, outDir, walksthrough, renderLessonHtml, renderWalkthrough));
+
+  ensureLanguageScripts(outDir, lessons);
 }
 
-if (options.clean) {
-  clean(options.out);
+function run(args: string[] = process.argv): void {
+  const program = new Command();
+// noinspection RequiredAttributes
+  program
+    .version(pkg.version)
+    .option("-c,--clean", "clean first", false)
+    .requiredOption("-i,--in <path>", "input source directory")
+    .requiredOption("-o,--out <path>", "output destination directory")
+    .parse(args)
+  ;
+
+  const options = program.opts() as unknown as {
+    clean: boolean,
+    in: string,
+    out: string
+  };
+
+  if (options.clean) {
+    clean(options.out);
+  }
+  publishLessons(options.in, options.out);
+  copyAssets(options.out);
 }
-publishLessons(options.in, options.out);
-copyAssets(options.out);
+
+run();
