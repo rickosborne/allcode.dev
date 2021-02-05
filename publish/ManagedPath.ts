@@ -27,7 +27,7 @@ export class ManagedPath {
     console.log(`#  clean-up ${this.filesToRemove.length} files, ${this.dirsToRemove.length} directories`);
     while ((relative = this.filesToRemove.shift())) {
       console.log(`~ ${relative}`);
-      fs.rmSync(this.join(relative));
+      fs.unlinkSync(this.join(relative));
     }
     while ((relative = this.dirsToRemove.shift())) {
       console.log(`~ ${relative}/`);
