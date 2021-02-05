@@ -313,6 +313,7 @@ function copyAsset(
   inDir = path.resolve(__dirname, "../assets"),
   inRelative: string = outRelative,
   addHash = true,
+  rootDirName = "assets",
   processor?: (text: string) => string,
 ): Asset {
   const inPath = path.join(inDir, inRelative);
@@ -326,15 +327,15 @@ function copyAsset(
     fileName = fileName.replace(".", `-${fileHash(inPath, true)}.`);
   }
   const asset: Asset = {
-    href: "/assets/" + fileName,
+    href: `/${rootDirName}/${fileName}`,
     integrity: INTEGRITY_ALGO + "-" + fileHash(inPath, false),
     key: outRelative,
   };
-  managedPath.mkDir("assets", path.dirname(fileName));
+  managedPath.mkDir(rootDirName, path.dirname(fileName));
   if (processor == null || content == null) {
-    managedPath.copy(inPath, "assets", fileName);
+    managedPath.copy(inPath, rootDirName, fileName);
   } else {
-    managedPath.write(path.join("assets", fileName), content);
+    managedPath.write(path.join(rootDirName, fileName), content);
   }
   return asset;
 }
@@ -346,13 +347,16 @@ function copyAssets(managedPath: ManagedPath, languages: Record<string, Syntax>)
   const assets = [
     copyAsset("prismjs/prism.js", managedPath, "./node_modules"),
     copyAsset("ac-logo.svg", managedPath),
+    copyAsset("allcode.css", managedPath),
+    copyAsset("LessonFrontMatter-v1.schema.json", managedPath, ".", undefined, false, "schema"),
+    copyAsset("Walkthrough-v1.schema.json", managedPath, ".", undefined, false, "schema"),
     copyAsset("amble.css", managedPath, "../webcomponents/src"),
     copyAsset("prismjs/prism-markup-templating.min.js", managedPath, "./node_modules", "prismjs/components/prism-markup-templating.min.js"),
     viewer,
     button,
     code,
     copyAsset("allcode-amble.js.map", managedPath, "../webcomponents", "allcode-amble.js.map", false),
-    copyAsset("allcode-amble.js", managedPath, "../webcomponents", "allcode-amble.js", true, js => {
+    copyAsset("allcode-amble.js", managedPath, "../webcomponents", "allcode-amble.js", true, undefined, js => {
       return js.replace(/"src\/([^.]+\.css)"/g, (all, fileName) => {
         for (const asset of [viewer, button, code]) {
           if (fileName === asset.key) {

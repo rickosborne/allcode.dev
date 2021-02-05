@@ -1,0 +1,54 @@
+body, html {
+  height: 100%
+}
+
+body {
+  margin: 1vw;
+  font-family: Roboto Slab, Cambria, serif;
+  background-color: white;
+  color: black;
+  font-size: calc(max(2vw, 100%));
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Roboto, "Helvetica Neue", Helvetica, Calibri, Tahoma, sans-serif;
+}
+
+a {
+  color: #369;
+}
+
+a:visited {
+  color: #246;
+}
+
+a:active {
+  color: #306090;
+}
+
+a:hover {
+  color: #48c;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: #eee;
+  }
+
+  a {
+    color: #48c;
+  }
+
+  a:visited {
+    color: #5ae;
+  }
+
+  a:hover {
+    color: #369;
+  }
+
+  a:active {
+    color: #50a0e0;
+  }
+}
