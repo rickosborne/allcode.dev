@@ -48,12 +48,14 @@ amble-viewer {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto Light", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  margin-top: 1.3rem;
+  margin-bottom: 1.95rem;
 }
 p, ul, ol, dl {
-  margin: 1.3em auto;
+  margin: 1.3rem auto;
 }
 li {
-  margin: 0.65em auto;
+  margin: 0.65rem auto;
 }
 code {
   color: var(--amble-text-code-color, inherit);
