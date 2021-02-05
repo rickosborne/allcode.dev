@@ -1,0 +1,56 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"allowJs": false,
+		"alwaysStrict": true,
+		"charset": "utf-8",
+		"checkJs": false,
+		"declaration": true,
+		"downlevelIteration": true,
+		"emitDecoratorMetadata": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"lib": [
+			"DOM",
+			"ES2018"
+		],
+		"module": "commonjs",
+		"moduleResolution": "Node",
+		"noEmit": false,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": false,
+		"outDir": "dist",
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules",
+				"options": {
+					"customMatcher": "\\.css$"
+				}
+			}
+		],
+		"preserveConstEnums": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"target": "ES6",
+		"types": [],
+		"useDefineForClassFields": true
+	},
+	"exclude": [
+		"node_modules"
+	],
+	"include": [
+		"index.ts",
+		"src/declarations.d.ts",
+		"test/**/*.ts"
+	]
+}

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title><%= meta.title === '' ? '' : `${meta.title} // ` %>allcode.dev</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link href="/assets/amble.css" rel="stylesheet">
+  <link href="<%= asset('amble.css').href %>" integrity="<%= asset('amble.css').integrity %>" rel="stylesheet">
   <link href="https://allcode.dev/<%= meta.slug %>" rel="canonical">
   <link href="<%= asset('ac-logo.svg').href %>" integrity="<%= asset('ac-logo.svg').integrity %>" rel="icon">
   <%_ if (meta.description != null) { _%>
@@ -13,9 +13,13 @@
   <%_ (meta.forward || []).forEach(nextLink => { _%>
   <link href="/<%= nextLink.href %>" rel="next" title="<%= nextLink.title %>">
   <%_ }); _%>
-  <script src="/assets/allcode-amble.js" type="module"></script>
   <%_ if (languages.length > 0) { _%>
+  <script integrity="<%= asset('allcode-amble.js').integrity %>" src="<%= asset('allcode-amble.js').href %>" type="module"></script>
+  <link as="style" href="<%= asset('AmbleViewerElement.css').href %>" integrity="<%= asset('AmbleViewerElement.css').integrity %>" rel="preload">
+  <link as="style" href="<%= asset('AmbleButtonElement.css').href %>" integrity="<%= asset('AmbleButtonElement.css').integrity %>" rel="preload">
+  <link as="style" href="<%= asset('AmbleCodeElement.css').href %>" integrity="<%= asset('AmbleCodeElement.css').integrity %>" rel="preload">
   <script integrity="<%= asset('prismjs/prism.js').integrity %>" src="<%= asset('prismjs/prism.js').href %>"></script>
+  <script integrity="<%= asset('prismjs/prism-markup-templating.min.js').integrity %>" src="<%= asset('prismjs/prism-markup-templating.min.js').href %>"></script>
   <%_ unique(languages.map(langId => assetForLanguage(langId))).forEach(asset => { _%>
   <script integrity="<%= asset.integrity %>" src="<%= asset.href %>"></script>
   <%_ }); _%>

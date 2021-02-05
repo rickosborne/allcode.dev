@@ -169,23 +169,30 @@ function loadWalkthrough(inDir: string, fileName: string, name: string): Walkthr
   };
 }
 
-const fileHash: (filePath: string, mangle: boolean) => string = (() => {
+const fileHash: ((filePath: string, mangle: boolean) => string) & {rehash: (fileName: string, content: string) => void} = (() => {
   const cache: Record<string, string> = {};
   const maybeMangle: (hash: string, mangle: boolean) => string = (hash, mangle) => {
     return mangle ? hash.replace(/[^a-zA-Z0-9]+/g, "") : hash;
   };
-  return function fileHash(filePath: string, mangle: boolean): string {
+  function makeHash(text: string): string {
+    return crypto
+      .createHash(INTEGRITY_ALGO)
+      .update(text)
+      .digest("base64")
+  }
+  function fileHash(filePath: string, mangle: boolean): string {
     const existing = cache[filePath];
     if (existing != null) {
       return maybeMangle(existing, mangle);
     }
-    const hash = crypto
-      .createHash(INTEGRITY_ALGO)
-      .update(fs.readFileSync(filePath, {encoding: "utf8"}))
-      .digest("base64");
+    const hash = makeHash(fs.readFileSync(filePath, {encoding: "utf8"}));
     cache[filePath] = hash;
     return maybeMangle(hash, mangle);
+  }
+  fileHash.rehash = function rehash(fileName: string, content: string): void {
+    cache[fileName] = makeHash(content);
   };
+  return fileHash;
 })();
 
 function scriptHash(scriptPath: string, mangle: boolean): string {
@@ -306,25 +313,55 @@ function copyAsset(
   inDir = path.resolve(__dirname, "../assets"),
   inRelative: string = outRelative,
   addHash = true,
+  processor?: (text: string) => string,
 ): Asset {
   const inPath = path.join(inDir, inRelative);
   let fileName = outRelative;
+  let content: string | undefined;
+  if (processor != null) {
+    content = processor(fs.readFileSync(inPath, {encoding: "utf8"}));
+    fileHash.rehash(inPath, content);
+  }
   if (addHash) {
     fileName = fileName.replace(".", `-${fileHash(inPath, true)}.`);
   }
-  managedPath.mkDir("assets", path.dirname(fileName));
-  managedPath.copy(inPath, "assets", fileName);
-  return {
+  const asset: Asset = {
     href: "/assets/" + fileName,
     integrity: INTEGRITY_ALGO + "-" + fileHash(inPath, false),
     key: outRelative,
   };
+  managedPath.mkDir("assets", path.dirname(fileName));
+  if (processor == null || content == null) {
+    managedPath.copy(inPath, "assets", fileName);
+  } else {
+    managedPath.write(path.join("assets", fileName), content);
+  }
+  return asset;
 }
 
 function copyAssets(managedPath: ManagedPath, languages: Record<string, Syntax>): Asset[] {
+  const viewer = copyAsset("AmbleViewerElement.css", managedPath, "../webcomponents/src");
+  const button = copyAsset("AmbleButtonElement.css", managedPath, "../webcomponents/src");
+  const code = copyAsset("AmbleCodeElement.css", managedPath, "../webcomponents/src");
   const assets = [
     copyAsset("prismjs/prism.js", managedPath, "./node_modules"),
     copyAsset("ac-logo.svg", managedPath),
+    copyAsset("amble.css", managedPath, "../webcomponents/src"),
+    copyAsset("prismjs/prism-markup-templating.min.js", managedPath, "./node_modules", "prismjs/components/prism-markup-templating.min.js"),
+    viewer,
+    button,
+    code,
+    copyAsset("allcode-amble.js.map", managedPath, "../webcomponents", "allcode-amble.js.map", false),
+    copyAsset("allcode-amble.js", managedPath, "../webcomponents", "allcode-amble.js", true, js => {
+      return js.replace(/"src\/([^.]+\.css)"/g, (all, fileName) => {
+        for (const asset of [viewer, button, code]) {
+          if (fileName === asset.key) {
+            return `"${asset.href}"`;
+          }
+        }
+        throw new Error(`Tried to replace href for unknown asset ${fileName}`);
+      });
+    }),
   ];
   assets.push(...Object.keys(languages).map(langId => {
     const key = languages[langId].fileKey || langId;

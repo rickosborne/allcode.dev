@@ -4,12 +4,17 @@
 		"url": "https://rickosborne.org"
 	},
 	"description": "",
+	"devDependencies": {
+		"es-dev-server": "^2.1.0"
+	},
 	"keywords": [
 		"allcode.dev"
 	],
 	"license": "UNLICENSED",
 	"name": "allcode.dev",
 	"private": true,
-	"scripts": {},
+	"scripts": {
+		"start": "npx es-dev-server --root-dir site --watch"
+	},
 	"version": "1.0.0"
 }

@@ -62,12 +62,6 @@ sources:
           count++
   - language: javascript
     source: |
-      var count = 1;
-      while (count <= 5) {
-        count++;
-      }
-  - language: ecmascript6
-    source: |
       let count = 1;
       while (count <= 5) {
         count++;

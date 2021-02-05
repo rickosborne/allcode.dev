@@ -1,11 +1,11 @@
 
 <section class="<%= slug %>" is="amble-viewer">
   <header slot="title"><%- markup(walkthrough.title) %></header>
-  <p slot="description"><%- markup(walkthrough.description) %></p>
+  <div slot="description"><%- markup(walkthrough.description) %></div>
   <%_ walkthrough.sources.forEach(source => { _%>
-  <pre><code is="amble-source" label="<%= languageLabelOf(source) %>" syntax="<%= languagesOf(source).join(',') %>">
+  <div is="amble-source" label="<%= languageLabelOf(source) %>" syntax="<%= languagesOf(source).join(',') %>">
 <%= source.source _%>
-  </code></pre>
+  </div>
   <%_ }); _%>
   <%_ (walkthrough.explanation || []).forEach(step => { _%>
   <div is="amble-step" stepKey="define">

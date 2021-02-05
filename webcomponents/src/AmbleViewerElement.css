@@ -1,0 +1,426 @@
+.text-with-code code {
+	color: var(--amble-text-code-color);
+}
+
+.amble {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	background-color: var(--amble-background-color);
+	font-size: var(--amble-font-size);
+	font-family: var(--amble-text-font-family);
+}
+
+.amble-header {
+	flex-basis: fit-content;
+	display: flex;
+	flex-direction: column;
+	color: var(--amble-text-color);
+}
+
+.amble-title,
+.amble-description {
+	padding: var(--amble-half-pad) var(--amble-pad);
+	font-size: 100%;
+	font-weight: normal;
+	margin: 0;
+}
+
+.amble-nav,
+.amble-quiz-qar {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+}
+
+.amble-nav {
+	padding: var(--amble-pad);
+	gap: var(--amble-pad);
+}
+
+amble-button-group {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5vw;
+}
+
+.amble-nav amble-button {
+	width: var(--amble-button-size);
+	padding: 0;
+}
+
+.amble-description {
+	font-size: 80%;
+	font-style: italic;
+	min-height: var(--amble-button-size);
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.amble-header-top {
+	display: flex;
+	flex-direction: row;
+	border-bottom: thin solid var(--amble-off-20);
+	align-items: center;
+}
+
+.amble-title {
+	flex-grow: 1;
+}
+
+.amble-body {
+	flex-grow: 1;
+	background-color: var(--darker-50);
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+amble-code {
+	display: none;
+	background-color: black;
+}
+
+.amble-body-layout-1 .amble-code-pos-1,
+.amble-body-layout-2h .amble-code-pos-1,
+.amble-body-layout-2h .amble-code-pos-2,
+.amble-body-layout-2v .amble-code-pos-1,
+.amble-body-layout-2v .amble-code-pos-2,
+.amble-body-layout-4 .amble-code-pos-1,
+.amble-body-layout-4 .amble-code-pos-2,
+.amble-body-layout-4 .amble-code-pos-3,
+.amble-body-layout-4 .amble-code-pos-4,
+.amble-body-layout-refs .amble-code-pos-1 {
+	display: block;
+}
+
+.amble-body-layout-2h .amble-body {
+	display: grid;
+	grid-gap: 0.25em;
+	grid-template-columns: repeat(2, calc(50% - 0.125em));
+}
+
+.amble-body-layout-refs .amble-body {
+	display: grid;
+	grid-gap: 0;
+	grid-template-columns: 70% 30%;
+}
+
+.amble-body-layout-2h .amble-code-pos-1 {
+	grid-area: 1 / 1;
+}
+.amble-body-layout-2h .amble-code-pos-2 {
+	grid-area: 1 / 2;
+}
+.amble-body-layout-2v .amble-code-pos-1 {
+	grid-area: 1 / 1;
+}
+.amble-body-layout-2v .amble-code-pos-2 {
+	grid-area: 2 / 1;
+}
+.amble-body-layout-4 .amble-code-pos-1 {
+	grid-area: 1 / 1;
+}
+.amble-body-layout-4 .amble-code-pos-2 {
+	grid-area: 1 / 2;
+}
+.amble-body-layout-4 .amble-code-pos-3 {
+	grid-area: 2 / 1;
+}
+.amble-body-layout-4 .amble-code-pos-4 {
+	grid-area: 2 / 2;
+}
+.amble-body-layout-refs .amble-code-pos-1 {
+	grid-area: 1 / 1;
+}
+.amble-body-layout-refs .amble-refs {
+	grid-area: 1 / 2;
+}
+
+.amble-body-layout-2v .amble-body {
+	display: grid;
+	grid-gap: 0.25em;
+	grid-template-rows: repeat(2, calc(50% - 0.125em));
+}
+
+.amble-body-layout-4 .amble-body {
+	display: grid;
+	grid-gap: 0.25em;
+	grid-template-columns: repeat(2, calc(50% - 0.125em));
+}
+
+.amble-layout {
+	display: none;
+}
+
+.amble-body-can-2 .amble-layout,
+.amble-body-can-4 .amble-layout {
+	display: inherit;
+}
+
+.amble-no-steps .step-mode-button,
+.amble-no-quiz .quiz-mode-button,
+.amble-no-steps.amble-no-quiz .no-footer-button {
+	display: none;
+}
+
+.amble-footer {
+	flex-basis: fit-content;
+	line-height: 120%;
+	color: var(--amble-text-color);
+	font-family: var(--amble-text-font-family);
+}
+
+.amble-footer amble-button {
+	width: var(--amble-button-size);
+	padding: 0;
+	flex-shrink: 0;
+}
+
+.amble-walk {
+	align-items: stretch;
+}
+
+.amble-walk-prev,
+.amble-walk-progress,
+.amble-walk-next,
+.amble-quiz-prev,
+.amble-quiz-progress,
+.amble-quiz-next {
+	display: none;
+}
+.amble-has-steps .amble-walk-prev,
+.amble-has-steps .amble-walk-progress,
+.amble-has-steps .amble-walk-next,
+.amble-multi-quiz .amble-quiz-prev,
+.amble-multi-quiz .amble-quiz-progress,
+.amble-multi-quiz .amble-quiz-next {
+	display: inherit;
+}
+
+.amble-walk-step {
+	display: none;
+	flex-direction: column;
+}
+
+.amble-footer-mode-step .amble-walk-step-current {
+	display: flex;
+}
+
+.amble-walk-step-header {
+	display: flex;
+	flex-direction: row;
+}
+
+.amble-walk-description {
+	flex-grow: 1;
+	padding: var(--amble-half-pad) var(--amble-pad);
+	font-size: 80%;
+}
+
+.amble-walk-extra {
+	padding: 0.5vw 1vw;
+	font-size: 70%;
+	background-color: var(--amble-off-10);
+	display: none;
+}
+
+.amble-step-no-extra .amble-walk-extra-toggle {
+	display: none;
+}
+
+.amble-step-mode-extra .amble-walk-extra {
+	display: block;
+}
+
+.amble-progress {
+	font-size: 70%;
+	line-height: inherit;
+	align-self: center;
+	flex-shrink: 0;
+	user-select: none;
+	cursor: default;
+}
+
+.amble-quiz-qar {
+	display: none;
+	flex-direction: column;
+}
+
+.amble-footer-mode-quiz .amble-quiz-qar-current {
+	display: flex;
+}
+
+.amble-quiz-q {
+	display: flex;
+	flex-direction: row;
+}
+.amble-quiz-qar .amble-qa-label {
+	font-size: 80%;
+}
+
+.amble-quiz-question {
+	flex-grow: 1;
+	padding: 0 1vw;
+	font-size: 80%;
+}
+
+.amble-quiz-answer {
+	background-color: var(--amble-off-10);
+	font-size: 80%;
+	display: none;
+	flex-direction: row;
+}
+.amble-quiz-mode-a .amble-quiz-answer,
+.amble-quiz-mode-r .amble-quiz-answer {
+	display: flex;
+}
+.amble-quiz-answer .text-with-code {
+	flex-grow: 1;
+	padding: 0 1vw;
+}
+
+.amble-quiz-rationale {
+	background-color: var(--amble-off-20);
+	font-size: 70%;
+	padding: 0 1vw;
+	display: none;
+}
+.amble-quiz-mode-r .amble-quiz-rationale {
+	display: block;
+}
+
+.amble-quiz-rationale-toggle {
+	display: none;
+}
+
+.amble-question-has-rationale .amble-quiz-rationale-toggle {
+	display: inherit;
+}
+
+.amble-quiz-rationale .amble-qa-label {
+	padding: 0 0.5em 0 0;
+}
+
+.amble-qa-label {
+	padding: 0 1vw;
+	flex-shrink: 0;
+}
+
+.icon-button {
+	height: 100%;
+}
+
+.amble-refs {
+	background-color: var(--amble-background-color);
+	/*min-width: 25%;*/
+	display: none;
+	flex-direction: column;
+	color: var(--amble-text-color);
+}
+
+.amble-body-layout-refs .amble-refs {
+	display: flex;
+}
+
+.amble-ref-link {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.amble-ref-link .amble-icon {
+	height: var(--amble-button-size);
+}
+
+.amble-refs-header {
+	display: flex;
+	flex-direction: row;
+	background-color: var(--amble-off-10);
+	flex-shrink: 0;
+}
+
+.amble-refs-header label {
+	padding: 0 1vw;
+	flex-grow: 1;
+}
+
+.amble-refs-header icon-button {
+	flex-shrink: 0;
+}
+
+.amble-refs-links {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	font-size: 80%;
+}
+
+.amble-refs-links a {
+	color: inherit;
+	text-decoration: none;
+	display: flex;
+	flex-direction: row;
+	padding: 0.5vw 1vw;
+}
+
+.amble-refs-links a:hover,
+.amble-refs-links a:focus {
+	background-color: var(--amble-off-10);
+}
+
+.amble-refs-links a:hover .arrow,
+.amble-refs-links a:focus .arrow {
+	opacity: 100%;
+}
+
+.amble-refs-links a .arrow,
+.amble-refs-links a .arrow {
+	flex-shrink: 0;
+	font-size: inherit;
+	line-height: inherit;
+	opacity: 10%;
+}
+
+.amble-refs-links a .readable {
+	flex-grow: 1;
+}
+
+amble-button {
+	display: flex;
+	justify-content: center;
+}
+amble-button svg {
+	width: 100%;
+	height: auto;
+}
+
+.amble-icon .fg,
+.amble-icon path {
+	stroke: none;
+	fill: var(--amble-icon-fg);
+}
+amble-button:hover:not([disabled]) .amble-icon path,
+amble-button:focus:not([disabled]) .amble-icon path,
+amble-button.active .amble-icon path {
+	fill: var(--amble-icon-fg-over);
+	filter: drop-shadow(0 0 0.05em var(--amble-icon-fg-over));
+}
+amble-button[disabled] {
+	cursor: default;
+}
+
+.amble-is-full-screen {
+	height: 100%;
+}
+
+.amble-track-toggle {
+	display: none;
+}
+
+.amble-can-track-progress .amble-track-toggle {
+	display: inherit;
+}

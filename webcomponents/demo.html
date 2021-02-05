@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>allcode-amble demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="src/amble.css" />
+		<style>
+			:root {
+				--amble-hue: 208;
+			}
+		</style>
+		<link rel="preload" href="src/AmbleViewerElement.css" as="style" />
+		<link rel="preload" href="src/AmbleButtonElement.css" as="style" />
+		<link rel="preload" href="src/AmbleCodeElement.css" as="style" />
+		<script src="allcode-amble.js" type="module"></script>
+		<script src="./node_modules/prismjs/prism.js"></script>
+		<script src="./node_modules/prismjs/components/prism-bash.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-basic.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-c.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-cpp.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-csharp.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-go.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-java.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-javascript.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-markup-templating.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-pascal.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-perl.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-php.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-python.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-ruby.min.js"></script>
+		<script src="./node_modules/prismjs/components/prism-typescript.min.js"></script>
+		<meta name="description" content="Demo of the allcode-amble Web Component, a novel, high-density, presentation-oriented source code snippet widget." />
+	</head>
+	<body>
+		<h1>allcode-amble demo</h1>
+		<section class="counting-with-while-loop" is="amble-viewer">
+			<header slot="title">Counting with a <code>while</code> loop</header>
+			<div slot="description">Use a number counter and a <code>while</code> loop to repeat 5 times.</div>
+			<div is="amble-source" syntax="java,c,cpp,csharp" label="Java | C | C++ | C#">
+				int count = 1;
+				while (count &lt;= 5) {
+					count++;
+				}
+			</div>
+			<div is="amble-source" syntax="typescript" label="TypeScript">
+				let count: number = 1;
+				while (count &lt;= 5) {
+					count++;
+				}
+			</div>
+			<div is="amble-source" syntax="php" label="PHP">
+				$count = 1;
+				while ($count &lt;= 5) {
+					$count++;
+				}
+			</div>
+			<div is="amble-source" syntax="perl" label="Perl">
+				my $count = 1;
+				while ($count &lt;= 5) {
+					$count++;
+				}
+			</div>
+			<div is="amble-source" syntax="ruby" label="Ruby">
+				$count = 1
+				while ($count &lt;= 5) do
+					$count++;
+				end
+			</div>
+			<div is="amble-source" syntax="bash" label="Bash">
+				COUNT=1
+				while [ $COUNT -le 5 ] ; do
+					COUNT=$(( $COUNT + 1 ))
+				done
+			</div>
+			<div is="amble-source" syntax="basic" label="BASIC">
+				Dim count as Integer = 1
+				While count &lt;= 5
+					count += 1
+				End While
+			</div>
+			<div is="amble-source" syntax="pascal" label="Pascal">
+				count := 1
+				WHILE (count &lt;= 5) DO
+					BEGIN
+						count := count + 1
+					END;
+			</div>
+			<div is="amble-source" syntax="python" label="Python">
+				count = 1
+				while (count &lt;= 5):
+					count++
+			</div>
+			<div is="amble-source" syntax="js" label="JavaScript">
+				var count = 1;
+				while (count &lt;= 5) {
+					count++;
+				}
+			</div>
+			<div is="amble-step">
+				<span slot="description">A variable is defined to hold the count.</span>
+				<span slot="extra">There's nothing magical about the name of the variable here. Instead of <code data-highlight="variable">count</code>, you could use <code>fingers</code> or <code>place</code> or whatever makes the most sense to you.</span>
+				<span is="amble-source-ref" selector=".variable-count-1, .bare-count-1"></span>
+				<a class="amble-link" href="/learn/variables">Variables</a>
+			</div>
+			<div is="amble-step">
+				<span slot="description">The variable is initialized with the numeric value of <code>1</code>.</span>
+				<span is="amble-source-ref" selector=".number-1-1"></span>
+				<a class="amble-link" href="/learn/variables">Variables</a>
+			</div>
+			<div is="amble-step">
+				<span slot="description">The <code>while</code> keyword starts a loop block.</span>
+				<span is="amble-source-ref" selector=".keyword-while"></span>
+			</div>
+			<div is="amble-step">
+				<span slot="description">A Boolean expression is evaluated at the start of each iteration (repeat) of the loop.</span>
+				<span is="amble-source-ref" selector=".line-2"></span>
+				<a class="amble-link" href="/learn/boolean-expressions">Boolean Expressions</a>
+				<a class="amble-link" href="/learn/expression-evaluation">Expression Evaluation</a>
+			</div>
+			<div is="amble-step">
+				<span slot="description">The <strong>condition</strong> evaluates to <code>true</code> as long as the value of the count is less than or equal to the number <code>5</code>.</span>
+				<span is="amble-source-ref" selector=".line-2"></span>
+				<a class="amble-link" href="/learn/boolean-expressions">Boolean Expressions</a>
+			</div>
+			<div is="amble-step">
+				<span slot="description">The loop body is a <strong>block</strong> which will get executed if the condition evaluates to <code>true</code>.</span>
+				<span slot="extra">This block is very simple and only does one thing. Blocks can do much more than this, and may do many things one after another.</span>
+				<span is="amble-source-ref" selector=".line-4" languageId="pascal"></span>
+				<span is="amble-source-ref" selector=".line-3"></span>
+				<a class="amble-link" href="learn/blocks">Blocks</a>
+			</div>
+			<div is="amble-step">
+				<span slot="description">The loop body increments (adds <code>1</code> to) the count variable.</span>
+				<span is="amble-source-ref" selector=".operator-coloneq-2" languageId="pascal"></span>
+				<span is="amble-source-ref" selector=".operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus"></span>
+				<a class="amble-link" href="/learn/increment-and-decrement">Increment and Decrement</a>
+			</div>
+			<div is="amble-question">
+				<span slot="question">The first time the condition is evaluated, what is the value of the <code>count</code> variable?</span>
+				<span slot="answer"><code>1</code></span>
+				<span slot="rationale">The count variable is initialized with a value of <code>1</code>. This value is not modified before the loop begins.</span>
+				<span is="amble-source-ref" selector=".number-1-1"></span>
+				<a class="amble-link" href="/learn/variables">Variables</a>
+			</div>
+			<div is="amble-question">
+				<span slot="question">When the condition eventually evaluates to <code>false</code>, what is the value of the <code>count</code> variable?</span>
+				<span slot="answer"><code>6</code></span>
+				<span slot="rationale">The first time through the loop, the count starts at <code>1</code> and is incremented to <code>2</code>. Next time through, the count is modified from <code>2</code> to <code>3</code>, then <code>3</code> to <code>4</code>, and <code>4</code> to <code>5</code>. Because the condition expression evaluates as <code>true</code> when the count is <code>5</code>, the loop body runs a fifth time. In that fifth time through, the count is incremented from <code>5</code> to <code>6</code>. When the condition is evaluated again, it is now <code>false</code> as <code>6</code> is not less than or equal to <code>5</code>.</span>
+			</div>
+			<div is="amble-question">
+				<span slot="question">Which parts of the code are repeated in the loop?</span>
+				<span slot="answer">The loop body, which is a block and could have many lines of code, will be executed each time the loop is repeated.</span>
+				<span is="amble-source-ref" selector=".line-4" languageId="pascal"></span>
+				<span is="amble-source-ref" selector=".line-3"></span>
+				<a class="amble-link" href="learn/blocks">Blocks</a>
+			</div>
+			<div is="amble-question" highlightWhen="Question">
+				<span slot="question">How many times would the loop execute if you changed the expression from "less than or equal" to just "less than"?</span>
+				<span slot="answer"><code>4</code></span>
+				<span slot="rationale">The first time through the loop, the count starts at <code>1</code> and is incremented to <code>2</code>. Next time through, the count is modified from <code>2</code> to <code>3</code>, then <code>3</code> to <code>4</code>, and <code>4</code> to <code>5</code>. When the condition is evaluated, <code>5</code> is no longer &ldquo;less than&rdquo; <code>5</code>, so the condition is <code>false</code> and the loop does not run the fifth time.</span>
+				<span is="amble-source-ref" selector=".operator-lte"></span>
+			</div>
+			<div is="amble-question" highlightWhen="Question">
+				<span slot="question">What would happen if you did not increment the count variable inside the loop body?</span>
+				<span slot="answer">The count would never change, leading to an infinite loop.</span>
+				<span slot="rationale">The count variable is initialized with the value <code>1</code>. If it is never updated within the loop, that value of <code>1</code> will never change, and the expression &ldquo;<code>1</code> is less than or equal to <code>5</code>&rdquo; will always be <code>true</code>. Since the condition is always <code>true</code>, the loop will never end.</span>
+				<span is="amble-source-ref" selector=".operator-coloneq-2" languageId="pascal"></span>
+				<span is="amble-source-ref" selector=".operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus"></span>
+			</div>
+		</section>
+	</body>
+</html>

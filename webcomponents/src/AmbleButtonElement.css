@@ -1,0 +1,34 @@
+:host {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+:host([hidden]) {
+	display: none;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+:host(:not([disabled])) button {
+	cursor: pointer;
+}
+
+/*:host(:hover:not([disabled])) .amble-icon path, :host(:focus:not([disabled])) .amble-icon path {*/
+/*    fill: var(--amble-icon-fg-over);*/
+/*    filter: drop-shadow(0 0 0.5px var(--amble-icon-fg-over));*/
+/*}*/
+
+:host([disabled]) {
+	opacity: 50%;
+	cursor: default;
+}
+
+:host(.active[disabled]) {
+	opacity: 100%;
+}

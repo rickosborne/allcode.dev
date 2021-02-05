@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+	<!--
+	This art was hand-coded by Rick Osborne, who retains all rights for its use.
+	It is not licensed for reuse.
+	It is not yours to use.
+	There are plenty of free icon and font libraries — go use one of those.
+	Copyright (c) 2021, Rick Osborne.
+	-->
+	<defs>
+		<symbol id="arrow-left" viewBox="-1 -1 11 11">
+			<path d="M2.5,4.5 l4,-4 v8 z"/>
+		</symbol>
+		<symbol id="arrow-right" viewBox="-1 -1 11 11">
+			<path d="M6.5,4.5 l-4,4 v-8 z"/>
+		</symbol>
+		<symbol id="walk-through" viewBox="-1 -1 11 11">
+			<path d="M0,7 l2,-2 v4 l-2,-2 M9,7 l-2,2 v-4 l2,2 M4,4.5 v3.5 h1 v-3.5 M5,5.5 a2.5,2.5,0,1,0,-1,0 v-1 a1.5,1.5,0,1,1,1,0 v1"/>
+		</symbol>
+		<symbol id="self-assessment" viewBox="-1 -1 11 11">
+			<path d="M0,7 l2,-2 v4 l-2,-2 M4,7 h1 v1 h-1 v-1 M9,7 l-2,2 v-4 l2,2 M4,6 h1 v-1 l2,-2 v-1.5 l-1,-1 h-3 l-1,1 l0.6,0.6 l1,-0.7 h1.8 l0.7,0.7 v0.5 l-2,2 v1.4"/>
+		</symbol>
+		<symbol id="show-less" viewBox="-1 -1 11 11">
+			<path d="M0.5,5 l4,-4 l4,4 l-1,1 l-3,-3 l-3,3 z"/>
+			<path d="M0,8 h1 v1 h-1 v-1 M2,8 h1 v1 h-1 v-1 M4,8 h1 v1 h-1 v-1 M6,8 h1 v1 h-1 v-1 M8,8 h1 v1 h-1 v-1"/>
+		</symbol>
+		<symbol id="checked-box" viewBox="-1 -1 11 11">
+			<path d="M1,1 h6 l-1,1 h-4 v5 h5 v-2 l1,-1 v4 h-7 z"/>
+			<path d="M2,5 l1,-1 l1,1 l4,-4 l1,1 l-5,5 z"/>
+		</symbol>
+		<symbol id="layout" viewBox="-1 -1 11 11">
+			<path d="M0,0 h4 v5 h-4 v-4 M5,0 h4 v3 h-4 v-3 M0,6 h4 v3 h-4 v-3 M5,4 h4 v5 h-4 v-5"/>
+		</symbol>
+		<symbol id="full-screen" viewBox="-1 -1 11 11">
+			<path d="M0,0 h3 v1 h-2 v2 h-1 v-3 M6,0 h3 v3 h-1 v-2 h-2 v-1 M8,6 h1 v3 h-3 v-1 h2 v-2 M0,9 v-3 h1 v2 h2 v1 h-3"/>
+		</symbol>
+		<symbol id="info" viewBox="-1 -1 11 11">
+			<path d="M4.5,1 a3.5,3.5,0,0,1,0,7 v-1 h0.5 v-3.5 h-0.5 v-0.5 a0.5,0.5,0,0,0,0,-1 v-1 a3.5,3.5,0,0,0,0,7 v-1 h-0.5 v-3.5 h0.5 v-0.5 a0.5,0.5,0,0,1,0,-1 v-1"/>
+		</symbol>
+		<symbol id="show-more" viewBox="-1 -1 11 11">
+			<path d="M0,3 q2,-2,4.5,-2 q2.5,0,4.5,2 h-3 A1.5,1.5,0,0,0,3,3 A1.5,1.5,0,0,0,6,3 h3 q-2.5,2,-4.5,2 q-2,0,-4.5-2 M4,3 A0.5,0.5,0,0,0,5,3 A0.5,0.5,0,0,0,4,3 M0.5,6 l0.5,-0.5 l3.5,2 l3.5,-2 l0.5,0.5 l-4,2.25 l-4,-2.25"/>
+		</symbol>
+	</defs>
+</svg>

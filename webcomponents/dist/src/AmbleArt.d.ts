@@ -1,0 +1,12 @@
+export declare const ARROW_LEFT_SVG: import("lit-element").TemplateResult;
+export declare const ARROW_RIGHT_SVG: import("lit-element").TemplateResult;
+export declare const WALK_THROUGH_SVG: import("lit-element").TemplateResult;
+export declare const SELF_ASSESSMENT_SVG: import("lit-element").TemplateResult;
+export declare const SHOW_LESS_SVG: import("lit-element").TemplateResult;
+export declare const CHECKED_BOX_SVG: import("lit-element").TemplateResult;
+export declare const LAYOUT_SVG: import("lit-element").TemplateResult;
+export declare const FULL_SCREEN_SVG: import("lit-element").TemplateResult;
+export declare const EXIT_FULL_SCREEN_SVG: import("lit-element").TemplateResult;
+export declare const INFO_SVG: import("lit-element").TemplateResult;
+export declare const SHOW_MORE_SVG: import("lit-element").TemplateResult;
+export declare const LINK_SVG: import("lit-element").TemplateResult;
