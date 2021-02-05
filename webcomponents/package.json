@@ -28,7 +28,8 @@
 	"name": "allcode-amble-webcomponent",
 	"private": true,
 	"scripts": {
-		"build": "tsc --project tsconfig.json",
+    "prebuild": "npm run clean",
+		"build": "webpack build --config webpack.dev.ts",
 		"build:watch": "webpack build --config webpack.dev.ts --watch",
 		"clean": "rm -Rf ./allcode-amble.js ./allcode-amble.js.LICENSE.txt ./*.js.map ./src/*.js.map ./src/*.js ./src/*.d.ts ./dist",
 		"clean:modules": "rm -Rf ./node_modules ; npm install",

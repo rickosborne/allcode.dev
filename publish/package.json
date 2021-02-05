@@ -36,7 +36,8 @@
   "private": true,
   "scripts": {
     "lint": "eslint . --fix",
-    "start": "ts-node publish.ts --in ../lesson --out ../site --clean"
+    "publish": "ts-node publish.ts",
+    "start": "npm run publish -- --in ../lesson --out ../site --clean"
   },
   "version": "1.0.0"
 }
