@@ -5,8 +5,7 @@
   <title><%= meta.title === '' ? '' : `${meta.title} // ` %>allcode.dev</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="<%= asset('allcode.css').href %>" integrity="<%= asset('allcode.css').integrity %>" rel="stylesheet">
-  <link href="<%= asset('amble.css').href %>" integrity="<%= asset('amble.css').integrity %>" rel="stylesheet">
-  <link href="https://allcode.dev/<%= meta.slug %>" rel="canonical">
+  <link href="https://allcode.dev/<%= meta.slug %>/" rel="canonical">
   <link href="<%= asset('ac-logo.svg').href %>" integrity="<%= asset('ac-logo.svg').integrity %>" rel="icon">
   <%_ if (meta.description != null) { _%>
   <meta content="<%= meta.description %>" name="description">
@@ -15,6 +14,7 @@
   <link href="/<%= nextLink.href %>" rel="next" title="<%= nextLink.title %>">
   <%_ }); _%>
   <%_ if (languages.length > 0) { _%>
+  <link href="<%= asset('amble.css').href %>" integrity="<%= asset('amble.css').integrity %>" rel="stylesheet">
   <script integrity="<%= asset('allcode-amble.js').integrity %>" src="<%= asset('allcode-amble.js').href %>" type="module"></script>
   <link as="style" href="<%= asset('AmbleViewerElement.css').href %>" integrity="<%= asset('AmbleViewerElement.css').integrity %>" rel="preload">
   <link as="style" href="<%= asset('AmbleButtonElement.css').href %>" integrity="<%= asset('AmbleButtonElement.css').integrity %>" rel="preload">

@@ -8,8 +8,8 @@ slug: learn
 
 ## Basics &amp; Context
 
-1. [What is programming](learn/what-is-programming)
+* [What is programming](/learn/what-is-programming/)
 
 ## Control Structures
 
-1. [Loop Basics](learn/loop-basics)
+* [Loop Basics](/learn/loop-basics/)

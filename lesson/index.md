@@ -23,4 +23,4 @@ Everyone should have access to learn how to code.
 AllCode does not require a subscription, or even an account.
 You can use your existing third-party identity to track your progress, but only if you want.
 
-<a href="/learn" class="get-started-button">Get Started</a>
+<a href="/learn/" class="get-started-button">Get Started</a>
