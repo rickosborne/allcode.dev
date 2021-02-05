@@ -16,7 +16,7 @@ TODO
 
 ## Loop Examples
 
-This example counts from 1 to 5 using `while` loop.
+This example counts from 1 to 5 using a loop with the `while` keyword.
 It doesn't do anything with the count for now.
 Most languages have more natural and specific syntax for counting and range loops.
 

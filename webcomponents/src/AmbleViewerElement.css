@@ -50,7 +50,7 @@ amble-button-group {
 }
 
 .amble-description {
-	font-size: 80%;
+	font-size: calc(max(80%, 1rem));
 	font-style: italic;
 	min-height: var(--amble-button-size);
 	align-items: center;
@@ -71,7 +71,7 @@ amble-button-group {
 
 .amble-body {
 	flex-grow: 1;
-	background-color: var(--darker-50);
+	background-color: var(--amble-body-background-color, var(--darker-50));
 	padding: 0;
 	display: flex;
 	flex-direction: column;
@@ -80,7 +80,7 @@ amble-button-group {
 
 amble-code {
 	display: none;
-	background-color: black;
+	background-color: var(--amble-code-background-color, black);
 }
 
 .amble-body-layout-1 .amble-code-pos-1,
@@ -217,12 +217,12 @@ amble-code {
 .amble-walk-description {
 	flex-grow: 1;
 	padding: var(--amble-half-pad) var(--amble-pad);
-	font-size: 80%;
+	font-size: calc(max(80%, 1rem));
 }
 
 .amble-walk-extra {
 	padding: 0.5vw 1vw;
-	font-size: 70%;
+	font-size: calc(max(70%, 1rem));
 	background-color: var(--amble-off-10);
 	display: none;
 }
@@ -236,7 +236,7 @@ amble-code {
 }
 
 .amble-progress {
-	font-size: 70%;
+	font-size: calc(max(70%, 1rem));
 	line-height: inherit;
 	align-self: center;
 	flex-shrink: 0;
@@ -258,18 +258,18 @@ amble-code {
 	flex-direction: row;
 }
 .amble-quiz-qar .amble-qa-label {
-	font-size: 80%;
+	font-size: calc(max(80%, 1rem));
 }
 
 .amble-quiz-question {
 	flex-grow: 1;
 	padding: 0 1vw;
-	font-size: 80%;
+	font-size: calc(max(80%, 1rem));
 }
 
 .amble-quiz-answer {
 	background-color: var(--amble-off-10);
-	font-size: 80%;
+	font-size: calc(max(80%, 1rem));
 	display: none;
 	flex-direction: row;
 }
@@ -284,7 +284,7 @@ amble-code {
 
 .amble-quiz-rationale {
 	background-color: var(--amble-off-20);
-	font-size: 70%;
+	font-size: calc(max(70%, 1rem));
 	padding: 0 1vw;
 	display: none;
 }
@@ -356,7 +356,7 @@ amble-code {
 	display: flex;
 	flex-direction: column;
 	overflow-y: auto;
-	font-size: 80%;
+	font-size: calc(max(80%, 1rem));
 }
 
 .amble-refs-links a {

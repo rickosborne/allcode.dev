@@ -6,6 +6,8 @@ const config: webpack.Configuration & webpackDevServer.Configuration = {
     compress: true,
     contentBase: __dirname,
     index: 'demo.html',
+    openPage: '/demo.html',
+    overlay: true,
     watchContentBase: true,
   },
 	devtool: 'source-map',

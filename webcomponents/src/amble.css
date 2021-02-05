@@ -3,12 +3,14 @@
 	--amble-saturation: 40%;
 	--amble-luminance: 90%;
 	--amble-contrast: 20%;
+  --amble-background-alpha: 100%;
 	--amble-text-font-family: 'Roboto Condensed', 'Helvetica Neue', Roboto, 'Ubuntu Condensed', Ubuntu, Helvetica, sans-serif;
 	--amble-code-font-family: 'Roboto Mono', 'Ubuntu Mono', Monaco, 'Courier New', Courier, monospace;
-	--amble-font-size: 3vw;
+	--amble-font-size: calc(max(3vw, 1rem));
 	--lighter-10: rgba(255, 255, 255, 0.1);
 	--darker-10: rgba(0, 0, 0, 0.1);
-	--lighter-20: rgba(255, 255, 255, 0.2);
+  --lighter-20: rgba(255, 255, 255, 0.2);
+  --lighter-50: rgba(255, 255, 255, 0.5);
 	--darker-20: rgba(0, 0, 0, 0.2);
 	--darker-50: rgba(0, 0, 0, 0.5);
 	--darker-90: rgba(0, 0, 0, 0.9);
@@ -17,7 +19,7 @@
 	--amble-button-size: calc(var(--amble-font-size) * 1.3);
 	--amble-desaturation: calc(var(--amble-saturation) * 0.5);
 	--amble-mostly-contrast: calc(((var(--amble-contrast) * 2) + var(--amble-luminance)) * 0.33);
-	--amble-background-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-luminance));
+	--amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
 	--amble-text-color: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
 	--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 	--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
@@ -32,7 +34,7 @@
 		--amble-contrast: 90%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
 		--amble-mostly-contrast: calc(((var(--amble-contrast) * 2) + var(--amble-luminance)) * 0.33);
-		--amble-background-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-luminance));
+		--amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
 		--amble-text-color: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
 		--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 		--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
@@ -48,7 +50,7 @@
 		--amble-contrast: 90%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
 		--amble-mostly-contrast: calc(((var(--amble-contrast) * 2) + var(--amble-luminance)) * 0.33);
-		--amble-background-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-luminance));
+		--amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
 		--amble-text-color: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
 		--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 		--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
@@ -62,7 +64,7 @@
 		--amble-contrast: 20%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
 		--amble-mostly-contrast: calc(((var(--amble-contrast) * 2) + var(--amble-luminance)) * 0.33);
-		--amble-background-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-luminance));
+		--amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
 		--amble-text-color: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
 		--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 		--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
