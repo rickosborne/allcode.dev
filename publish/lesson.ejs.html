@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="color-scheme-dark">
 <head>
   <meta charset="UTF-8">
   <title><%= meta.title === '' ? '' : `${meta.title} // ` %>allcode.dev</title>
@@ -28,11 +28,16 @@
   <meta content="Rick Osborne" name="author">
 </head>
 <body>
+<div id="top"></div>
 <header class="site-header">
   <nav class="site-header-nav">
     <a class="site-header-nav-home-link" href="/"><img alt="allcode.dev logo: a rounded hexagon with embedded &ldquo;AC&rdquo; initials" class="site-header-nav-logo" src="<%= asset('ac-logo.svg').href %>" title="allcode.dev Home"></a>
     <span class="slashes">//</span>
     <a href="/learn/">Learn</a>
+    <%_ if (meta.title !== '' && meta.slug != 'learn') { _%>
+    <span class="slashes">//</span>
+    <span class="site-header-title"><a href="#top"><%= meta.title %></a></span>
+    <%_ } _%>
   </nav>
   <span class="expando"></span>
 </header>

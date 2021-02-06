@@ -24,12 +24,13 @@
 	--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 	--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
 	--amble-icon-fg-over: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
+  --amble-code-background-color: white;
 	--amble-off-10: var(--darker-10);
 	--amble-off-20: var(--darker-20);
 }
 
 @media screen {
-	.amble-force-dark-color-scheme {
+	.amble-force-dark-color-scheme, :host(.color-scheme-dark), .color-scheme-dark {
 		--amble-luminance: 20%;
 		--amble-contrast: 90%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
@@ -39,13 +40,14 @@
 		--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 		--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
 		--amble-icon-fg-over: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
+    --amble-code-background-color: black;
 		--amble-off-10: var(--lighter-10);
 		--amble-off-20: var(--lighter-20);
 	}
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	:root {
+  .color-scheme-detect, :host(.color-scheme-detect) {
 		--amble-luminance: 20%;
 		--amble-contrast: 90%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
@@ -55,11 +57,12 @@
 		--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
 		--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
 		--amble-icon-fg-over: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
+    --amble-code-background-color: black;
 		--amble-off-10: var(--lighter-10);
 		--amble-off-20: var(--lighter-20);
 	}
 
-	.amble-force-light-color-scheme {
+	.amble-force-light-color-scheme, .color-scheme-light, :host(.color-scheme-light) {
 		--amble-luminance: 90%;
 		--amble-contrast: 20%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
@@ -67,8 +70,9 @@
 		--amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
 		--amble-text-color: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
 		--amble-text-code-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
-		--amble-icon-fg: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
-		--amble-icon-fg-over: hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast));
+		--amble-icon-fg: var(--amble-icon-fg-override, hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%));
+		--amble-icon-fg-over: var(--amble-icon-fg-over-override, hsl(var(--amble-hue), var(--amble-desaturation), var(--amble-contrast)));
+    --amble-code-background-color: white;
 		--amble-off-10: var(--darker-10);
 		--amble-off-20: var(--darker-20);
 	}

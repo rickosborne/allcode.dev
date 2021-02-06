@@ -11,6 +11,8 @@ export abstract class AmbleElement extends LitElement {
 
 	constructor() {
 		super();
+		// Because https://github.com/w3c/csswg-drafts/issues/1914
+		document.body.parentElement?.classList.forEach(c => this.classList.add(c));
 	}
 
 	protected changed(key: PropertyKey, previous?: unknown): void {
