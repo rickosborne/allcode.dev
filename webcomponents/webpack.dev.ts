@@ -1,3 +1,4 @@
+import * as express from "express";
 import * as webpack from "webpack";
 import * as webpackDevServer from "webpack-dev-server";
 
@@ -8,6 +9,9 @@ const config: webpack.Configuration & webpackDevServer.Configuration = {
     index: 'demo.html',
     openPage: '/demo.html',
     overlay: true,
+    setup: (app: express.Application) => {
+      app.use('/assets/', express.static("../assets"));
+    },
     watchContentBase: true,
   },
 	devtool: 'source-map',
