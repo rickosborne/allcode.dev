@@ -181,20 +181,33 @@ export class AmbleViewerElement extends AmbleElement {
 				this.removeEventListener('fullscreenerror', onFullScreenChange);
 			}
 		};
-		if (document.fullscreenElement === this) {
-			document.exitFullscreen().finally(() => {
-				this.removeEventListener('fullscreenchange', onFullScreenChange);
-				this.removeEventListener('fullscreenerror', onFullScreenChange);
-				this.isFullScreen = false;
-				return this.changed('isFullScreen', true);
-			});
+		const afterBackFromFullscreen = () => {
+      this.removeEventListener('fullscreenchange', onFullScreenChange);
+      this.removeEventListener('fullscreenerror', onFullScreenChange);
+      this.isFullScreen = false;
+      return this.changed('isFullScreen', true);
+    };
+		const afterIntoFullscreen = () => {
+      this.isFullScreen = true;
+      this.addEventListener('fullscreenchange', onFullScreenChange);
+      this.addEventListener('fullscreenerror', onFullScreenChange);
+      return this.changed('isFullScreen', false);
+    };
+		// Safari.  Sigh.
+		if (document.fullscreenElement === this || (document as unknown as Record<string, unknown>).webkitFullscreenElement === this) {
+		  if (typeof document.exitFullscreen === 'function') {
+        document.exitFullscreen().finally(() => afterBackFromFullscreen());
+      } else if (typeof (document as unknown as Record<string, unknown>).webkitExitFullscreen === 'function') {
+        (document as unknown as Record<string, () => unknown>).webkitExitFullscreen();
+        afterBackFromFullscreen()
+      }
 		} else {
-			this.requestFullscreen().then(() => {
-				this.isFullScreen = true;
-				return this.changed('isFullScreen', false);
-			});
-			this.addEventListener('fullscreenchange', onFullScreenChange);
-			this.addEventListener('fullscreenerror', onFullScreenChange);
+      if (typeof this.requestFullscreen === 'function') {
+        this.requestFullscreen().then(() => afterIntoFullscreen());
+      } else if (typeof (this as unknown as Record<string, unknown>).webkitRequestFullScreen === 'function') {
+        (this as unknown as Record<string, () => unknown>).webkitRequestFullscreen();
+		    afterIntoFullscreen();
+      }
 		}
 	}
 
