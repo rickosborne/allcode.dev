@@ -1,3 +1,17 @@
+:root {
+  --body-background-color: #eee;
+  --body-color: #222;
+  --a-color: #369;
+  --visited-color: #246;
+  --hover-color: #48c;
+  --active-color: #306090;
+  --font-family-header: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  --font-weight-header: bold;
+  --font-family-body: "Gentium Plus", Gentium, "Roboto Slab", Cambria, "Times New Roman", Times, serif;
+  --font-family-sans: Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  --font-family-sans-thin: "Roboto Condensed", var(--font-family-sans);
+}
+
 html, body {
   min-height: 100vh;
   box-sizing: border-box;
@@ -17,11 +31,11 @@ html, body {
   body, .color-scheme-light body {
     max-width: 80em;
     margin: 0 auto;
-    background-color: #eee;
-    color: black;
+    background-color: var(--body-background-color);
+    color: var(--body-color);
     line-height: 130%;
     font-size: calc(max(100%, 2vw));
-    font-family: "Roboto Slab", "Gentium Plus", Gentium, Cambria, "Times New Roman", Times, serif;
+    font-family: var(--font-family-body);
     --amble-hue: 208;
     --amble-background-alpha: 50%;
     --amble-text-color: black;
@@ -55,10 +69,23 @@ amble-viewer {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Roboto Light", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
-  margin-top: 1.3rem;
+  font-family: var(--font-family-header);
+  font-weight: var(--font-weight-header);
+}
+article h1, article h2, article h3, article h4, article h5, article h6 {
+  margin-top: 1.95rem;
   margin-bottom: 1.95rem;
 }
+article h1:first-child, article h2:first-child, article h3:first-child, article h4:first-child, article h5:first-child, article h6:first-child {
+  margin-top: 0;
+}
+h1 { font-size: 150%; }
+h2 { font-size: 140%; }
+h3 { font-size: 130%; }
+h4 { font-size: 120%; }
+h5 { font-size: 110%; }
+h6 { font-size: 105%; }
+
 p, ul, ol, dl {
   margin: 1.3rem auto;
 }
@@ -68,21 +95,10 @@ li {
 code {
   color: var(--amble-text-code-color, inherit);
 }
-a {
-  color: #369;
-}
-
-a:visited {
-  color: #246;
-}
-
-a:active {
-  color: #306090;
-}
-
-a:hover {
-  color: #48c;
-}
+a { color: var(--a-color); }
+a:visited { color: var(--visited-color); }
+a:active { color: var(--active-color); }
+a:hover { color: var(--hover-color); }
 
 .site-header {
   z-index: 1000;
@@ -92,16 +108,16 @@ a:hover {
   height: 1.7em;
   position: -webkit-sticky;
   position: sticky;
-  font-family: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-sans-thin);
   padding: 0 0.5rem;
   --amble-background-alpha: 0.95;
   --amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
-  background-color: rgba(32, 64, 96, 0.95);
-  color: #ddd;
 }
 
-.site-header, #site-header-settings {
-  box-shadow: 0 0 0.65em #246;
+.site-header, #site-header-settings, .site-footer {
+  color: #ddd;
+  background-color: rgba(32, 64, 96, 0.95);
+  box-shadow: 0 0 0.65em #123;
   box-sizing: border-box;
 }
 .site-header, .site-header-nav {
@@ -153,19 +169,15 @@ a:hover {
 .site-footer {
   min-height: 1.7em;
   padding: 1rem;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
   align-content: center;
   justify-content: center;
   justify-items: center;
-  background-color: rgba(32, 64, 96, 0.95);
-  color: #ddd;
   margin-top: 1.95em;
-  box-shadow: 0 0 0.65em #246;
   font-size: calc(max(1rem, 80%));
-  font-family: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-sans-thin);
 }
 
 @media print {
@@ -189,13 +201,16 @@ a:hover {
 }
 
 @media screen and (prefers-color-scheme: dark) {
-  .color-scheme-detect, .color-scheme-detect body {
-    background-color: black;
-    color: #eee;
+  .color-scheme-detect {
+    --body-background-color: black;
+    --body-color: #eee;
+    --a-color: #48c;
+    --visited-color: #5ae;
+    --hover-color: #369;
+    --active-color: #50a0e0;
   }
 
   .color-scheme-detect body {
-    color: #ddd;
     --amble-text-code-color: #6cf;
     --amble-background-alpha: 50%;
     --amble-text-color: #ddd;
@@ -205,59 +220,24 @@ a:hover {
     --amble-icon-fg-override: #48c;
     --amble-icon-fg-over-override: #5ae;
   }
-
-  .color-scheme-detect a { color: #48c; }
-  .color-scheme-detect a:visited { color: #5ae; }
-  .color-scheme-detect a:hover, .color-scheme-detect a:focus { color: #369; }
-  .color-scheme-detect a:active { color: #50a0e0; }
-
-  .color-scheme-detect #site-header-settings h1 {
-    background-color: var(--lighter-20);
-  }
-
-  .color-scheme-detect .site-header a,
-  .color-scheme-detect .site-footer .site-header-nav a {
-    color: #abd5ff;
-  }
-  .color-scheme-detect .site-header a:hover,
-  .color-scheme-detect .site-header a:focus,
-  .color-scheme-detect .site-footer a:hover,
-  .color-scheme-detect .site-footer a:focus {
-    color: #d6f1ff;
-  }
 }
 
-.color-scheme-dark, .color-scheme-dark body {
-  background-color: black;
-  color: #eee;
+.color-scheme-dark {
+  --body-background-color: black;
+  --body-color: #eee;
+  --a-color: #48c;
+  --visited-color: #5ae;
+  --hover-color: #369;
+  --active-color: #50a0e0;
 }
 
 .color-scheme-dark body {
-  color: #ddd;
   --amble-text-code-color: #6cf;
   --amble-background-alpha: 50%;
   --amble-text-color: #ddd;
   --amble-icon-fg: #48c;
   --amble-icon-fg-over: #5ae;
   --amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
-}
-
-.color-scheme-dark a { color: #48c; }
-.color-scheme-dark a:visited { color: #5ae; }
-.color-scheme-dark a:hover, .color-scheme-dark a:focus { color: #369; }
-.color-scheme-dark a:active { color: #50a0e0; }
-
-.color-scheme-dark #site-header-settings h1 {
-  background-color: var(--lighter-20);
-}
-
-.color-scheme-dark .site-header a,
-.color-scheme-dark .site-footer .site-header-nav a {
-  color: #abd5ff;
-}
-.color-scheme-dark .site-header a:hover,
-.color-scheme-dark .site-header a:focus,
-.color-scheme-dark .site-footer a:hover,
-.color-scheme-dark .site-footer a:focus {
-  color: #d6f1ff;
+  --amble-icon-fg-override: #48c;
+  --amble-icon-fg-over-override: #5ae;
 }
