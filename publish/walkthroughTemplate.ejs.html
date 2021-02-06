@@ -3,7 +3,7 @@
   <header slot="title"><%- markup(walkthrough.title) %></header>
   <div slot="description"><%- markup(walkthrough.description) %></div>
   <%_ walkthrough.sources.forEach(source => { _%>
-  <amble-source label="<%= languageLabelOf(source) %>" syntax="<%= languagesOf(source).join(',') %>">
+  <amble-source label="<%= languageLabelOf(source) %>" syntax="<%= syntaxesOf(source).join(',') %>">
 <%= source.source _%>
   </amble-source>
   <%_ }); _%>
@@ -12,7 +12,7 @@
     <p slot="description"><%- markup(step.description) %></p>
     <% if(step.extra != null) { %><span slot="extra"><%- markup(step.extra) %></span><% } %>
     <%_ (step.highlight || []).forEach(highlight => { _%>
-    <amble-source-ref<% if (highlight.language != null) { %> language="<%= languagesOf(highlight).join(",") %>"<% } %> selector="<%= highlight.selector %>"></amble-source-ref>
+    <amble-source-ref<% if (highlight.syntax != null || highlight.syntaxes != null) { %> syntax="<%= syntaxesOf(highlight).join(",") %>"<% } %> selector="<%= highlight.selector %>"></amble-source-ref>
     <%_ }); _%>
     <%_ (step.refs || []).forEach(ref => { _%>
     <a class="amble-link" href="/<%= ref.href %>"><%= ref.title %></a>
@@ -25,7 +25,7 @@
     <p slot="answer"><%- markup(question.answer) %></p>
     <% if (question.rationale != null) { %><p slot="rationale"><%- markup(question.rationale) %></p><% } %>
     <%_ (question.highlight || []).forEach(highlight => { _%>
-    <amble-source-ref<% if (highlight.language != null) { %> language="<%= languagesOf(highlight).join(",") %>"<% } %> selector="<%= highlight.selector %>"></amble-source-ref>
+    <amble-source-ref<% if (highlight.syntax != null || highlight.syntaxes != null) { %> syntax="<%= syntaxesOf(highlight).join(",") %>"<% } %> selector="<%= highlight.selector %>"></amble-source-ref>
     <%_ }); _%>
     <%_ (question.refs || []).forEach(ref => { _%>
     <a class="amble-link" href="/<%= ref.href %>"><%= ref.title %></a>

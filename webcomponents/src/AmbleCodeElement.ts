@@ -110,7 +110,7 @@ export class AmbleCodeElement extends AmbleElement {
 				setTimeout(() => this.setHighlightedSourceRefs(refs), 100);
 			} else {
 				const langIds = this.syntax.split(',');
-				const ref = refs.filter((r) => r.languageId == null || langIds.includes(r.languageId))[0];
+				const ref = refs.filter((r) => r.syntax == null || langIds.includes(r.syntax))[0];
 				if (ref == null) {
 					this.clearHighlighted();
 				} else if (ref.selector !== this.previousHighlightSelector) {

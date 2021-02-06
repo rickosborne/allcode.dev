@@ -6,5 +6,5 @@ export class AmbleSourceRefElement extends AmbleElement {
 	@property({type: String})
 	public selector!: string;
 	@property({type: String})
-	public languageId: string | undefined;
+	public syntax: string | undefined;
 }

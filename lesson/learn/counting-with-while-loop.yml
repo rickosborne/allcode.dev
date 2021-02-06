@@ -2,7 +2,7 @@ $schema: "../../publish/Walkthrough-v1.schema.json"
 title: Counting with a `while` loop
 description: Use a number counter and a `while` loop to count from 1 to 5.
 sources:
-  - languages:
+  - syntaxes:
       - java
       - c
       - cpp
@@ -12,55 +12,55 @@ sources:
       while (count <= 5) {
           count++;
       }
-  - language: typescript
+  - syntax: typescript
     source: |
       let count: number = 1;
       while (count <= 5) {
         count++;
       }
-  - language: php
+  - syntax: php
     source: |
       $count = 1;
       while ($count <= 5) {
         $count++;
       }
-  - language: perl
+  - syntax: perl
     source: |
       my $count = 1;
       while ($count <= 5) {
         $count++;
       }
-  - language: ruby
+  - syntax: ruby
     source: |
       $count = 1
       while ($count <= 5) do
         $count++;
       end
-  - language: bash
+  - syntax: bash
     source: |
       COUNT=1
       while [ $COUNT -le 5 ] ; do
         COUNT=$(( $COUNT + 1 ))
       done
-  - language: basic
+  - syntax: basic
     source: |
       Dim count as Integer = 1
       While count <= 5
         count += 1
       End While
-  - language: pascal
+  - syntax: pascal
     source: |
       count := 1
       WHILE (count <= 5) DO
         BEGIN
           count := count + 1
         END;
-  - language: python
+  - syntax: python
     source: |
       count = 1
       while (count <= 5):
           count++
-  - language: javascript
+  - syntax: javascript
     source: |
       let count = 1;
       while (count <= 5) {
@@ -105,7 +105,7 @@ explanation:
       Blocks can do much more than this, and may do many things one after another.
     highlight:
       - selector: .line-4
-        language: pascal
+        syntax: pascal
       - selector: .line-3
     refs:
       - title: Blocks
@@ -113,7 +113,7 @@ explanation:
   - description: The loop body increments (adds `1` to) the count variable.
     highlight:
       - selector: .operator-coloneq-2
-        language: pascal
+        syntax: pascal
       - selector: .operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus
     refs:
       - title: Increment and Decrement
@@ -141,7 +141,7 @@ assessment:
     answer: The loop body, which is a block and could have many lines of code, will be executed each time the loop is repeated.
     highlight:
       - selector: .line-4
-        language: pascal
+        syntax: pascal
       - selector: .line-3
     refs:
       - title: Blocks
@@ -162,5 +162,5 @@ assessment:
       Since the condition is always `true`, the loop will never end.
     highlight:
       - selector: .operator-coloneq-2
-        language: pascal
+        syntax: pascal
       - selector: .operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus

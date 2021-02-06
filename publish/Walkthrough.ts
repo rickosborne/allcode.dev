@@ -18,25 +18,25 @@ export interface HasSource {
 
 export const hasSource = guardStringNamed("source");
 
-export interface HasSingleLanguage {
-  language: string;
+export interface HasSyntax {
+  syntax: string;
 }
 
-export const hasSingleLanguage: NoisyGuard<HasSingleLanguage> = guardStringNamed("language");
+export const hasSingleSyntax: NoisyGuard<HasSyntax> = guardStringNamed("syntax");
 
-export interface HasMultiLanguage {
-  languages: string[];
+export interface HasSyntaxes {
+  syntaxes: string[];
 }
 
-export const hasMultiLanguage: NoisyGuard<HasMultiLanguage> = guardProperty("languages", guardArrayOf(isString));
+export const hasSyntaxes: NoisyGuard<HasSyntaxes> = guardProperty("syntaxes", guardArrayOf(isString));
 
-export type WalkthroughSource = HasSource & (HasSingleLanguage | HasMultiLanguage);
+export type WalkthroughSource = HasSource & (HasSyntax | HasSyntaxes);
 
 export const isWalkthroughSource: NoisyGuard<WalkthroughSource> = guardAll(
   hasSource,
   guardExactlyOne(
-    hasSingleLanguage,
-    hasMultiLanguage,
+    hasSingleSyntax,
+    hasSyntaxes,
   ),
 );
 
@@ -52,13 +52,13 @@ export interface HasSelector {
 
 export const hasSelector = guardStringNamed("selector");
 
-export type WalkthroughHighlight = HasSelector & (Partial<HasSingleLanguage> | Partial<HasMultiLanguage>);
+export type WalkthroughHighlight = HasSelector & (Partial<HasSyntax> | Partial<HasSyntaxes>);
 
 export const isWalkthroughHighlight: NoisyGuard<WalkthroughHighlight> = guardAll(
   hasSelector,
   guardAtMostOne(
-    hasSingleLanguage,
-    hasMultiLanguage,
+    hasSingleSyntax,
+    hasSyntaxes,
   ),
 );
 

@@ -10,36 +10,36 @@
     "hasLang": {
       "oneOf": [
         {
-          "$ref": "#/definitions/hasLanguage"
+          "$ref": "#/definitions/hasSyntax"
         },
         {
-          "$ref": "#/definitions/hasLanguages"
+          "$ref": "#/definitions/hasSyntaxes"
         }
       ]
     },
-    "hasLanguage": {
+    "hasSyntax": {
       "properties": {
-        "language": {
-          "$ref": "#/definitions/languageId"
+        "syntax": {
+          "$ref": "#/definitions/syntax"
         }
       },
       "required": [
-        "language"
+        "syntax"
       ]
     },
-    "hasLanguages": {
+    "hasSyntaxes": {
       "properties": {
-        "languages": {
+        "syntaxes": {
           "items": {
-            "$ref": "#/definitions/languageId"
+            "$ref": "#/definitions/syntax"
           },
           "minItems": 1,
-          "title": "Language Identifiers",
+          "title": "Syntax Identifiers",
           "type": "array"
         }
       },
       "required": [
-        "languages"
+        "syntaxes"
       ]
     },
     "highlights": {
@@ -61,19 +61,19 @@
             "oneOf": [
               {
                 "properties": {
-                  "language": {
-                    "$ref": "#/definitions/languageId"
+                  "syntax": {
+                    "$ref": "#/definitions/syntax"
                   }
                 }
               },
               {
                 "properties": {
-                  "languages": {
+                  "syntaxes": {
                     "items": {
-                      "$ref": "#/definitions/languageId"
+                      "$ref": "#/definitions/syntax"
                     },
                     "minItems": 1,
-                    "title": "Language Identifiers",
+                    "title": "Syntax Identifiers",
                     "type": "array"
                   }
                 }
@@ -86,11 +86,6 @@
       },
       "title": "Highlight Specifiers",
       "type": "array"
-    },
-    "languageId": {
-      "pattern": "^[a-z][a-z0-9]*$",
-      "title": "Language Identifier",
-      "type": "string"
     },
     "refs": {
       "items": {
@@ -114,6 +109,11 @@
       },
       "title": "Links",
       "type": "array"
+    },
+    "syntax": {
+      "pattern": "^[a-z][a-z0-9]*$",
+      "title": "Syntax Identifier",
+      "type": "string"
     }
   },
   "properties": {

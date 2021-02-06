@@ -20,9 +20,9 @@ import * as pkg from "./package.json";
 import {HasTitle} from "./RefLink";
 import {walk, WalkResult} from "./walk";
 import {
-  HasMultiLanguage,
-  HasSingleLanguage,
-  hasSingleLanguage,
+  hasSingleSyntax,
+  HasSyntax,
+  HasSyntaxes,
   isWalkthrough,
   Walkthrough,
   WalkthroughSource,
@@ -60,7 +60,7 @@ export interface WalkthroughResource {
   walkthrough: Walkthrough;
 }
 
-export type WalkthroughSummary = HasTitle & HasMultiLanguage & Partial<WalkthroughResource>;
+export type WalkthroughSummary = HasTitle & HasSyntaxes & Partial<WalkthroughResource>;
 
 export interface Lesson {
   absolute: string;
@@ -79,8 +79,8 @@ export interface TemplateTools {
   asset: (key: string) => Asset;
   assetForLanguage: (langId: string) => Asset;
   languageLabelOf: (source: WalkthroughSource) => string;
-  languagesOf: (item: HasSingleLanguage | HasMultiLanguage) => string[];
   markup: (data: string) => string;
+  syntaxesOf: (item: HasSyntax | HasSyntaxes) => string[];
   unique: <T>(items: T[]) => T[];
 }
 
@@ -113,7 +113,7 @@ function buildTemplateTools(
     },
     assetForLanguage: langId => languages[langId].asset,
     languageLabelOf: (source: WalkthroughSource): string => {
-      return `${(hasSingleLanguage(source) ? [source.language] : source.languages).map(lang => {
+      return `${(hasSingleSyntax(source) ? [source.syntax] : source.syntaxes).map(lang => {
         const syntax = languages[lang];
         if (syntax == null) {
           throw new Error(`No such language "${lang}" in walkthrough`);
@@ -121,17 +121,17 @@ function buildTemplateTools(
         return syntax.label;
       }).join(" | ")}`;
     },
-    languagesOf: item => {
-      if (hasSingleLanguage(item)) {
-        return [item.language];
-      } else {
-        return item.languages;
-      }
-    },
     markup: (() => {
       const md = new MarkdownIt(markdownItOptions);
       return (data: string): string => md.renderInline(data).trim();
     })(),
+    syntaxesOf: item => {
+      if (hasSingleSyntax(item)) {
+        return [item.syntax];
+      } else {
+        return item.syntaxes;
+      }
+    },
     unique: <T>(items: T[]): T[] => items.reduce((prev, cur) => {
       if (!prev.includes(cur)) {
         prev.push(cur);
@@ -237,13 +237,13 @@ const walkthroughContainerHandler = (
       console.log(`*  ${lesson.relative} references ${walkthrough.name}`);
       const summary: WalkthroughSummary = {
         fileName: walkthrough.fileName,
-        languages: (walkthrough.walkthrough.sources || []).flatMap(s => hasSingleLanguage(s) ? s.language : s.languages),
         name: walkthrough.name,
         slug: walkthrough.slug,
+        syntaxes: (walkthrough.walkthrough.sources || []).flatMap(s => hasSingleSyntax(s) ? s.syntax : s.syntaxes),
         title: walkthrough.walkthrough.title,
       };
       lesson.walksthrough.push(summary);
-      summary.languages.map(langId => languages[langId].fileKey || langId).forEach(langId => {
+      summary.syntaxes.map(langId => languages[langId].fileKey || langId).forEach(langId => {
         if (!lesson.languages.includes(langId)) {
           lesson.languages.push(langId);
         }
