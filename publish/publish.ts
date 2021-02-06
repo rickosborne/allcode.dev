@@ -28,6 +28,7 @@ import {
   WalkthroughSource,
 } from "./Walkthrough";
 
+const MarkdownItDeflist = require("markdown-it-deflist");
 const perl = require("prismjs/components/prism-perl.js");
 const java = require("prismjs/components/prism-java.js");
 const c = require("prismjs/components/prism-c.js");
@@ -81,6 +82,7 @@ export interface TemplateTools {
   languageLabelOf: (source: WalkthroughSource) => string;
   markup: (data: string) => string;
   syntaxesOf: (item: HasSyntax | HasSyntaxes) => string[];
+  traverse: <T>(record: Record<string, T> | undefined | null, key: string, defaultValue: T) => T,
   unique: <T>(items: T[]) => T[];
 }
 
@@ -98,6 +100,11 @@ const markdownItOptions = {
   html: true,
   typographer: true,
 };
+
+const buildMarkdownIt = () => {
+  return new MarkdownIt(markdownItOptions)
+    .use(MarkdownItDeflist);
+}
 
 function buildTemplateTools(
   languages: Record<string, Syntax>,
@@ -122,7 +129,7 @@ function buildTemplateTools(
       }).join(" | ")}`;
     },
     markup: (() => {
-      const md = new MarkdownIt(markdownItOptions);
+      const md = buildMarkdownIt();
       return (data: string): string => md.renderInline(data).trim();
     })(),
     syntaxesOf: item => {
@@ -131,6 +138,13 @@ function buildTemplateTools(
       } else {
         return item.syntaxes;
       }
+    },
+    traverse<T>(record: Record<string, T> | undefined | null, key: string, defaultValue: T): T {
+      let value: T;
+      if (record != null && ((value = record[key]) != null)) {
+        return value;
+      }
+      return defaultValue;
     },
     unique: <T>(items: T[]): T[] => items.reduce((prev, cur) => {
       if (!prev.includes(cur)) {
@@ -267,7 +281,7 @@ function renderLesson(
   templateTools: TemplateTools,
   languages: Record<string, Syntax>,
 ): void {
-  const md = new MarkdownIt(markdownItOptions)
+  const md = buildMarkdownIt()
     .use(MarkdownItContainer, "walkthrough", walkthroughContainerHandler(lesson, walksthrough, renderWalkthrough, templateTools, languages));
   lesson.html = md.render(lesson.body);
   const outHtml = renderLessonHtml(Object.assign({}, lesson, templateTools));

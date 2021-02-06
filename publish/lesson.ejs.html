@@ -2,7 +2,7 @@
 <html lang="en" class="color-scheme-detect">
 <head>
   <meta charset="UTF-8">
-  <title><%= meta.title === '' ? '' : `${meta.title} // ` %>allcode.dev</title>
+  <title><%= (meta.title === '' || meta.title === 'allcode.dev') ? '' : `${meta.title} // ` %>allcode.dev</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="<%= asset('allcode.css').href %>" integrity="<%= asset('allcode.css').integrity %>" rel="stylesheet">
   <link href="https://allcode.dev/<%= meta.slug %>/" rel="canonical">
@@ -32,8 +32,10 @@
 <header class="site-header">
   <nav class="site-header-nav">
     <a class="site-header-nav-home-link" href="/"><img alt="allcode.dev logo: a rounded hexagon with embedded &ldquo;AC&rdquo; initials" class="site-header-nav-logo" src="<%= asset('ac-logo.svg').href %>" title="allcode.dev Home"></a>
+    <% if (traverse(meta.section, 'title', null) !== '') { %>
     <span class="slashes">//</span>
-    <a href="/learn/">Learn</a>
+    <a href="<%= traverse(meta.section, 'href', '/learn/') %>"><%= traverse(meta.section, 'title', 'Learn') %></a>
+    <% } %>
     <%_ if (meta.title !== '' && meta.slug != 'learn') { _%>
     <span class="slashes">//</span>
     <span class="site-header-title"><a href="#top"><%= meta.title %></a></span>
@@ -45,7 +47,11 @@
 <%- html %>
 </article>
 <footer class="site-footer">
-  <span>allcode.dev is a creation of, and copyrighted by, <a href="https://rickosborne.org">Rick Osborne</a>.  All rights reserved.  This content is not licensed for derivative works.</span>
+  <p>
+    <a href="/about/">About</a> |
+    <a href="/about/license/">License &amp; Terms</a> |
+    allcode.dev is a creation of, and copyrighted by, <a href="https://rickosborne.org">Rick Osborne</a>
+  </p>
 </footer>
 </body>
 </html>

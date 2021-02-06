@@ -90,7 +90,13 @@ p, ul, ol, dl {
   margin: 1.3rem auto;
 }
 li {
-  margin: 0.65rem auto;
+  margin: 0.65rem 0 0.65rem 0.65rem;
+}
+dd {
+  margin: 1.3rem 0 1.3rem 2.6rem;
+}
+dd ~ dd {
+  margin-top: 1.3rem;
 }
 code {
   color: var(--amble-text-code-color, inherit);
@@ -99,6 +105,24 @@ a { color: var(--a-color); }
 a:visited { color: var(--visited-color); }
 a:active { color: var(--active-color); }
 a:hover { color: var(--hover-color); }
+
+blockquote {
+  box-sizing: border-box;
+  color: var(--amble-icon-fg);
+  font-size: calc(min(4vw, 150%));
+  line-height: 130%;
+  padding-left: 1.5em;
+  position: relative;
+  margin: 1.95rem auto;
+}
+blockquote::before {
+  content: "❝";
+  display: inline;
+  position: absolute;
+  top: 0;
+  left: 0em;
+  font-size: 200%;
+}
 
 .site-header {
   z-index: 1000;
@@ -110,14 +134,14 @@ a:hover { color: var(--hover-color); }
   position: sticky;
   font-family: var(--font-family-sans-thin);
   padding: 0 0.5rem;
+  background-color: rgba(32, 64, 96, 0.95);
+  box-shadow: 0 0 0.65em #123;
+  color: #ddd;
   --amble-background-alpha: 0.95;
   --amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
 }
 
 .site-header, #site-header-settings, .site-footer {
-  color: #ddd;
-  background-color: rgba(32, 64, 96, 0.95);
-  box-shadow: 0 0 0.65em #123;
   box-sizing: border-box;
 }
 .site-header, .site-header-nav {
@@ -178,6 +202,9 @@ a:hover { color: var(--hover-color); }
   margin-top: 1.95em;
   font-size: calc(max(1rem, 80%));
   font-family: var(--font-family-sans-thin);
+  background-color: rgba(32, 32, 32, 0.95);
+  box-shadow: 0 0 0.65em #111;
+  color: #999;
 }
 
 @media print {
@@ -204,10 +231,10 @@ a:hover { color: var(--hover-color); }
   .color-scheme-detect {
     --body-background-color: black;
     --body-color: #eee;
-    --a-color: #48c;
-    --visited-color: #5ae;
-    --hover-color: #369;
-    --active-color: #50a0e0;
+    --a-color: #5af;
+    --visited-color: #50a0f0;
+    --hover-color: #6cf;
+    --active-color: #50a0f0;
   }
 
   .color-scheme-detect body {
@@ -225,10 +252,10 @@ a:hover { color: var(--hover-color); }
 .color-scheme-dark {
   --body-background-color: black;
   --body-color: #eee;
-  --a-color: #48c;
-  --visited-color: #5ae;
-  --hover-color: #369;
-  --active-color: #50a0e0;
+  --a-color: #5af;
+  --visited-color: #50a0f0;
+  --hover-color: #6cf;
+  --active-color: #50a0f0;
 }
 
 .color-scheme-dark body {

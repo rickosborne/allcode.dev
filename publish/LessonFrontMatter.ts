@@ -4,6 +4,7 @@ import {isLinkRef, LinkRef} from "./RefLink";
 export interface LessonFrontMatter {
   description: string;
   forward?: LinkRef[];
+  section?: LinkRef;
   slug: string;
   title: string;
 }
@@ -11,6 +12,7 @@ export interface LessonFrontMatter {
 export const isLessonFrontMatter: NoisyGuard<LessonFrontMatter> = guardAllOf({
   description: isString,
   forward: guardUndefinedOr(guardArrayOf(isLinkRef)),
+  section: guardUndefinedOr(isLinkRef),
   slug: isString,
   title: isString,
 });

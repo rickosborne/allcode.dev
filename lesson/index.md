@@ -1,7 +1,10 @@
 ---
-title: ""
+title: allcode.dev
 description: Learn how to code multiple languages at once at allcode.dev.
 slug: ""
+section:
+  title: ""
+  href: ""
 ---
 
 # Learn Coding Concepts
