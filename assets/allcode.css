@@ -1,5 +1,5 @@
 html, body {
-  min-height: 100%;
+  min-height: 100vh;
   box-sizing: border-box;
   scrollbar-color: rgba(127, 127, 127, 0.5) transparent;
 }
@@ -32,6 +32,7 @@ body {
 }
 article {
   padding: 1rem;
+  min-height: calc(100vh - 12.2rem);
 }
 article > * {
   max-width: 45rem;
@@ -164,6 +165,20 @@ a:hover {
 @media print {
   html, body {
     background-color: white;
+  }
+  a {
+    color: blue !important;
+    text-decoration: underline !important;
+  }
+  .site-header, .site-footer {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .site-footer {
+    border-top: thin solid #ddd;
+  }
+  article {
+    min-height: unset;
   }
 }
 
