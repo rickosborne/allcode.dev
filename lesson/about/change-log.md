@@ -9,6 +9,10 @@ slug: about/change-log
 
 # Change Log
 
+TODO
+  ~ Replace `lit-element` and `lit-html` with plain WebComponents.
+    They are overkill, and bring in a ton of bloat.
+
 2020-01-06
   ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.
   ~ Added this change log!
