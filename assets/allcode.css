@@ -131,9 +131,7 @@ article > * {
   margin: 0 auto;
 }
 article > amble-viewer {
-  max-width: calc(100% + 2rem);
-  margin-left: -1rem;
-  margin-right: -1rem;
+  max-width: 100%;
 }
 amble-viewer {
   display: block;

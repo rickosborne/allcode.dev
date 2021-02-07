@@ -13,6 +13,10 @@ TODO
   ~ Replace `lit-element` and `lit-html` with plain WebComponents.
     They are overkill, and bring in a ton of bloat.
 
+2020-01-07
+  ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.
+  ~ Major code clean-up and documentation is needed.
+
 2020-01-06
   ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.
   ~ Added this change log!
