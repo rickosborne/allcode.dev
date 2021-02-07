@@ -1,3 +1,76 @@
+/* latin-ext */
+@font-face {
+  font-family: body-text;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzjHAw9aB_JD2VGQVR80We3LAi5hBo7QoCBZCxP.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: body-text;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzjHAw9aB_JD2VGQVR80We3LAi5iho7QoCBZA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: body-text;
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzmHAw9aB_JD2VGQVR80We3LAixMT8uYaKMThZGkjKm.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: body-text;
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzmHAw9aB_JD2VGQVR80We3LAixMT8ub6KMThZGkg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: body-text;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/Wnz9HAw9aB_JD2VGQVR80We3LAOJiBA8YIKxZQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: body-text;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/Wnz9HAw9aB_JD2VGQVR80We3LA2JiBA8YII.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: body-text;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzgHAw9aB_JD2VGQVR80We3JLasnTMebaiLbBR2kw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: body-text;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzgHAw9aB_JD2VGQVR80We3JLasnT0ebaiLbBQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --body-background-color: #eee;
   --body-color: #222;
@@ -5,11 +78,12 @@
   --visited-color: #246;
   --hover-color: #48c;
   --active-color: #306090;
-  --font-family-header: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  --font-family-header: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, system-ui, -apple-system, sans-serif;
   --font-weight-header: bold;
-  --font-family-body: "Gentium Plus", Gentium, "Roboto Slab", Cambria, "Times New Roman", Times, serif;
-  --font-family-sans: Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
+  --font-family-body: "body-text", serif;
+  --font-family-sans: Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, system-ui, -apple-system, sans-serif;
   --font-family-sans-thin: "Roboto Condensed", var(--font-family-sans);
+  --font-family-code: "Roboto Mono", "JetBrains Mono", "Source Code Pro", "Fira Mono", Inconsolata, "Ubuntu Mono", Monaco, monospace;
 }
 
 html, body {
@@ -98,8 +172,9 @@ dd {
 dd ~ dd {
   margin-top: 1.3rem;
 }
-code {
+pre, code {
   color: var(--amble-text-code-color, inherit);
+  font-family: var(--font-family-code);
 }
 a { color: var(--a-color); }
 a:visited { color: var(--visited-color); }
@@ -171,24 +246,49 @@ blockquote::before {
 #site-header-settings-checkbox[type=checkbox] {
   display: none;
 }
-#site-header-settings-checkbox[type=checkbox]:checked ~ #site-header-settings {
+#site-header-settings-matte {
+  display: none;
+  background-color: var(--amble-off-10, rgba(127, 127, 127, 0.2));
+  position: fixed;
+  box-sizing: border-box;
+  border: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 800;
+}
+#site-header-settings-checkbox[type=checkbox]:checked ~ .site-header-settings-open {
   display: block;
 }
 #site-header-settings {
   position: absolute;
   top: 1.7em;
-  right: 0;
+  right: 1em;
   max-width: 20em;
-  border: thin solid var(--lighter-20);
+  border: thin solid #246;
   display: none;
-  background-color: rgba(224, 224, 224, 0.95);
+  background-color: rgba(32, 64, 96, 0.975);
+  box-shadow: 0 0 0.65em rgba(16, 32, 48, 0.8);
+  padding: 1rem;
+  z-index: 900;
 }
-#site-header-settings > * {
-  padding-left: 0.5rem;
+#site-header-settings fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+#site-header-settings .allcode-style-selector {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 #site-header-settings h1 {
+  font-size: 125%;
   line-height: 1.3em;
   margin: 0 0 0.65em 0;
+  font-family: var(--font-family-sans-thin);
+  font-weight: normal;
 }
 .site-footer {
   min-height: 1.7em;

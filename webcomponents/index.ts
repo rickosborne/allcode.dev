@@ -5,3 +5,4 @@ export {AmbleSourceElement} from './src/AmbleSourceElement';
 export {AmbleSourceRefElement} from './src/AmbleSourceRefElement';
 export {AmbleStepElement} from './src/AmbleStepElement';
 export {AmbleViewerElement} from './src/AmbleViewerElement';
+export {AllCodeStyleSelector} from './src/AllCodeStyleSelector';

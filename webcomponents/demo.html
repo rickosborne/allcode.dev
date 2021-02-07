@@ -4,86 +4,8 @@
 		<meta charset="UTF-8" />
 		<title>allcode-amble demo</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/allcode.css" />
 		<link rel="stylesheet" href="src/amble.css" />
-		<style>
-			:root {
-				--amble-hue: 208;
-        --amble-background-alpha: 5%;
-        --amble-text-color: black;
-        --amble-text-code-color: #369;
-        --amble-icon-fg: #246;
-        --amble-icon-fg-over: #48c;
-        --amble-body-background-color: rgba(127, 127, 127, 0.1);
-        --amble-code-background-color: rgba(127, 127, 127, 0.1);
-			}
-      html {
-        background-color: #ddd;
-        min-height: 100%;
-        box-sizing: border-box;
-        scrollbar-color: rgba(127, 127, 127, 0.5) transparent;
-      }
-      ::-webkit-scrollbar {
-        width: 0.75em;
-      }
-      ::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece {
-        background-color: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        border-radius: 0.375em;
-        background-color: rgba(127, 127, 127, 0.5);
-      }
-      body {
-        min-height: 100%;
-        box-sizing: border-box;
-        max-width: 80em;
-        margin: 0 auto;
-        background-color: #eee;
-        color: black;
-        line-height: 130%;
-        font-size: calc(max(100%, 2vw));
-        font-family: "Roboto Slab", "Gentium Plus", Gentium, Cambria, "Times New Roman", Times, serif;
-      }
-      article {
-        padding: 1rem;
-      }
-      article > * {
-        max-width: 45rem;
-        margin: 0 auto;
-      }
-      article > amble-viewer {
-        max-width: 100%;
-      }
-      amble-viewer {
-        display: block;
-        margin: 1.3em auto;
-        border-top: thin solid rgba(127, 127, 127, 0.5);
-        border-bottom: thin solid rgba(127, 127, 127, 0.5);
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: "Roboto Light", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
-      }
-      p {
-        margin: 1.3em auto;
-      }
-      @media print {
-        html, body {
-          background-color: white;
-        }
-      }
-      @media screen and (prefers-color-scheme: dark) {
-        html, body {
-          background-color: black;
-        }
-        body {
-          color: #ddd;
-          --amble-text-code-color: #6cf;
-          --amble-background-alpha: 50%;
-          --amble-text-color: #ddd;
-          --amble-icon-fg: #48c;
-          --amble-icon-fg-over: #5ae;
-        }
-      }
-    </style>
 		<link rel="preload" href="src/AmbleViewerElement.css" as="style" />
 		<link rel="preload" href="src/AmbleButtonElement.css" as="style" />
 		<link rel="preload" href="src/AmbleCodeElement.css" as="style" />
@@ -108,21 +30,6 @@
 	</head>
 	<body>
     <style>
-      .site-header {
-        z-index: 1000;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1.7em;
-        position: -webkit-sticky;
-        position: sticky;
-        font-family: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, sans-serif;
-        padding: 0 0.5rem;
-        --amble-background-alpha: 0.95;
-        --amble-background-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-luminance), var(--amble-background-alpha));
-        background-color: var(--amble-background-color, rgba(32, 64, 96, 0.95));
-        color: #ddd;
-      }
       .site-header, #site-header-settings {
         box-shadow: 0 0 0.65em black;
         box-sizing: border-box;
@@ -143,9 +50,6 @@
         color: #d6f1ff;
         text-decoration: underline;
       }
-      .expando {
-        flex-grow: 1;
-      }
       .site-header-nav > *, #site-header-settings-label {
         display: block;
         padding: 0.2em;
@@ -160,26 +64,20 @@
       #site-header-settings {
         position: absolute;
         top: 1.7em;
-        right: 0;
+        right: 1em;
         max-width: 20em;
-        border: thin solid var(--lighter-20);
+        border: thin solid #246;
         display: none;
-        background-color: rgba(224, 224, 224, 0.95);
-      }
-      #site-header-settings > * {
-        padding-left: 0.5rem;
+        background-color: rgba(32, 64, 96, 0.975);
+        box-shadow: 0 0 0.65em rgba(16, 32, 48, 0.8);
+        padding: 1rem
       }
       #site-header-settings h1 {
+        font-size: 125%;
         line-height: 1.3em;
         margin: 0 0 0.65em 0;
-      }
-      @media screen and (prefers-color-scheme: dark) {
-        .site-header, #site-header-settings {
-          background-color: rgba(32, 32, 32, 0.95);
-        }
-        #site-header-settings h1 {
-          background-color: var(--lighter-20);
-        }
+        font-family: var(--font-family-sans-thin);
+        font-weight: normal;
       }
     </style>
     <header class="site-header">
@@ -189,7 +87,6 @@
         <a href="/learn/">Learn</a>
       </nav>
       <span class="expando"></span>
-      <!--
       <aside>
         <input id="site-header-settings-checkbox" type="checkbox" />
         <label for="site-header-settings-checkbox" id="site-header-settings-label">
@@ -197,21 +94,37 @@
             <title>Site Settings</title>
             <desc>An icon representing a gear, which can be used to toggle the site settings overlay.</desc>
             <style>
-              rect:hover ~ path, path:hover {
-                fill: var(--amble-icon-fg-over, #48c);
+              rect, path {
+                cursor: pointer;
               }
-              path { fill: var(--amble-icon-fg, #369); }
+              rect:hover ~ path, path:hover {
+                fill: #fff;
+              }
+              path { fill: rgba(255, 255, 255, 0.5); }
             </style>
             <rect height="11" width="11" x="-1" y="-1" fill="transparent" stroke="none" />
             <path d="M0,2.7 v-1 h1 l-0.7,-0.7 l0.7,-0.7 l0.7,0.7 v-1 h1 v1 l0.7,-0.7 l0.7,0.7 l-0.7,0.7 h1 v0.5 h-1.3 a0.9,0.9,0,0,0,-1.8,0 a0.9,0.9,0,0,0,1.8,0 h1.3 v0.5 h-1 l0.7,0.7 l-0.7,0.7 l-0.7,-0.7 v1 h-1 v-1 l-0.7,0.7 l-0.7,-0.7 l0.7,-0.7 z" />
           </svg>
         </label>
-        <div id="site-header-settings">
+        <form id="site-header-settings">
           <h1>Settings</h1>
           <p>These settings are stored in your browser, and will not be shared between devices.</p>
-        </div>
+          <fieldset>
+            <label>Light/Dark Mode</label>
+            <div class="allcode-style-selector" data-destination="root" data-default="color-scheme-detect" data-storage-name="color-scheme" is="allcode-style-selector">
+              <div data-value="color-scheme-detect" slot="option" title="Use browser and device settings">
+                Auto
+              </div>
+              <div data-value="color-scheme-light" slot="option" title="Light text against dark backgrounds">
+                Light
+              </div>
+              <div data-value="color-scheme-dark" slot="option" title="Light text against dark backgrounds">
+                Dark
+              </div>
+            </div>
+          </fieldset>
+        </form>
       </aside>
-      -->
     </header>
     <article>
 		<h1>allcode-amble demo</h1>

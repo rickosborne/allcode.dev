@@ -55,3 +55,7 @@ export function catchAndLog(promise: Promise<unknown> | undefined | null, messag
 		promise.catch((err) => console.error(message, err));
 	}
 }
+
+export function isNothing(value: unknown): boolean {
+  return value == null || value === '';
+}

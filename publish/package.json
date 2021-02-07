@@ -36,9 +36,13 @@
   "name": "allcode-publish",
   "private": true,
   "scripts": {
+    "fsevents": "npm install fsevents",
     "lint": "eslint . --fix",
     "build": "ts-node publish.ts",
     "start": "npm run build -- --in ../lesson --out ../site --clean"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "fsevents": "^2.3.2"
+  }
 }

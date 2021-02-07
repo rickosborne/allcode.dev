@@ -154,6 +154,7 @@ assessment:
       When the condition is evaluated, `5` is no longer "less than" `5`, so the condition is `false` and the loop does not run the fifth time.
     highlight:
       - selector: .operator-lte
+    highlightWhen: question
   - question: What would happen if you did not increment the count variable inside the loop body?
     answer: The count would never change, leading to an infinite loop.
     rationale: >
@@ -164,3 +165,4 @@ assessment:
       - selector: .operator-coloneq-2
         syntax: pascal
       - selector: .operator-plusplus, .line-3 .operator-eq, .operator-plus+.operator-plus
+    highlightWhen: question

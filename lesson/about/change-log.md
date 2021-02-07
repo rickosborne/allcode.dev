@@ -10,11 +10,16 @@ slug: about/change-log
 # Change Log
 
 2020-01-06
-  ~ Identified regression: `highlightWhen` isn't working for questions at the moment — they are all waiting for the answer to be revealed, when some should show at the question.
+  ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.
   ~ Added this change log!
   ~ Added the [About](/about/) page.
   ~ Added the [License](/about/license/) page.
   ~ Footer tweaks to accommodate the above.
+  ~ New _Settings_ widget!
+    For now, it's just the Light/Dark mode selector.
+    This should eventually grow to also include language preference.
+  - Better font handling for Safari.
+    (Which is just a hot mess.)
 
 2020-01-05
   ~ Fixed the busted Safari fullscreen interaction.

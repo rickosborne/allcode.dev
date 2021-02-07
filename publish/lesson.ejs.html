@@ -13,9 +13,9 @@
   <%_ (meta.forward || []).forEach(nextLink => { _%>
   <link href="/<%= nextLink.href %>" rel="next" title="<%= nextLink.title %>">
   <%_ }); _%>
-  <%_ if (languages.length > 0) { _%>
   <link href="<%= asset('amble.css').href %>" integrity="<%= asset('amble.css').integrity %>" rel="stylesheet">
   <script integrity="<%= asset('allcode-amble.js').integrity %>" src="<%= asset('allcode-amble.js').href %>" type="module"></script>
+  <%_ if (languages.length > 0) { _%>
   <link as="style" href="<%= asset('AmbleViewerElement.css').href %>" integrity="<%= asset('AmbleViewerElement.css').integrity %>" rel="preload">
   <link as="style" href="<%= asset('AmbleButtonElement.css').href %>" integrity="<%= asset('AmbleButtonElement.css').integrity %>" rel="preload">
   <link as="style" href="<%= asset('AmbleCodeElement.css').href %>" integrity="<%= asset('AmbleCodeElement.css').integrity %>" rel="preload">
@@ -42,6 +42,45 @@
     <%_ } _%>
   </nav>
   <span class="expando"></span>
+  <aside>
+    <input id="site-header-settings-checkbox" type="checkbox" />
+    <label for="site-header-settings-checkbox" id="site-header-settings-label">
+      <svg class="svg-icon" viewBox="-0.5 -0.5 5.4 5.4" xmlns="http://www.w3.org/2000/svg" aria-label="A gear icon, used to access the site settings overlay">
+        <title>Site Settings</title>
+        <desc>An icon representing a gear, which can be used to toggle the site settings overlay.</desc>
+        <style>
+          rect, path {
+            cursor: pointer;
+          }
+          rect:hover ~ path, path:hover {
+            fill: #fff;
+          }
+          path { fill: rgba(255, 255, 255, 0.5); }
+        </style>
+        <rect height="11" width="11" x="-1" y="-1" fill="transparent" stroke="none" />
+        <path d="M0,2.7 v-1 h1 l-0.7,-0.7 l0.7,-0.7 l0.7,0.7 v-1 h1 v1 l0.7,-0.7 l0.7,0.7 l-0.7,0.7 h1 v0.5 h-1.3 a0.9,0.9,0,0,0,-1.8,0 a0.9,0.9,0,0,0,1.8,0 h1.3 v0.5 h-1 l0.7,0.7 l-0.7,0.7 l-0.7,-0.7 v1 h-1 v-1 l-0.7,0.7 l-0.7,-0.7 l0.7,-0.7 z" />
+      </svg>
+    </label>
+    <label class="site-header-settings-open" for="site-header-settings-checkbox" id="site-header-settings-matte"></label>
+    <form class="site-header-settings-open" id="site-header-settings">
+      <h1>Settings</h1>
+      <p>These settings are stored in your browser, and will not be shared between devices.</p>
+      <fieldset>
+        <label>Light/Dark Mode</label>
+        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="color-scheme-detect" data-storage-name="color-scheme">
+          <div data-value="color-scheme-detect" slot="option" title="Use browser and device settings">
+            Auto
+          </div>
+          <div data-value="color-scheme-light" slot="option" title="Light text against dark backgrounds">
+            Light
+          </div>
+          <div data-value="color-scheme-dark" slot="option" title="Light text against dark backgrounds">
+            Dark
+          </div>
+        </allcode-style-selector>
+      </fieldset>
+    </form>
+  </aside>
 </header>
 <article>
 <%- html %>

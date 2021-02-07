@@ -3,9 +3,9 @@ import {AmbleElement} from './AmbleElement';
 import {AmbleHasLinks, AmbleHasSourceRefs} from './AmbleInterfaces';
 import {AmbleSourceRefElement} from './AmbleSourceRefElement';
 
-export const HIGHLIGHT_WHEN_Q = 'Question';
-export const HIGHLIGHT_WHEN_A = 'Answer';
-export const HIGHLIGHT_WHEN_R = 'Rationale';
+export const HIGHLIGHT_WHEN_Q = 'question';
+export const HIGHLIGHT_WHEN_A = 'answer';
+export const HIGHLIGHT_WHEN_R = 'rationale';
 export type HighlightWhen = typeof HIGHLIGHT_WHEN_Q | typeof HIGHLIGHT_WHEN_A | typeof HIGHLIGHT_WHEN_R;
 
 @customElement('amble-question')

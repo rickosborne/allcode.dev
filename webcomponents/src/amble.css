@@ -30,7 +30,7 @@
 }
 
 @media screen {
-	.amble-force-dark-color-scheme, :host(.color-scheme-dark), .color-scheme-dark {
+	.amble-force-dark-color-scheme, :host(.color-scheme-dark) body, .color-scheme-dark body {
 		--amble-luminance: 20%;
 		--amble-contrast: 90%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
@@ -47,7 +47,7 @@
 }
 
 @media screen and (prefers-color-scheme: dark) {
-  .color-scheme-detect, :host(.color-scheme-detect) {
+  .color-scheme-detect body, :host(.color-scheme-detect) body {
 		--amble-luminance: 20%;
 		--amble-contrast: 90%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);
@@ -62,7 +62,7 @@
 		--amble-off-20: var(--lighter-20);
 	}
 
-	.amble-force-light-color-scheme, .color-scheme-light, :host(.color-scheme-light) {
+	.amble-force-light-color-scheme, .color-scheme-light body, :host(.color-scheme-light) body {
 		--amble-luminance: 90%;
 		--amble-contrast: 20%;
 		--amble-desaturation: calc(var(--amble-saturation) * 0.5);

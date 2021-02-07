@@ -14,7 +14,11 @@
 	"name": "allcode.dev",
 	"private": true,
 	"scripts": {
+		"fsevents": "npm install fsevents",
 		"start": "npx es-dev-server --root-dir site --watch"
 	},
-	"version": "1.0.0"
+	"version": "1.0.0",
+	"dependencies": {
+		"fsevents": "^2.3.2"
+	}
 }

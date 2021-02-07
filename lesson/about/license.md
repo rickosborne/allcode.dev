@@ -1,5 +1,5 @@
 ---
-title: Content License for allcode.dev
+title: Content & Code License
 description: allcode.dev content is free for all learners to use, but not for derivative or commercial works.
 section:
   title: About
