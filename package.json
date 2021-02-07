@@ -1,24 +1,21 @@
 {
-	"author": {
-		"name": "Rick Osborne",
-		"url": "https://rickosborne.org"
-	},
-	"description": "",
-	"devDependencies": {
-		"es-dev-server": "^2.1.0"
-	},
-	"keywords": [
-		"allcode.dev"
-	],
-	"license": "UNLICENSED",
-	"name": "allcode.dev",
-	"private": true,
-	"scripts": {
-		"fsevents": "npm install fsevents",
-		"start": "npx es-dev-server --root-dir site --watch"
-	},
-	"version": "1.0.0",
-	"dependencies": {
-		"fsevents": "^2.3.2"
-	}
+  "author": {
+    "name": "Rick Osborne",
+    "url": "https://rickosborne.org"
+  },
+  "description": "",
+  "devDependencies": {
+    "es-dev-server": "^2.1.0"
+  },
+  "keywords": [
+    "allcode.dev"
+  ],
+  "license": "UNLICENSED",
+  "name": "allcode.dev",
+  "private": true,
+  "scripts": {
+    "fsevents": "npm install fsevents",
+    "start": "npx es-dev-server --root-dir site --watch"
+  },
+  "version": "1.0.0"
 }
