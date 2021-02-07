@@ -1,8 +1,5 @@
 {
   "author": "Rick Osborne",
-  "dependencies": {
-    "fsevents": "^2.3.2"
-  },
   "description": "Amble multi-source code walk-through and self-assessment component, Web Component packaging",
   "devDependencies": {
     "@types/node": "^14.14.25",
