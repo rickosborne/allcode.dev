@@ -13,11 +13,13 @@ TODO
   ~ Replace `lit-element` and `lit-html` with plain WebComponents.
     They are overkill, and bring in a ton of bloat.
 
-2020-01-07
+2021-01-07
   ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.
   ~ Major code clean-up and documentation is needed.
+  ~ Test suite
+  ~ Have `publish` try harder to leave unchanged files in place, to preserve file modification times.
 
-2020-01-06
+2021-01-06
   ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.
   ~ Added this change log!
   ~ Added the [About](/about/) page.
@@ -29,7 +31,7 @@ TODO
   - Better font handling for Safari.
     (Which is just a hot mess.)
 
-2020-01-05
+2021-01-05
   ~ Fixed the busted Safari fullscreen interaction.
     Though, it's still pretty busted because Safari does some really hinky things with its fullscreen API.
     I may just remove the button on Safari for now.
