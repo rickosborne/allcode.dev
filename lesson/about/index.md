@@ -27,3 +27,4 @@ He hopes his allcode.dev will ignite a shift in how we think about teaching prog
 
 * [License](/about/license/)
 * [Change Log](/about/change-log/)
+* [The source code for allcode.dev is at github.com/rickosborne/allcode.dev](https://github.com/rickosborne/allcode.dev)

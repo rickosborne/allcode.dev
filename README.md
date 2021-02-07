@@ -6,6 +6,6 @@ This reinforces the underlying concepts of programming, helping learners more cl
 
 # License
 
-The source code here is copyright 2020 by Rick Osborne, who reserves all rights.
+The source code here is copyright 2020-2021 by Rick Osborne, who reserves all rights.
 It is not licensed for reproduction, copying, or any other commercial use.
 It is presented here as a learning resource for individuals.

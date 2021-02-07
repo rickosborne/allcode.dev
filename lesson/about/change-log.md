@@ -12,12 +12,13 @@ slug: about/change-log
 TODO
   ~ Replace `lit-element` and `lit-html` with plain WebComponents.
     They are overkill, and bring in a ton of bloat.
-
-2021-01-07
-  ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.
   ~ Major code clean-up and documentation is needed.
   ~ Test suite
   ~ Have `publish` try harder to leave unchanged files in place, to preserve file modification times.
+
+2021-01-07
+  ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.
+  ~ Fix change-log dates, because it's 2021, not 2020.
 
 2021-01-06
   ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.
