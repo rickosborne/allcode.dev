@@ -17,9 +17,9 @@
     "eslint": "^7.19.0",
     "eslint-plugin-autofix": "^1.0.3",
     "eslint-plugin-json": "^2.1.2",
-    "eslint-plugin-typescript-sort-keys": "^1.5.0",
-    "eslint-plugin-sort-keys-fix": "^1.1.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
+    "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "front-matter": "^4.0.2",
     "markdown-it": "^12.0.4",
     "markdown-it-container": "^3.0.0",
@@ -36,13 +36,10 @@
   "name": "allcode-publish",
   "private": true,
   "scripts": {
+    "build": "ts-node publish.ts",
     "fsevents": "npm install fsevents",
     "lint": "eslint . --fix",
-    "build": "ts-node publish.ts",
     "start": "npm run build -- --in ../lesson --out ../site --clean"
   },
-  "version": "1.0.0",
-  "dependencies": {
-    "fsevents": "^2.3.2"
-  }
+  "version": "1.0.0"
 }
