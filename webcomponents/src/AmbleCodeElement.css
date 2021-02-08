@@ -22,8 +22,8 @@
   --variable-color: #e0e2e4;
   --vstring-string-color: #b35900;
   --highlight-border-radius: 0;
-  --highlight-shadow-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* #ff6; */
-  --highlight-border-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* rgba(255, 255, 96, 0.8); */
+  --highlight-shadow-color: hsl(calc(var(--amble-hue) + 120), var(--amble-saturation), var(--amble-mostly-contrast)); /* #ff6; */
+  --highlight-border-color: hsl(calc(var(--amble-hue) + 120), var(--amble-saturation), var(--amble-mostly-contrast)); /* rgba(255, 255, 96, 0.8); */
 }
 
 :host {
@@ -187,8 +187,8 @@ pre ::-webkit-scrollbar-track {
     --variable-color: #e0e2e4;
     --vstring-string-color: #cc6600;
     --highlight-border-radius: 1em;
-    --highlight-shadow-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* #afa; */
-    --highlight-border-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* rgba(128, 255, 128, 0.8); */
+    --highlight-shadow-color: hsl(calc(var(--amble-hue) + 120), var(--amble-saturation), var(--amble-mostly-contrast)); /* #afa; */
+    --highlight-border-color: hsl(calc(var(--amble-hue) + 120), var(--amble-saturation), var(--amble-mostly-contrast)); /* rgba(128, 255, 128, 0.8); */
     --selector-color: #884400;
     --important-color: #ff6666;
   }
