@@ -284,12 +284,6 @@ blockquote::before {
 .expando {
   flex-grow: 1;
 }
-.site-header-settings-control {
-  position: fixed;
-  top: 0;
-  right: 0.5em;
-  bottom: 0;
-}
 .site-header-nav > *, #site-header-settings-label {
   display: block;
   padding: 0.2em;
@@ -317,10 +311,10 @@ blockquote::before {
 #site-header-settings {
   position: absolute;
   top: 1.7em;
-  right: 0;
+  right: 1rem;
   min-width: 20em;
   max-width: 20em;
-  max-height: calc(100% - 1.7em);
+  max-height: calc(100vh - 1.7em);
   border: thin solid #246;
   display: none;
   background-color: rgba(32, 64, 96, 0.975);
