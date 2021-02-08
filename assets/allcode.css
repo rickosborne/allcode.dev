@@ -76,6 +76,7 @@
 :root {
   --body-background-color: #eee;
   --body-color: #222;
+  --body-font-scale: 1.0;
   --a-color: #369;
   --visited-color: #246;
   --hover-color: #48c;
@@ -106,7 +107,7 @@ html, body {
 body {
   font-family: var(--font-family-body);
   line-height: 130%;
-  font-size: calc(max(100%, 2vw));
+  font-size: calc(max(100%, 2vw) * var(--body-font-scale));
   max-width: 80em;
   margin: 0 auto;
 }
@@ -118,6 +119,15 @@ body {
   --font-family-body: system-ui, -apple-system, sans-serif;
   font-family: var(--font-family-body);
 }
+.body-font-small body {
+  --body-font-scale: 0.85;
+}
+.body-font-large body {
+  --body-font-scale: 1.15;
+}
+.body-font-xl body {
+  --body-font-scale: 1.3;
+}
 @media screen {
   body, .color-scheme-light body {
     background-color: var(--body-background-color);
@@ -125,13 +135,30 @@ body {
     --amble-hue: 208;
     --amble-background-alpha: 50%;
     --amble-text-color: black;
-    --amble-text-code-color: #369;
-    --amble-icon-fg: #246;
-    --amble-icon-fg-over: #48c;
-    --amble-icon-fg-override: #246;
-    --amble-icon-fg-over-override: #48c;
+    --amble-text-code-color: hsla(var(--amble-hue), var(--amble-saturation), var(--amble-contrast), 50%);
     --amble-body-background-color: rgba(127, 127, 127, 0.05);
     --amble-code-background-color: white;
+  }
+  .code-hue-red body.body {
+    --amble-hue: 0;
+  }
+  .code-hue-orange body.body {
+    --amble-hue: 30;
+  }
+  .code-hue-yellow body.body {
+    --amble-hue: 60;
+  }
+  .code-hue-green body.body {
+    --amble-hue: 120;
+  }
+  .code-hue-cyan body.body {
+    --amble-hue: 180;
+  }
+  .code-hue-purple body.body {
+    --amble-hue: 270;
+  }
+  .code-hue-pink body.body {
+    --amble-hue: 320;
   }
 }
 article {
@@ -142,7 +169,16 @@ article > * {
   max-width: 45rem;
   margin: 0 auto;
 }
-article > amble-viewer {
+.body-width-small article > * {
+  max-width: 30rem;
+}
+.body-width-large article > * {
+  max-width: 60rem;
+}
+.body-width-xl article > * {
+  max-width: 90rem;
+}
+.body article > amble-viewer {
   max-width: 100%;
 }
 amble-viewer {
@@ -264,7 +300,8 @@ blockquote::before {
 }
 #site-header-settings-matte {
   display: none;
-  background-color: var(--amble-off-10, rgba(127, 127, 127, 0.2));
+  /*background-color: var(--amble-off-10, rgba(127, 127, 127, 0.2));*/
+  background: repeating-linear-gradient(-45deg, rgba(127,127,127,0.3), rgba(127,127,127,0.3) 5px, rgba(127,127,127,0.1) 5px, rgba(127,127,127,0.1) 10px);
   position: fixed;
   box-sizing: border-box;
   border: 0;

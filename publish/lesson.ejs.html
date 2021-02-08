@@ -27,7 +27,7 @@
   <%_ } _%>
   <meta content="Rick Osborne" name="author">
 </head>
-<body>
+<body class="body">
 <div id="top"></div>
 <header class="site-header">
   <nav class="site-header-nav">
@@ -81,7 +81,7 @@
       </fieldset>
       <fieldset>
         <label>Primary Text Font Style</label>
-        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="body-font-serif" data-storage-name="body-font">
+        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="body-font-serif" data-storage-name="body-font-face">
           <div data-value="body-font-serif" slot="option" title="Serif fonts use decorative elements to guide the eye" style="font-family: body-text-serif, serif;">
             Serif
           </div>
@@ -91,6 +91,36 @@
           <div data-value="body-font-system" slot="option" title="Use the device's system font, most often a sans-serif" style="font-family: system-ui, -apple-system, sans-serif;">
             System
           </div>
+        </allcode-style-selector>
+      </fieldset>
+      <fieldset>
+        <label>Primary Text Font Size</label>
+        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="body-font-medium" data-storage-name="body-font-size">
+          <div data-value="body-font-small" slot="option">Small</div>
+          <div data-value="body-font-medium" slot="option">Medium</div>
+          <div data-value="body-font-large" slot="option">Large</div>
+          <div data-value="body-font-xl" slot="option">XL</div>
+        </allcode-style-selector>
+      </fieldset>
+      <fieldset>
+        <label>Body Text Words Per Line</label>
+        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="body-width-medium" data-storage-name="body-width">
+          <div data-value="body-width-small" slot="option">Fewer</div>
+          <div data-value="body-width-medium" slot="option">Standard</div>
+          <div data-value="body-width-large" slot="option">More</div>
+        </allcode-style-selector>
+      </fieldset>
+      <fieldset>
+        <label>Code Walkthrough Hue</label>
+        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="code-hue-blue" data-storage-name="code-hue">
+          <div data-value="code-hue-red" slot="option" style="color: hsl(0, 80%, 60%)" title="Red">&block;</div>
+          <div data-value="code-hue-orange" slot="option" style="color: hsl(30, 80%, 60%)" title="Orange">&block;</div>
+          <div data-value="code-hue-yellow" slot="option" style="color: hsl(60, 80%, 60%)" title="Yellow">&block;</div>
+          <div data-value="code-hue-green" slot="option" style="color: hsl(120, 80%, 60%)" title="Green">&block;</div>
+          <div data-value="code-hue-cyan" slot="option" style="color: hsl(180, 80%, 60%)" title="Cyan">&block;</div>
+          <div data-value="code-hue-blue" slot="option" style="color: hsl(208, 80%, 60%)" title="Blue">&block;</div>
+          <div data-value="code-hue-purple" slot="option" style="color: hsl(270, 80%, 60%)" title="Purple">&block;</div>
+          <div data-value="code-hue-pink" slot="option" style="color: hsl(320, 80%, 60%)" title="Pink">&block;</div>
         </allcode-style-selector>
       </fieldset>
     </form>

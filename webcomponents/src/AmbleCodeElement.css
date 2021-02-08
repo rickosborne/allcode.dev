@@ -11,7 +11,7 @@
   --function-color: #e6a35c;
   --generics-class-name-color: #009de6;
   --important-color: #ff6666;
-  --keyword-color: #998c00;
+  --keyword-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast)); /* #998c00 */
   --namespace-color: #7eb2e6;
   --number-color: #cc9c00;
   --operator-color: #998500;
@@ -22,8 +22,8 @@
   --variable-color: #e0e2e4;
   --vstring-string-color: #b35900;
   --highlight-border-radius: 0;
-  --highlight-shadow-color: #ff6;
-  --highlight-border-color: rgba(255, 255, 96, 0.8);
+  --highlight-shadow-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* #ff6; */
+  --highlight-border-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* rgba(255, 255, 96, 0.8); */
 }
 
 :host {
@@ -176,7 +176,7 @@ pre ::-webkit-scrollbar-track {
     --comment-color: #7d8c93;
     --function-color: #e6a35c;
     --generics-class-name-color: #009de6;
-    --keyword-color: #e6e28a;
+    --keyword-color: hsl(var(--amble-hue), var(--amble-saturation), var(--amble-mostly-contrast));
     --builtin-color: #4595e6;
     --namespace-color: #7eb2e6;
     --number-color: #ffc400;
@@ -187,8 +187,8 @@ pre ::-webkit-scrollbar-track {
     --variable-color: #e0e2e4;
     --vstring-string-color: #cc6600;
     --highlight-border-radius: 1em;
-    --highlight-shadow-color: #afa;
-    --highlight-border-color: rgba(128, 255, 128, 0.8);
+    --highlight-shadow-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* #afa; */
+    --highlight-border-color: hsl(calc(var(--amble-hue) + 180), var(--amble-saturation), var(--amble-mostly-contrast)); /* rgba(128, 255, 128, 0.8); */
     --selector-color: #884400;
     --important-color: #ff6666;
   }
