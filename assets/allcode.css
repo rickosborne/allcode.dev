@@ -1,75 +1,77 @@
-/* latin-ext */
-@font-face {
-  font-family: body-text;
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzjHAw9aB_JD2VGQVR80We3LAi5hBo7QoCBZCxP.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
 /* latin */
 @font-face {
-  font-family: body-text;
+  font-family: body-text-serif;
   font-style: italic;
   font-weight: 400;
   font-display: swap;
   src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzjHAw9aB_JD2VGQVR80We3LAi5iho7QoCBZA.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
-@font-face {
-  font-family: body-text;
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzmHAw9aB_JD2VGQVR80We3LAixMT8uYaKMThZGkjKm.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
 /* latin */
 @font-face {
-  font-family: body-text;
+  font-family: body-text-serif;
   font-style: italic;
   font-weight: 700;
   font-display: swap;
   src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzmHAw9aB_JD2VGQVR80We3LAixMT8ub6KMThZGkg.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
-@font-face {
-  font-family: body-text;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/Wnz9HAw9aB_JD2VGQVR80We3LAOJiBA8YIKxZQ.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
 /* latin */
 @font-face {
-  font-family: body-text;
+  font-family: body-text-serif;
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/Wnz9HAw9aB_JD2VGQVR80We3LA2JiBA8YII.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
-@font-face {
-  font-family: body-text;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzgHAw9aB_JD2VGQVR80We3JLasnTMebaiLbBR2kw.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
 /* latin */
 @font-face {
-  font-family: body-text;
+  font-family: body-text-serif;
   font-style: normal;
   font-weight: 700;
   font-display: swap;
   src: local("Gentium Plus"), local("Gentium"), local("Roboto Slab"), local("Cambria"), local("Gentium Basic"), local("Gentium Book Basic"), url(https://fonts.gstatic.com/s/gentiumbasic/v12/WnzgHAw9aB_JD2VGQVR80We3JLasnT0ebaiLbBQ.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/* latin */
+@font-face {
+  font-family: body-text-sans;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Roboto"), local("Open Sans"), local("Noto Sans"), local("Helvetica Neue"), url(https://fonts.gstatic.com/s/roboto/v20/KFOkCnqEu92Fr1Mu51xIIzIXKMny.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: body-text-sans;
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Roboto"), local("Open Sans"), local("Noto Sans"), local("Helvetica Neue"), url(https://fonts.gstatic.com/s/roboto/v20/KFOjCnqEu92Fr1Mu51TzBic6CsTYl4BO.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: body-text-sans;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Roboto"), local("Open Sans"), local("Noto Sans"), local("Helvetica Neue"), url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: body-text-sans;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Roboto"), local("Open Sans"), local("Noto Sans"), local("Helvetica Neue"), url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 
 :root {
   --body-background-color: #eee;
@@ -78,10 +80,10 @@
   --visited-color: #246;
   --hover-color: #48c;
   --active-color: #306090;
-  --font-family-header: "Roboto Condensed", Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, system-ui, -apple-system, sans-serif;
+  --font-family-header: "Roboto Condensed", body-text-sans;
   --font-weight-header: bold;
-  --font-family-body: "body-text", serif;
-  --font-family-sans: Roboto, "Helvetica Neue", Calibri, Tahoma, Helvetica, Arial, system-ui, -apple-system, sans-serif;
+  --font-family-body: "body-text-serif", serif;
+  --font-family-sans: "body-text-sans", system-ui, -apple-system, sans-serif;
   --font-family-sans-thin: "Roboto Condensed", var(--font-family-sans);
   --font-family-code: "Roboto Mono", "JetBrains Mono", "Source Code Pro", "Fira Mono", Inconsolata, "Ubuntu Mono", Monaco, monospace;
 }
@@ -101,15 +103,25 @@ html, body {
   border-radius: 0.375em;
   background-color: rgba(127, 127, 127, 0.5);
 }
+body {
+  font-family: var(--font-family-body);
+  line-height: 130%;
+  font-size: calc(max(100%, 2vw));
+  max-width: 80em;
+  margin: 0 auto;
+}
+.body-font-sans body {
+  --font-family-body: body-text-sans;
+  font-family: var(--font-family-body);
+}
+.body-font-system body {
+  --font-family-body: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-family-body);
+}
 @media screen {
   body, .color-scheme-light body {
-    max-width: 80em;
-    margin: 0 auto;
     background-color: var(--body-background-color);
     color: var(--body-color);
-    line-height: 130%;
-    font-size: calc(max(100%, 2vw));
-    font-family: var(--font-family-body);
     --amble-hue: 208;
     --amble-background-alpha: 50%;
     --amble-text-color: black;
@@ -193,7 +205,7 @@ blockquote::before {
   display: inline;
   position: absolute;
   top: 0;
-  left: 0em;
+  left: 0;
   font-size: 200%;
 }
 
@@ -236,6 +248,12 @@ blockquote::before {
 .expando {
   flex-grow: 1;
 }
+.site-header-settings-control {
+  position: fixed;
+  top: 0;
+  right: 0.5em;
+  bottom: 0;
+}
 .site-header-nav > *, #site-header-settings-label {
   display: block;
   padding: 0.2em;
@@ -262,18 +280,21 @@ blockquote::before {
 #site-header-settings {
   position: absolute;
   top: 1.7em;
-  right: 1em;
+  right: 0;
+  min-width: 20em;
   max-width: 20em;
+  max-height: calc(100% - 1.7em);
   border: thin solid #246;
   display: none;
   background-color: rgba(32, 64, 96, 0.975);
   box-shadow: 0 0 0.65em rgba(16, 32, 48, 0.8);
   padding: 1rem;
   z-index: 900;
+  overflow: auto;
 }
 #site-header-settings fieldset {
   border: none;
-  margin: 0;
+  margin: 1.3rem 0;
   padding: 0;
 }
 #site-header-settings .allcode-style-selector {

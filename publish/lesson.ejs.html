@@ -42,7 +42,7 @@
     <%_ } _%>
   </nav>
   <span class="expando"></span>
-  <aside>
+  <aside class="site-header-settings-control">
     <input id="site-header-settings-checkbox" type="checkbox" />
     <label for="site-header-settings-checkbox" id="site-header-settings-label">
       <svg class="svg-icon" viewBox="-0.5 -0.5 5.4 5.4" xmlns="http://www.w3.org/2000/svg" aria-label="A gear icon, used to access the site settings overlay">
@@ -71,11 +71,25 @@
           <div data-value="color-scheme-detect" slot="option" title="Use browser and device settings">
             Auto
           </div>
-          <div data-value="color-scheme-light" slot="option" title="Light text against dark backgrounds">
+          <div data-value="color-scheme-light" slot="option" title="White background with black text">
             Light
           </div>
-          <div data-value="color-scheme-dark" slot="option" title="Light text against dark backgrounds">
+          <div data-value="color-scheme-dark" slot="option" title="Black background with white text">
             Dark
+          </div>
+        </allcode-style-selector>
+      </fieldset>
+      <fieldset>
+        <label>Primary Text Font Style</label>
+        <allcode-style-selector class="allcode-style-selector" data-destination="root" data-default="body-font-serif" data-storage-name="body-font">
+          <div data-value="body-font-serif" slot="option" title="Serif fonts use decorative elements to guide the eye" style="font-family: body-text-serif, serif;">
+            Serif
+          </div>
+          <div data-value="body-font-sans" slot="option" title="Sans-serif fonts have fewer decorative parts" style="font-family: body-text-sans, sans-serif;">
+            Sans
+          </div>
+          <div data-value="body-font-system" slot="option" title="Use the device's system font, most often a sans-serif" style="font-family: system-ui, -apple-system, sans-serif;">
+            System
           </div>
         </allcode-style-selector>
       </fieldset>

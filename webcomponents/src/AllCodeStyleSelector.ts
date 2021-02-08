@@ -112,8 +112,10 @@ export class AllCodeStyleSelector extends HTMLElement {
     this.options.push(...Array.prototype.slice.apply(this.querySelectorAll("[slot=option]")));
     const valueAliases = attributeAliases("value");
     const style: HTMLStyleElement = document.createElement("style");
-    style.innerText = `
-        .allcode-style-selector-option { flex-grow: 1; }
+    style.textContent = `
+        .allcode-style-selector-option {
+          flex: 1;
+        }
         .allcode-style-selector-option input[type=radio] { display: none; }
         .allcode-style-selector-option input[type=radio] ~ * {
           display: block;
