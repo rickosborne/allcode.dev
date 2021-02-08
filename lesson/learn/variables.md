@@ -43,7 +43,7 @@ If you're going to send someone to the grocery store, you need to make sure they
 If you gave them variable names, you might call one `groceryList` and the other `weddingGifts`.
 
 > Naming things is _hard_.
-> People who code for decades will still pause and think about how best to name a variable.
+> People who code for decades will still pause and think about how to best name a variable.
 
 # Variable Name Rules
 
