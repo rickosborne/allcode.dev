@@ -9,6 +9,7 @@ slug: learn
 ## Basics &amp; Context
 
 * [What is programming](/learn/what-is-programming/)
+* [Variables](/learn/variables/)
 
 ## Control Structures
 
