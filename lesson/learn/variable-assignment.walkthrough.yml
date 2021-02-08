@@ -1,0 +1,47 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: Variable Assignment
+description: Adding or updating the value for a variable
+sources:
+  - syntaxes:
+      - c
+      - cpp
+      - csharp
+      - java
+      - javascript
+      - ruby
+      - typescript
+    source: |
+      count = 3;
+      favoriteColor = "blue";
+      hungryNow = false;
+  - syntax: php
+    source: |
+      $count = 3;
+      $favorite_color = "blue";
+      $hungry_now = False;
+  - syntax: perl
+    source: |
+      $count = 3;
+      $favorite_color = 'blue';
+      $hungry_now = 0;
+  - syntax: bash
+    source: |
+      COUNT=3
+      FAVORITE_COLOR='blue'
+      HUNGRY_NOW=0
+  - syntax: basic
+    source: |
+      COUNT = 3
+      FAVORITECOLOR$ = "blue"
+      HUNGRYNOW = 0
+  - syntax: pascal
+    source: |
+      count := 3;
+      favoriteColor := 'blue';
+      hungryNow := false;
+  - syntax: python
+    source: |
+      count = 3
+      favoriteColor = "blue"
+      hungryNow = False
+

@@ -17,7 +17,6 @@ export class SelectorChangedEvent extends Event {
     public readonly unused: string[],
   ) {
     super(SelectorChangedEvent.EVENT_NAME, {bubbles: true, cancelable: true, composed: true});
-    console.log("onSelectorChangedEvent created", this);
   }
 
   public static isInstance(event: Event): event is SelectorChangedEvent {

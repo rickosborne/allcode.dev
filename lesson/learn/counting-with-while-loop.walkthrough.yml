@@ -1,4 +1,4 @@
-$schema: "../../publish/Walkthrough-v1.schema.json"
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
 title: Counting with a `while` loop
 description: Use a number counter and a `while` loop to count from 1 to 5.
 sources:

@@ -22,6 +22,7 @@ TODO
   ~ New settings!
     You can now set your body font style (serif/sans), size, line width, and code viewer color.
   ~ Filled out the [Loop Basics](/learn/loop-basics/) lesson.
+  ~ New lesson: [Variables](/learn/variables/).
 
 2021-01-06
   ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.

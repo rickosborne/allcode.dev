@@ -1,0 +1,73 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: Variable Declaration & Initialization
+description: Introduce a variable to your program, and give its first value.
+sources:
+  - syntaxes:
+      - c
+      - cpp
+    source: |
+      int count = 3;
+      char favoriteColor[] = "blue";
+      bool hungryNow = false;
+  - syntax: csharp
+    source: |
+      int count = 3;
+      string favoriteColor = "blue";
+      bool hungryNow = false;
+  - syntax: java
+    source: |
+      int count = 3;
+      String favoriteColor = "blue";
+      boolean hungryNow = false;
+  - syntax: javascript
+    source: |
+      let count = 3;
+      let favoriteColor = "blue";
+      let hungryNow = false;
+  - syntax: typescript
+    source: |
+      let count: int = 3;
+      let favoriteColor: string = "blue";
+      let hungryNow: boolean = false;
+  - syntaxes:
+      - ruby
+    source: |
+      count = 3
+      favoriteColor = "blue"
+      hungryNow = false
+  - syntax: php
+    source: |
+      $count = 3;
+      $favorite_color = "blue";
+      $hungry_now = False;
+  - syntax: perl
+    source: |
+      my $count = 3;
+      my $favorite_color = 'blue';
+      my $hungry_now = 0;
+  - syntax: bash
+    source: |
+      COUNT=3
+      FAVORITE_COLOR='blue'
+      HUNGRY_NOW=0
+  - syntax: basic
+    source: |
+      Dim count As Integer = 3
+      Dim favoriteColor AS String = "blue"
+      Dim hungryNow As Boolean = false
+  - syntax: pascal
+    source: |
+      var
+        count: integer;
+        favoriteColor: string;
+        hungryNow: boolean;
+      begin
+        count := 3;
+        favoriteColor := 'blue';
+        hungryNow := false;
+  - syntax: python
+    source: |
+      count = 3
+      favoriteColor = "blue"
+      hungryNow = False
+

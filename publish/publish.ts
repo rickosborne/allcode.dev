@@ -178,7 +178,7 @@ function loadWalkthrough(inDir: string, fileName: string, name: string): Walkthr
   return {
     fileName,
     name,
-    slug: name.replace(/\.ya?ml$/, ""),
+    slug: name.replace(/\.walkthrough\.ya?ml$/, ""),
     walkthrough: data,
   };
 }

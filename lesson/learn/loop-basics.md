@@ -6,8 +6,8 @@ description: Learn basic concepts of loops in multiple languages.
 forward:
 - href: learn/while-loops
   title: While Loops
-- href: learn/counting-loops
-  title: Counting Loops
+- href: learn/for-loops
+  title: Counting (for) Loops
 ---
 
 # Loop Basics
