@@ -19,6 +19,8 @@ TODO
 2021-01-07
   ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.
   ~ Fix change-log dates, because it's 2021, not 2020.
+  ~ New settings!
+    You can now set your body font style (serif/sans), size, line width, and code viewer color.
 
 2021-01-06
   ~ Fixed regression: `highlightWhen` wasn't working for questions — they were all waiting for the answer to be revealed, when some should have shown at the question.
