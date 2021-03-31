@@ -10,6 +10,7 @@ slug: learn
 
 * [What is programming](/learn/what-is-programming/)
 * [Variables](/learn/variables/)
+  * [Variable Names](/learn/variable-names/)
   * [Variable Assignment](/learn/variable-declaration/)
   * [Variable Declaration](/learn/variable-declaration/)
 * [Strings](/learn/strings/)
