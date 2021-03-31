@@ -16,6 +16,10 @@ TODO
   ~ Test suite
   ~ Have `publish` try harder to leave unchanged files in place, to preserve file modification times.
 
+2021-03-31
+  ~ Split out [Variable Names](/learn/variable-names/), [Variable Assignment](/learn/variable-assignment/), and [Variable Declaration](/learn/variable-declaration/) into their own pages.
+  ~ Started [Strings](/learn/strings/).
+
 2021-01-07
   ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.
   ~ Fix change-log dates, because it's 2021, not 2020.

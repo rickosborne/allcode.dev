@@ -10,6 +10,9 @@ slug: learn
 
 * [What is programming](/learn/what-is-programming/)
 * [Variables](/learn/variables/)
+  * [Variable Assignment](/learn/variable-declaration/)
+  * [Variable Declaration](/learn/variable-declaration/)
+* [Strings](/learn/strings/)
 
 ## Control Structures
 

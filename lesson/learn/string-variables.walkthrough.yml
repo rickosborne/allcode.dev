@@ -1,0 +1,65 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: String Variables
+description: Strings are human-readable text values.
+sources:
+  - syntaxes:
+      - java
+    source: |
+      String name = "Alice Aardvark";
+      String reaction = "🖖";
+  - syntaxes:
+      - csharp
+      - cpp
+      - typescript
+    source: |
+      string name = "Alice Aardvark";
+      string reaction = "🖖";
+  - syntax: c
+    source: |
+      char name[] = "Alice Aardvark";
+      char reaction[] = "🖖";
+  - syntax: php
+    source: |
+      $name = "Alice Aardvark";
+      $reaction = "🖖";
+  - syntax: perl
+    source: |
+      my $name = "Alice Aardvark";
+      my $reaction = "🖖";
+  - syntaxes:
+    - ruby
+    - python
+    source: |
+      name = "Alice Aardvark"
+      reaction = "🖖"
+  - syntax: bash
+    source: |
+      NAME='Alice Aardvark'
+      REACTION='🖖'
+  - syntax: basic
+    source: |
+      name$ = "Alice Aardvark"
+      reaction$ = ":spock:"
+  - syntax: pascal
+    source: |
+      var
+          name: string;
+          reaction: string;
+      begin
+          name := 'Alice Aardvark';
+          reaction := ':spock:';
+  - syntax: javascript
+    source: |
+      let name = 'Alice Aardvark';
+      let reaction = '🖖';
+explanation:
+  - description: Most languages use single or double quotation marks around string text.
+    highlight:
+      - selector: .line-1 .string
+      - selector: .line-5 .string
+        syntax: pascal
+  - description: Most modern languages allow emoji and non-Latin characters in strings.
+    highlight:
+      - selector: .line-2 .string
+      - selector: .line-6 .string
+        syntax: pascal
