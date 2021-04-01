@@ -9,7 +9,7 @@ description: Learn how multiple programming languages represent human-readable v
 Source code will often include values which are already known at the time you're writing it.
 Because these values are part of the code, which needs to be read and updated by humans, it makes sense to format them in ways we can easily understand.
 
-> **Literal values**, most often just called "literals", are a human-readable representations of value embedded in the source code itself.
+> **Literal values**, most often just called "literals", are human-readable representations of values embedded in the source code itself.
 
 These literals are often used to [initialize variables](/learn/variable-assignment/) or [constants](/learn/constants/).
 Simple values like [numbers](/learn/numbers/), [Booleans](/learn/booleans/), and [strings](/learn/strings), sometimes called "**scalar**" values, are represented similarly by most programming languages.
