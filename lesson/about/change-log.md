@@ -74,7 +74,7 @@ Future Topics
   ~ New _Settings_ widget!
     For now, it's just the Light/Dark mode selector.
     This should eventually grow to also include language preference.
-  - Better font handling for Safari.
+  ~ Better font handling for Safari.
     (Which is just a hot mess.)
 
 2021-01-05
