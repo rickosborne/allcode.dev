@@ -16,6 +16,43 @@ TODO
   ~ Test suite
   ~ Have `publish` try harder to leave unchanged files in place, to preserve file modification times.
 
+Future Topics
+  ~ [What is programming?](/learn/what-is-programming/)
+  ~ What is a programming language?
+  ~ What is a computer?
+  ~ What are syntax and semantics?
+  ~ Operators & Operands
+  ~ Comparisons
+  ~ Control Flow
+  ~ Conditionals
+  ~ Expressions
+  ~ Evaluation
+  ~ Precedence
+  ~ Re-binding
+  ~ Increment & Decrement
+  ~ Errors
+  ~ Types
+  ~ Casting
+  ~ Blocks
+  ~ Loops
+  ~ Counting (for) Loops
+  ~ For-Each Loops
+  ~ Until Loops
+  ~ Break
+  ~ Continue
+  ~ Infinite Loops
+  ~ String Operations
+  ~ Functions
+  ~ Algorithms
+  ~ Search Algorithms
+  ~ Bisection Search
+  ~ Recursion
+  ~ Console Output
+  ~ Console Input
+  ~ File Output
+  ~ File Input
+  
+
 2021-03-31
   ~ Split out [Variable Names](/learn/variable-names/), [Variable Assignment](/learn/variable-assignment/), and [Variable Declaration](/learn/variable-declaration/) into their own pages.
   ~ Started [Strings](/learn/strings/), [Booleans](/learn/booleans/), [Constants](/learn/constants/), [Literal Values](/learn/literal-values/), [Numbers](/learn/numbers/).
