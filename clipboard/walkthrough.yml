@@ -1,0 +1,113 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: ???
+description: ???
+sources:
+  - syntaxes:
+      - java
+      - c
+      - cpp
+      - csharp
+    source: |
+  - syntax: typescript
+    source: |
+  - syntax: php
+    source: |
+  - syntax: perl
+    source: |
+  - syntax: ruby
+    source: |
+  - syntax: bash
+    source: |
+  - syntax: basic
+    source: |
+  - syntax: pascal
+    source: |
+  - syntax: python
+    source: |
+  - syntax: javascript
+    source: |
+explanation:
+  - description: ???
+    extra: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - description: ???
+    extra: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - description: ???
+    extra: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - description: ???
+    extra: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - description: ???
+    extra: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - description: ???
+    extra: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+assessment:
+  - question: ???
+    answer: "`???`"
+    rationale: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - question: ???
+    answer: "`???`"
+    rationale: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - question: ???
+    answer: "`???`"
+    rationale: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - question: ???
+    answer: "`???`"
+    rationale: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+  - question: ???
+    answer: "`???`"
+    rationale: >
+    highlight:
+      - selector: ???
+    refs:
+      - title: ???
+        href: learn/???
+    highlightWhen: question

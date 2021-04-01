@@ -1,0 +1,62 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: Boolean Literals
+description: True/false values are represented similarly across most languages.
+sources:
+  - syntaxes:
+      - c
+      - cpp
+      - csharp
+    source: |
+      bool adminRights = true;
+      bool isAnonymous = false;
+  - syntaxes:
+      - java
+    source: |
+      boolean adminRights = true;
+      boolean isAnonymous = false;
+  - syntax: php
+    source: |
+      $adminRights = True;
+      $isAnonymous = False;
+  - syntax: perl
+    source: |
+      my $adminRights = 1;
+      my $isAnonymous = 0;
+  - syntax: ruby
+    source: |
+      adminRights = true
+      isAnonymous = false
+  - syntax: python
+    source: |
+      adminRights = True
+      isAnonymous = False
+  - syntax: bash
+    source: |
+      ADMIN_RIGHTS=1
+      IS_ANONYMOUS=0
+  - syntax: basic
+    source: |
+      adminRights# = 1
+      isAnonymous# = 0
+  - syntax: pascal
+    source: |
+      var
+        adminRights, isAnonymous: Boolean;
+      begin
+        adminRights = true;
+        isAnonymous = false;
+  - syntax: javascript
+    source: |
+      let adminRights = true;
+      let isAnonymous = false;
+explanation:
+  - description: True values use the keyword `true` or the number `1`.
+    highlight:
+      - selector: .line-1 .number, .line-1 .boolean, .line-1 .bare-true
+      - selector: .line-4 .keyword-true
+        syntax: pascal
+  - description: False values use the keyword `false` or the number `0`.
+    highlight:
+      - selector: .line-2 .number, .line-2 .boolean, .line-2 .bare-false
+      - selector: .line-5 .keyword-false
+        syntax: pascal

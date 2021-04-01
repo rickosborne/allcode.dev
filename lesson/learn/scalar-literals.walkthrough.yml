@@ -1,0 +1,91 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: Scalar Literals
+description: Numbers, Booleans, and Strings are represented similarly across most languages.
+sources:
+  - syntax: java
+    source: |
+      int sidesPerHexagon = 6;
+      boolean adminRights = true;
+      String name = "Alice Aardvark";
+  - syntax: c
+    source: |
+      int sidesPerHexagon = 6;
+      bool adminRights = true;
+      char name[] = "Alice Aardvark";
+  - syntax: cpp
+    source: |
+      int sidesPerHexagon = 6;
+      bool adminRights = true;
+      std::string name = "Alice Aardvark";
+  - syntax: csharp
+    source: |
+      int sidesPerHexagon = 6;
+      bool adminRights = true;
+      string name = "Alice Aardvark";
+  - syntax: php
+    source: |
+      $sidesPerHexagon = 6;
+      $adminRights = True;
+      $name = 'Alice Aardvark';
+  - syntax: perl
+    source: |
+      my $sidesPerHexagon = 6;
+      my $adminRights = 1;
+      my $name = 'Alice Aardvark';
+  - syntaxes:
+      - ruby
+      - python
+    source: |
+      sidesPerHexagon = 6
+      adminRights = true
+      name = 'Alice Aardvark'
+  - syntax: bash
+    source: |
+      SIDES_PER_HEXAGON=6
+      ADMIN_RIGHTS=1
+      NAME='Alice Aardvark'
+  - syntax: basic
+    source: |
+      sidesPerHexagon# = 6
+      adminRights% = 1
+      name$ = "Alice Aardvark"
+  - syntax: pascal
+    source: |
+      var
+          sidesPerHexagon: Integer;
+          adminRights: Boolean;
+          name: String;
+      begin
+          sidesPerHexagon := 6;
+          adminRights := true;
+          name := 'Alice Aardvark';
+  - syntax: javascript
+    source: |
+      let sidesPerHexagon = 6;
+      let adminRights = true;
+      let name = 'Alice Aardvark';
+explanation:
+  - description: Number literals, especially simple counting numbers, look just like you'd hand-write them.
+    highlight:
+      - selector: .line-1 .number
+      - selector: .line-6 .number
+        syntax: pascal
+    refs:
+      - title: Numbers
+        href: learn/numbers
+  - description: True/False literal values, Booleans, often use the words `true` and `false`, or may use numeric `1` and `0`.
+    highlight:
+      - selector: .line-2 .boolean, .line-2 .bare-true, .line-2 .number
+      - selector: .line-7 .keyword-true
+        syntax: pascal
+    refs:
+      - title: Booleans
+        href: learn/booleans
+  - description: Human-readable text values become string literals.
+    highlight:
+      - selector: .line-3 .string
+      - selector: .line-8 .string
+        syntax: pascal
+    refs:
+      - title: Strings
+        href: learn/strings

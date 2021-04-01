@@ -18,7 +18,7 @@ TODO
 
 2021-03-31
   ~ Split out [Variable Names](/learn/variable-names/), [Variable Assignment](/learn/variable-assignment/), and [Variable Declaration](/learn/variable-declaration/) into their own pages.
-  ~ Started [Strings](/learn/strings/).
+  ~ Started [Strings](/learn/strings/), [Booleans](/learn/booleans/), [Constants](/learn/constants/), [Literal Values](/learn/literal-values/), [Numbers](/learn/numbers/).
 
 2021-01-07
   ~ Tweaks to `amble-viewer` layout to make it a little more mobile-friendly.

@@ -1,0 +1,95 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: Number Literals
+description: Numbers are represented similarly across most languages.
+sources:
+  - syntax: java
+    source: |
+      int sidesPerHexagon = 6;
+      long usPopulation202103 = 330_175_517L;
+      double taxMultiplier = 1.075;
+      float lengthMeters = 2.6906E2F;
+  - syntaxes:
+      - c
+      - cpp
+    source: |
+      int sidesPerHexagon = 6;
+      long usPopulation202103 = 330175517l;
+      double taxMultiplier = 1.075;
+      float lengthMeters = 2.6906E2f;
+  - syntax: csharp
+    source: |
+      int sidesPerHexagon = 6U;
+      long usPopulation202103 = 330175517L;
+      double taxMultiplier = 1.075d;
+      float lengthMeters = 2.6906E2f;
+  - syntax: php
+    source: |
+      $sidesPerHexagon = 6;
+      $usPopulation202103 = 330_175_517;
+      $taxMultiplier = 1.075;
+      $lengthMeters = 2.6906E2;
+  - syntax: perl
+    source: |
+      my $sidesPerHexagon = 6;
+      my $usPopulation202103 = 330_175_517;
+      my $taxMultiplier = 1.075;
+      my $lengthMeters = 2.6906E2;
+  - syntaxes:
+      - ruby
+      - python
+    source: |
+      sidesPerHexagon = 6
+      usPopulation202103 = 330_175_517
+      taxMultiplier = 1.075
+      lengthMeters = 2.6906E2
+  - syntax: bash
+    source: |
+      SIDES_PER_HEXAGON=6
+      US_POPULATION_202103=330175517
+      TAX_MULTIPLIER="1.075"
+      LENGTH_METERS="2.6906E2"
+  - syntax: basic
+    source: |
+      sidesPerHexagon# = 6
+      usPopulation202103# = 330175517
+      taxMultiplier% = 1.075
+      lengthMeters% = 2.6906E2
+  - syntax: pascal
+    source: |
+      var
+        sidesPerHexagon: smallint;
+        usPopulation202103: longint;
+        taxMultiplier: single;
+        lengthMeters: real;
+      begin
+        sidesPerHexagon = 6;
+        usPopulation202103 = 330175517;
+        taxMultiplier = 1.075;
+        lengthMeters = 2.6906E2;
+  - syntax: javascript
+    source: |
+      let sidesPerHexagon = 6;
+      let usPopulation202103 = 330175517;
+      let taxMultiplier = 1.075;
+      let lengthMeters = 2.6906E2f;
+explanation:
+  - description: Small counting integers look just as you'd hand-write them.
+    highlight:
+      - selector: .line-1 .number
+      - selector: .line-7 .number
+        syntax: pascal
+  - description: Some languages allow underscores in larger integers for readability.
+    highlight:
+      - selector: .line-2 .number
+      - selector: .line-8 .number
+        syntax: pascal
+  - description: Small real numbers also look just as you'd hand-write them.
+    highlight:
+     - selector: .line-3 .number
+     - selector: .line-9 .number
+       syntax: pascal
+  - description: Scientific numbers use exponential notation.
+    highlight:
+      - selector: .line-4 .number
+      - selector: .line-10 .number
+        syntax: pascal
