@@ -6,6 +6,7 @@ sources:
       - c
       - cpp
       - csharp
+      - typescript
     source: |
       bool adminRights = true;
       bool isAnonymous = false;

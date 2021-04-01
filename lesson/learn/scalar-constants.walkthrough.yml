@@ -1,0 +1,57 @@
+$schema: "https://allcode.dev/schema/Walkthrough-v1.schema.json"
+title: Scalar Constants
+description: Most constants are scalars, like Numbers, Booleans, and Strings.
+sources:
+  - syntax: java
+    source: |
+      final int SIDES_PER_HEXAGON = 6;
+      final boolean ADMIN_RIGHTS = true;
+      final String FULL_NAME = "Alice Aardvark";
+  - syntax: c
+    source: |
+      const int SIDES_PER_HEXAGON = 6;
+      const bool ADMIN_RIGHTS = true;
+      const char FULL_NAME[] = "Alice Aardvark";
+  - syntax: cpp
+    source: |
+      const int SIDES_PER_HEXAGON = 6;
+      const bool ADMIN_RIGHTS = true;
+      const std::string FULL_NAME = "Alice Aardvark";
+  - syntaxes:
+      - csharp
+      - typescript
+    source: |
+      const int sidesPerHexagon = 6;
+      const bool adminRights = true;
+      const string fullName = "Alice Aardvark";
+  - syntax: php
+    source: |
+      const SIDES_PER_HEXAGON = 6;
+      const ADMIN_RIGHTS = True;
+      const FULL_NAME = 'Alice Aardvark';
+  - syntax: perl
+    source: |
+      use constant SIDES_PER_HEXAGON => 6;
+      use constant ADMIN_RIGHTS => 1;
+      use constant FULL_NAME => 'Alice Aardvark';
+  - syntax: ruby
+    source: |
+      sidesPerHexagon = 6.freeze
+      adminRights = true.freeze
+      name = 'Alice Aardvark'.freeze
+  - syntax: basic
+    source: |
+      CONST SIDES_PER_HEXAGON = 6
+      CONST ADMIN_RIGHTS = 1
+      CONST FULL_NAME$ = "Alice Aardvark"
+  - syntax: pascal
+    source: |
+      const
+          SIDES_PER_HEXAGON: Integer = 6;
+          ADMIN_RIGHTS: Boolean = true;
+          FULL_NAME: String = 'Alice Aardvark';
+  - syntax: javascript
+    source: |
+      const SIDES_PER_HEXAGON = 6;
+      const ADMIN_RIGHTS = True;
+      const FULL_NAME = 'Alice Aardvark';
